@@ -1,0 +1,41 @@
+name: eduflow-langflow
+
+services:
+  langflow:
+    image: langflowai/langflow:1.10.0
+    container_name: eduflow_langflow
+    ports:
+      - "7860:7860"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      LANGFLOW_DATABASE_URL: postgresql://${POSTGRES_USER:-langflow}:${POSTGRES_PASSWORD:-langflow}@postgres:5432/${POSTGRES_DB:-langflow}
+      LANGFLOW_CONFIG_DIR: /app/langflow
+    volumes:
+      - langflow-data:/app/langflow
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-trixie
+    container_name: eduflow_langflow_postgres
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-langflow}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-langflow}
+      POSTGRES_DB: ${POSTGRES_DB:-langflow}
+    volumes:
+      - langflow-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-langflow} -d $${POSTGRES_DB:-langflow}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  langflow-data:
+  langflow-postgres:
