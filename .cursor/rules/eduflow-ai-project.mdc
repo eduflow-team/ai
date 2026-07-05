@@ -1,0 +1,31 @@
+---
+description: EduFlow AI(Langflow) 프로젝트 개요 및 팀 협업 규칙
+alwaysApply: true
+---
+
+# EduFlow AI (Langflow)
+
+중·고등학생 AI 리터러시 교육 플랫폼의 **Langflow 인프라·프롬프트 표준·flow 리뷰** 저장소.
+
+## 스택
+- Langflow `1.10.0` (Docker, `docker-compose.yml` 고정)
+- flow JSON export → `flows/`
+- 프롬프트·페르소나 표준 → `prompts/`, `personas/`
+
+## Git
+- 상세: `.cursor/rules/git-convention.mdc` / [CONTRIBUTING.md](../../CONTRIBUTING.md)
+
+## 담당 분리
+- **이 저장소 (Docker, prompts/personas 틀, flow PR 리뷰, 4단계 flow)**: AI/LLM (임정원)
+- **FastAPI, DB, Langflow HTTP 클라이언트, API 명세**: [backend](https://github.com/eduflow-team/backend)
+- **1·2단계 flow 구현**: 각 단계 담당자 — `prompts/`·`personas/` 틀을 **채워** `flows/*.json` PR
+
+## 경계 (건드리지 않음)
+- REST API Request/Response 필드 정의 → Notion API 명세 (backend 소유)
+- `backend/.env`의 `LANGFLOW_*` → backend 팀장과 합의 후 backend에 추가
+- 백엔드 Python 코드 수정
+
+## 원칙
+- 최소 diff, 기존 README·compose 스타일 유지
+- `.env`, API Key, flow JSON 내 시크릿 커밋 금지
+- Langflow 이미지 태그 `latest` 사용 금지 — yml과 동일 버전만

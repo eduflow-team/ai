@@ -52,12 +52,24 @@ open http://localhost:7860
 
 ```
 ai/
-├── docker-compose.yml   # Langflow + PostgreSQL
+├── .cursor/rules/       # Cursor AI 규칙 (Langflow·프롬프트·flow 리뷰)
+├── docker-compose.yml   # Langflow + PostgreSQL (버전 고정)
 ├── .env.example
+├── prompts/             # 시스템 프롬프트 틀 (단계 담당자가 채움)
+├── personas/            # 페르소나 틀·예시 (2단계 등)
 ├── flows/               # UI에서 Export한 flow JSON
 ├── CONTRIBUTING.md      # 팀 Git 컨벤션
 └── README.md
 ```
+
+### prompts / personas
+
+| 작성 | 담당 |
+|------|------|
+| `_template*.md`, `stage*/README.md`, `examples/` | AI/LLM |
+| 단계별 프롬프트·페르소나 **본문** | 1·2단계 flow 담당자 |
+
+자세한 규칙: [prompts/README.md](./prompts/README.md), [personas/README.md](./personas/README.md)
 
 ---
 

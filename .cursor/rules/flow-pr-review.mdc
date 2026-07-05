@@ -1,0 +1,30 @@
+---
+description: Langflow flow JSON PR 리뷰 체크리스트 (AI/LLM 담당)
+globs: flows/**/*
+alwaysApply: false
+---
+
+# Flow PR 리뷰
+
+리뷰어: AI/LLM. API URL·HTTP 코드는 backend/Notion 소유 — **flow I/O·프롬프트·시크릿**만 검사.
+
+## P1 (Must)
+- [ ] `flows/stage{N}-{기능}.json` 명명 규칙
+- [ ] API Key·URL·시크릿이 JSON에 없음
+- [ ] Output 필드명이 연동 계약(또는 Notion 응답 shape)과 일치
+- [ ] Playground + curl로 동일 입력 시 재현 가능
+
+## Stage 1
+- [ ] `message`, `chunk_size`, `top_k`, `temperature` 입력 반영
+- [ ] `ai_response`, `total_chunks`, `retrieved_chunks`, `vector_search_score` 출력
+
+## Stage 2
+- [ ] `persona`, `hallucination_types`, `expected_error_count` 반영
+- [ ] `flawed_ai_response` (또는 합의 키) 출력
+- [ ] 의도적 오류 개수·타입이 요청과 부합
+
+## Stage 3·4
+- 명세·연동 계약 확정 후 동일 방식으로 체크리스트 추가
+
+## 코멘트
+- P1/P2/P3 태그 사용 (`git-convention.mdc`)
