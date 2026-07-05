@@ -1,0 +1,43 @@
+---
+description: 시나리오 1~4 프롬프트·페르소나 작성 표준
+globs: prompts/**/*,personas/**/*
+alwaysApply: false
+---
+
+# Prompt & Persona 표준
+
+## 역할
+- **AI/LLM**: `prompts/`·`personas/` **틀·가이드·예시** 유지
+- **단계 담당자**: 틀을 복사해 **본문 채우기** → Langflow flow에 연결 → `flows/` PR
+- **4단계**: AI/LLM이 프롬프트·flow 모두 담당 (후순위)
+
+## 디렉터리
+```
+prompts/
+  _template-system.md    # 시스템 프롬프트 섹션 구조
+  stage{N}/              # 단계별 (담당자가 채움)
+personas/
+  _template.md           # 페르소나 필드
+  examples/              # 리뷰 기준선 예시 (2단계 등)
+```
+
+## 공통 톤 (모든 단계)
+- 대상: 중·고등학생 AI 리터러시 교육
+- 말투: **존댓말**, 교육용, 과장·선정성 금지
+- 한국어 기본 (교과 용어는 원문 유지)
+
+## 단계별 요약
+| 단계 | 목표 | 페르소나 |
+|------|------|----------|
+| 1 | RAG + 파라미터 조절 | 없음 (중립 튜터) |
+| 2 | 의도적 환각 삽입 | **필수** — API `persona`와 동일 계열 |
+| 3 | (명세 확정 후) | TBD |
+| 4 | 보안 실습 | 역할 분리 (공격/방어) — AI/LLM 작성 |
+
+## 2단계 환각 타입 (enum, API와 동일)
+- `RETRIEVAL_ERROR` — 잘못된 문서·검색 오류
+- `EXTERNAL_CONTAMINATION` — 교과 외 지식 혼입
+
+## 작성 시
+- `[TODO: ...]` / `<!-- 담당자 작성 -->` 구역만 채울 것
+- API 필드명은 Notion 명세 참조 (이 파일에서 REST 스키마 중복 정의 금지)

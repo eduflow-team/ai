@@ -1,0 +1,33 @@
+---
+description: PR 본문 작성 양식
+alwaysApply: true
+---
+
+# Pull Request 본문 양식
+
+원본: [`.github/pull_request_template.md`](../../.github/pull_request_template.md)
+
+## 필수 섹션
+
+```markdown
+## 📌 개요
+-
+
+## 📝 주요 변경 사항
+-
+
+## ✔️ 다른 팀원 참고사항
+-
+
+## 🔗 관련 이슈
+- Closes #
+```
+
+## flow PR 추가 (주요 변경 사항에 포함)
+- `flows/{stage}-{기능}.json` 파일명
+- Playground 입출력 스크린샷 또는 curl 로그
+- 연동 tweaks 키 / Output JSON 키 (합의된 계약 기준)
+
+## AI 작업 시
+- PR 초안만 작성, push/`gh pr create`는 사용자 요청 시에만
+- 한국어 작성
