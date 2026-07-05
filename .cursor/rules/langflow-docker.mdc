@@ -1,0 +1,38 @@
+---
+description: Langflow Docker 로컬 환경 및 버전 정책
+alwaysApply: true
+---
+
+# Langflow Docker
+
+## 버전 (팀 통일)
+- `langflowai/langflow:1.10.0` — [docker-compose.yml](../../docker-compose.yml)만 기준
+- `latest` 또는 임의 태그 변경 시 PR + 팀 채널 공지
+
+## 로컬 실행
+```bash
+cp .env.example .env
+docker compose up -d
+# → http://localhost:7860
+```
+
+## API Key
+- UI: Settings → API Keys → **개인별 발급**
+- `.env`의 `LANGFLOW_API_KEY`에만 저장, **공유·커밋 금지**
+- flow JSON에 key/value 하드코딩 금지
+
+## flow Export
+- UI Export → `flows/stage{N}-{기능}.json`
+- PR 전: 시크릿 없음, Playground 동작 확인
+
+## 로컬 테스트
+```bash
+curl -X POST "http://localhost:7860/api/v1/run/{FLOW_ID}" \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: ${LANGFLOW_API_KEY}" \
+  -d '{"input_value": "...", "tweaks": {}}'
+```
+
+## 트러블슈팅
+- `7860` 점유: 기존 Langflow/다른 compose 종료
+- `docker compose down -v`: flow·DB 초기화 (주의)
