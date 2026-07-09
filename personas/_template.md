@@ -34,4 +34,4 @@
 
 ---
 
-<!-- 담당자: 작성 후 prompts/stage2/ flow와 함께 테스트 -->
+<!-- UI 기획·교사 도움말 참고용. 실제 persona 문자열은 교사가 과제 생성 시 입력 → API persona 필드 -->
