@@ -78,7 +78,7 @@ ai/
 1. Langflow UI에서 플로우 작성
 2. **Export** → `flows/{stage}-{기능}.json` 저장  
    - 예: `flows/stage1-rag-chat.json`, `flows/stage2-hallucination-gen.json`
-3. `develop`에서 `feat/...` 브랜치 생성 후 PR
+3. `main`에서 `feat/...` 브랜치 생성 후 PR
 4. PR에 Playground 스크린샷 + 로컬 curl 테스트 결과 첨부
 
 ### Flow JSON PR 체크리스트
@@ -134,10 +134,10 @@ docker compose down -v
 [CONTRIBUTING.md](./CONTRIBUTING.md)와 동일합니다.
 
 ```bash
-git checkout develop
-git pull origin develop
+git checkout main
+git pull origin main
 git checkout -b feat/stage1-rag-chat
-# 작업 후 PR → develop
+# 작업 후 PR → main
 ```
 
 ---
