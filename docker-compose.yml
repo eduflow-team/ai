@@ -14,6 +14,10 @@ services:
     environment:
       LANGFLOW_DATABASE_URL: postgresql://${POSTGRES_USER:-langflow}:${POSTGRES_PASSWORD:-langflow}@postgres:5432/${POSTGRES_DB:-langflow}
       LANGFLOW_CONFIG_DIR: /app/langflow
+      # 호스트 PC Ollama (Docker 밖 exaone3.5 등) — localhost 아님
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - langflow-data:/app/langflow
     restart: unless-stopped

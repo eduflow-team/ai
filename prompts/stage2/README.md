@@ -2,29 +2,33 @@
 
 **학습 목표:** AI 답변 속 의도적 오류를 찾고 수정한다.
 
-**담당:** 2단계 flow 개발자
-
 ## 파일
 
-| 파일 | 상태 |
-|------|------|
-| `system.template.md` | 틀 |
-| `hallucination-gen.md` | [TODO] 담당자 작성 |
+| 파일 | 상태 | 용도 |
+|------|------|------|
+| `hallucination-gen.md` | ✅ | 1차 Ollama 프롬프트 (`Prompt-s2gen`) |
+| `error-extraction.md` | ✅ | 2차 OpenAI 프롬프트 (`Prompt-s2ext`) |
 
-## 페르소나
+## Flow
 
-**필수.** API Request의 `persona`와 같은 계열로 동작해야 한다.  
-템플릿: [personas/_template.md](../../personas/_template.md)  
-예시: [personas/examples/jangyeongsil-teacher.md](../../personas/examples/jangyeongsil-teacher.md)
+- `flows/stage2-hallucination-gen.json` — **7노드** UI 튜닝본 (Ollama + Sanitizer + OpenAI)
+- 수정: Langflow UI Export → 위 JSON 덮어쓰기
 
-## 환각 타입 (API enum)
+## 환각 타입 (Notion API 기준)
 
 | 값 | 의미 |
 |----|------|
-| `RETRIEVAL_ERROR` | 잘못된 문서·리트리벌 오류 |
-| `EXTERNAL_CONTAMINATION` | 교과 외 지식 혼입 |
+| `PERSONA_BIAS` | 페르소나 편향 |
+| `INFORMATION_FABRICATION` | 정보 날조 |
+| `RETRIEVAL_ERROR` | 잘못된 문서 검색 |
 
-`expected_error_count`개만큼 위 타입에 맞는 오류를 답변에 **의도적으로** 포함한다.
+## 문서
+
+| 경로 | 설명 |
+|------|------|
+| `docs/stage2-langflow-contract.md` | tweaks·출력·노드 ID |
+| `docs/stage2-backend-implementation.md` | 백엔드 연동 |
+| `scripts/stage2-test.ps1` | curl 테스트 |
 
 ## API 연동 참고 (Notion)
 
@@ -43,7 +47,7 @@
 
 - `question`
 - `persona`
-- `hallucination_types[]` — `RETRIEVAL_ERROR`, `EXTERNAL_CONTAMINATION`
+- `hallucination_types[]` — `PERSONA_BIAS`, `INFORMATION_FABRICATION`, `RETRIEVAL_ERROR`
 - `expected_error_count`
 - 문서 텍스트는 백엔드가 업로드 파일에서 추출해 전달 (API Body: multipart `file`)
 
@@ -52,6 +56,7 @@ multipart 필드: `subject`, `file`, `question`, `persona`, `hallucination_types
 **Response (Output JSON)**
 
 - `flawed_ai_response`
+- `generated_errors[]` (Langflow 2차 출력, 백엔드 저장용)
 
 API 성공 응답에 함께 반환: `assignment_id`, `question`, `expected_error_count` (백엔드 조합)
 
