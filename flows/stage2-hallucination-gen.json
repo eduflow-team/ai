@@ -7,7 +7,7 @@
         "data": {
           "sourceHandle": {
             "dataType": "Prompt",
-            "id": "Prompt-s2gen",
+            "id": "Prompt-fwk9l",
             "name": "prompt",
             "output_types": [
               "Message"
@@ -15,19 +15,19 @@
           },
           "targetHandle": {
             "fieldName": "system_message",
-            "id": "LanguageModelComponent-s2oll",
+            "id": "LanguageModelComponent-grQBn",
             "inputTypes": [
               "Message"
             ],
             "type": "str"
           }
         },
-        "id": "reactflow__edge-Prompt-s2gen{œdataTypeœ:œPromptœ,œidœ:œPrompt-s2genœ,œnameœ:œpromptœ,œoutput_typesœ:[œMessageœ]}-LanguageModelComponent-s2oll{œfieldNameœ:œsystem_messageœ,œidœ:œLanguageModelComponent-s2ollœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
+        "id": "reactflow__edge-Prompt-fwk9l{œdataTypeœ:œPromptœ,œidœ:œPrompt-fwk9lœ,œnameœ:œpromptœ,œoutput_typesœ:[œMessageœ]}-LanguageModelComponent-grQBn{œfieldNameœ:œsystem_messageœ,œidœ:œLanguageModelComponent-grQBnœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
         "selected": false,
-        "source": "Prompt-s2gen",
-        "sourceHandle": "{œdataTypeœ:œPromptœ,œidœ:œPrompt-s2genœ,œnameœ:œpromptœ,œoutput_typesœ:[œMessageœ]}",
-        "target": "LanguageModelComponent-s2oll",
-        "targetHandle": "{œfieldNameœ:œsystem_messageœ,œidœ:œLanguageModelComponent-s2ollœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
+        "source": "Prompt-fwk9l",
+        "sourceHandle": "{œdataTypeœ:œPromptœ,œidœ:œPrompt-fwk9lœ,œnameœ:œpromptœ,œoutput_typesœ:[œMessageœ]}",
+        "target": "LanguageModelComponent-grQBn",
+        "targetHandle": "{œfieldNameœ:œsystem_messageœ,œidœ:œLanguageModelComponent-grQBnœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
       },
       {
         "animated": false,
@@ -35,7 +35,7 @@
         "data": {
           "sourceHandle": {
             "dataType": "Prompt",
-            "id": "Prompt-s2ext",
+            "id": "Prompt-We0Ob",
             "name": "prompt",
             "output_types": [
               "Message"
@@ -43,19 +43,19 @@
           },
           "targetHandle": {
             "fieldName": "system_message",
-            "id": "LanguageModelComponent-s2oai",
+            "id": "LanguageModelComponent-Ek4nl",
             "inputTypes": [
               "Message"
             ],
             "type": "str"
           }
         },
-        "id": "reactflow__edge-Prompt-s2ext{œdataTypeœ:œPromptœ,œidœ:œPrompt-s2extœ,œnameœ:œpromptœ,œoutput_typesœ:[œMessageœ]}-LanguageModelComponent-s2oai{œfieldNameœ:œsystem_messageœ,œidœ:œLanguageModelComponent-s2oaiœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
+        "id": "reactflow__edge-Prompt-We0Ob{œdataTypeœ:œPromptœ,œidœ:œPrompt-We0Obœ,œnameœ:œpromptœ,œoutput_typesœ:[œMessageœ]}-LanguageModelComponent-Ek4nl{œfieldNameœ:œsystem_messageœ,œidœ:œLanguageModelComponent-Ek4nlœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
         "selected": false,
-        "source": "Prompt-s2ext",
-        "sourceHandle": "{œdataTypeœ:œPromptœ,œidœ:œPrompt-s2extœ,œnameœ:œpromptœ,œoutput_typesœ:[œMessageœ]}",
-        "target": "LanguageModelComponent-s2oai",
-        "targetHandle": "{œfieldNameœ:œsystem_messageœ,œidœ:œLanguageModelComponent-s2oaiœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
+        "source": "Prompt-We0Ob",
+        "sourceHandle": "{œdataTypeœ:œPromptœ,œidœ:œPrompt-We0Obœ,œnameœ:œpromptœ,œoutput_typesœ:[œMessageœ]}",
+        "target": "LanguageModelComponent-Ek4nl",
+        "targetHandle": "{œfieldNameœ:œsystem_messageœ,œidœ:œLanguageModelComponent-Ek4nlœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
       },
       {
         "animated": false,
@@ -63,7 +63,7 @@
         "data": {
           "sourceHandle": {
             "dataType": "LanguageModelComponent",
-            "id": "LanguageModelComponent-s2oai",
+            "id": "LanguageModelComponent-Ek4nl",
             "name": "text_output",
             "output_types": [
               "Message"
@@ -71,7 +71,7 @@
           },
           "targetHandle": {
             "fieldName": "input_value",
-            "id": "ChatOutput-s2err",
+            "id": "ChatOutput-YlcM3",
             "inputTypes": [
               "Data",
               "JSON",
@@ -82,12 +82,12 @@
             "type": "str"
           }
         },
-        "id": "reactflow__edge-LanguageModelComponent-s2oai{œdataTypeœ:œLanguageModelComponentœ,œidœ:œLanguageModelComponent-s2oaiœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}-ChatOutput-s2err{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-s2errœ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œstrœ}",
+        "id": "reactflow__edge-LanguageModelComponent-Ek4nl{œdataTypeœ:œLanguageModelComponentœ,œidœ:œLanguageModelComponent-Ek4nlœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}-ChatOutput-YlcM3{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-YlcM3œ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œstrœ}",
         "selected": false,
-        "source": "LanguageModelComponent-s2oai",
-        "sourceHandle": "{œdataTypeœ:œLanguageModelComponentœ,œidœ:œLanguageModelComponent-s2oaiœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}",
-        "target": "ChatOutput-s2err",
-        "targetHandle": "{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-s2errœ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œstrœ}"
+        "source": "LanguageModelComponent-Ek4nl",
+        "sourceHandle": "{œdataTypeœ:œLanguageModelComponentœ,œidœ:œLanguageModelComponent-Ek4nlœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}",
+        "target": "ChatOutput-YlcM3",
+        "targetHandle": "{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-YlcM3œ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œstrœ}"
       },
       {
         "animated": false,
@@ -95,7 +95,7 @@
         "data": {
           "sourceHandle": {
             "dataType": "LanguageModelComponent",
-            "id": "LanguageModelComponent-s2oll",
+            "id": "LanguageModelComponent-grQBn",
             "name": "text_output",
             "output_types": [
               "Message"
@@ -103,19 +103,19 @@
           },
           "targetHandle": {
             "fieldName": "input_text",
-            "id": "CustomComponent-s2san",
+            "id": "CustomComponent-33aRa",
             "inputTypes": [
               "Message"
             ],
             "type": "str"
           }
         },
-        "id": "xy-edge__LanguageModelComponent-s2oll{œdataTypeœ:œLanguageModelComponentœ,œidœ:œLanguageModelComponent-s2ollœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}-CustomComponent-s2san{œfieldNameœ:œinput_textœ,œidœ:œCustomComponent-s2sanœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
+        "id": "xy-edge__LanguageModelComponent-grQBn{œdataTypeœ:œLanguageModelComponentœ,œidœ:œLanguageModelComponent-grQBnœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}-CustomComponent-33aRa{œfieldNameœ:œinput_textœ,œidœ:œCustomComponent-33aRaœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
         "selected": false,
-        "source": "LanguageModelComponent-s2oll",
-        "sourceHandle": "{œdataTypeœ:œLanguageModelComponentœ,œidœ:œLanguageModelComponent-s2ollœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}",
-        "target": "CustomComponent-s2san",
-        "targetHandle": "{œfieldNameœ:œinput_textœ,œidœ:œCustomComponent-s2sanœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
+        "source": "LanguageModelComponent-grQBn",
+        "sourceHandle": "{œdataTypeœ:œLanguageModelComponentœ,œidœ:œLanguageModelComponent-grQBnœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}",
+        "target": "CustomComponent-33aRa",
+        "targetHandle": "{œfieldNameœ:œinput_textœ,œidœ:œCustomComponent-33aRaœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
       },
       {
         "animated": false,
@@ -123,7 +123,7 @@
         "data": {
           "sourceHandle": {
             "dataType": "PlainTextSanitizer",
-            "id": "CustomComponent-s2san",
+            "id": "CustomComponent-33aRa",
             "name": "sanitized_text",
             "output_types": [
               "Message"
@@ -131,7 +131,7 @@
           },
           "targetHandle": {
             "fieldName": "input_value",
-            "id": "ChatOutput-s2flaw",
+            "id": "ChatOutput-IC6oV",
             "inputTypes": [
               "Data",
               "JSON",
@@ -142,12 +142,12 @@
             "type": "str"
           }
         },
-        "id": "xy-edge__CustomComponent-s2san{œdataTypeœ:œPlainTextSanitizerœ,œidœ:œCustomComponent-s2sanœ,œnameœ:œsanitized_textœ,œoutput_typesœ:[œMessageœ]}-ChatOutput-s2flaw{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-s2flawœ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œstrœ}",
+        "id": "xy-edge__CustomComponent-33aRa{œdataTypeœ:œPlainTextSanitizerœ,œidœ:œCustomComponent-33aRaœ,œnameœ:œsanitized_textœ,œoutput_typesœ:[œMessageœ]}-ChatOutput-IC6oV{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-IC6oVœ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œstrœ}",
         "selected": false,
-        "source": "CustomComponent-s2san",
-        "sourceHandle": "{œdataTypeœ:œPlainTextSanitizerœ,œidœ:œCustomComponent-s2sanœ,œnameœ:œsanitized_textœ,œoutput_typesœ:[œMessageœ]}",
-        "target": "ChatOutput-s2flaw",
-        "targetHandle": "{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-s2flawœ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œstrœ}"
+        "source": "CustomComponent-33aRa",
+        "sourceHandle": "{œdataTypeœ:œPlainTextSanitizerœ,œidœ:œCustomComponent-33aRaœ,œnameœ:œsanitized_textœ,œoutput_typesœ:[œMessageœ]}",
+        "target": "ChatOutput-IC6oV",
+        "targetHandle": "{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-IC6oVœ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œstrœ}"
       },
       {
         "animated": false,
@@ -155,7 +155,7 @@
         "data": {
           "sourceHandle": {
             "dataType": "PlainTextSanitizer",
-            "id": "CustomComponent-s2san",
+            "id": "CustomComponent-33aRa",
             "name": "sanitized_text",
             "output_types": [
               "Message"
@@ -163,19 +163,19 @@
           },
           "targetHandle": {
             "fieldName": "flawed_ai_response",
-            "id": "Prompt-s2ext",
+            "id": "Prompt-We0Ob",
             "inputTypes": [
               "Message"
             ],
             "type": "str"
           }
         },
-        "id": "xy-edge__CustomComponent-s2san{œdataTypeœ:œPlainTextSanitizerœ,œidœ:œCustomComponent-s2sanœ,œnameœ:œsanitized_textœ,œoutput_typesœ:[œMessageœ]}-Prompt-s2ext{œfieldNameœ:œflawed_ai_responseœ,œidœ:œPrompt-s2extœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
+        "id": "xy-edge__CustomComponent-33aRa{œdataTypeœ:œPlainTextSanitizerœ,œidœ:œCustomComponent-33aRaœ,œnameœ:œsanitized_textœ,œoutput_typesœ:[œMessageœ]}-Prompt-We0Ob{œfieldNameœ:œflawed_ai_responseœ,œidœ:œPrompt-We0Obœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
         "selected": false,
-        "source": "CustomComponent-s2san",
-        "sourceHandle": "{œdataTypeœ:œPlainTextSanitizerœ,œidœ:œCustomComponent-s2sanœ,œnameœ:œsanitized_textœ,œoutput_typesœ:[œMessageœ]}",
-        "target": "Prompt-s2ext",
-        "targetHandle": "{œfieldNameœ:œflawed_ai_responseœ,œidœ:œPrompt-s2extœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
+        "source": "CustomComponent-33aRa",
+        "sourceHandle": "{œdataTypeœ:œPlainTextSanitizerœ,œidœ:œCustomComponent-33aRaœ,œnameœ:œsanitized_textœ,œoutput_typesœ:[œMessageœ]}",
+        "target": "Prompt-We0Ob",
+        "targetHandle": "{œfieldNameœ:œflawed_ai_responseœ,œidœ:œPrompt-We0Obœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
       }
     ],
     "nodes": [
@@ -183,7 +183,7 @@
         "data": {
           "description": "Create a prompt template with dynamic variables.",
           "display_name": "hallucination_gen_prompt",
-          "id": "Prompt-s2gen",
+          "id": "Prompt-fwk9l",
           "node": {
             "base_classes": [
               "Message"
@@ -340,7 +340,7 @@
                 "show": true,
                 "title_case": false,
                 "type": "str",
-                "value": "RETRIEVAL_ERROR, PERSONA_BIAS"
+                "value": "PERSONA_BIAS, INFORMATION_FABRICATION, RETRIEVAL_ERROR"
               },
               "persona": {
                 "advanced": false,
@@ -454,7 +454,7 @@
           "type": "Prompt"
         },
         "dragging": false,
-        "id": "Prompt-s2gen",
+        "id": "Prompt-fwk9l",
         "measured": {
           "height": 816,
           "width": 400
@@ -463,14 +463,14 @@
           "x": -750.9776791099525,
           "y": 871.5181015108028
         },
-        "selected": true,
+        "selected": false,
         "type": "genericNode"
       },
       {
         "data": {
           "description": "Display a chat message in the Playground.",
           "display_name": "flawed_ai_response",
-          "id": "ChatOutput-s2flaw",
+          "id": "ChatOutput-IC6oV",
           "node": {
             "base_classes": [
               "Message"
@@ -730,7 +730,7 @@
           "type": "ChatOutput"
         },
         "dragging": false,
-        "id": "ChatOutput-s2flaw",
+        "id": "ChatOutput-IC6oV",
         "measured": {
           "height": 258,
           "width": 400
@@ -746,7 +746,7 @@
         "data": {
           "description": "Create a prompt template with dynamic variables.",
           "display_name": "error_extraction_prompt",
-          "id": "Prompt-s2ext",
+          "id": "Prompt-We0Ob",
           "node": {
             "base_classes": [
               "Message"
@@ -778,7 +778,6 @@
             "is_input": null,
             "is_output": null,
             "legacy": false,
-            "lf_version": "1.10.0",
             "metadata": {
               "code_hash": "3d3fd7b8a36f",
               "dependencies": {
@@ -924,7 +923,7 @@
                 "show": true,
                 "title_case": false,
                 "type": "str",
-                "value": "RETRIEVAL_ERROR, PERSONA_BIAS"
+                "value": "PERSONA_BIAS, INFORMATION_FABRICATION, RETRIEVAL_ERROR"
               },
               "template": {
                 "_input_type": "PromptInput",
@@ -942,7 +941,7 @@
                 "tool_mode": false,
                 "trace_as_input": true,
                 "type": "prompt",
-                "value": "당신은 AI 리터러시 교육용 오류 분석기입니다.\n아래 AI 답변에서 의도적으로 삽입된 환각 오류를 찾아 JSON만 출력하세요.\n\n## 참고 문서\n{document_text}\n\n## 분석 대상 AI 답변\n{flawed_ai_response}\n\n## 허용 환각 유형\n{hallucination_types}\n\n## 규칙\n- 정확히 {expected_error_count}개의 오류만 추출\n- error_type은 PERSONA_BIAS, INFORMATION_FABRICATION, RETRIEVAL_ERROR 중 허용 hallucination_types에 포함된 하나\n- start_index, end_index는 flawed_ai_response 문자열 기준 0-based 인덱스\n- error_sentence는 해당 구간 원문 그대로\n- correct_sentence는 참고 문서에 근거한 올바른 설명\n- hallucination_reason은 왜 이 유형의 환각인지 한국어 1문장\n- evidence_sentence는 참고 문서에서 인용한 근거 문장\n- 굵게, 기울임, 마크다운 기호(** * # 등) 절대 사용 금지\n- 평문 한국어만 출력\n- 강조가 필요해도 기호 없이 문장으로만 쓸 것\n\n## 출력 형식 (JSON만, 마크다운·설명 금지)\n{{\n  \"generated_errors\": [\n    {{\n      \"error_sentence\": \"string\",\n      \"error_type\": \"RETRIEVAL_ERROR\",\n      \"start_index\": 0,\n      \"end_index\": 0,\n      \"correct_sentence\": \"string\",\n      \"hallucination_reason\": \"string\",\n      \"evidence_sentence\": \"string\"\n    }}\n  ]\n}}"
+                "value": "당신은 AI 리터러시 교육용 오류 분석기입니다.\n아래 AI 답변에서 의도적으로 삽입된 환각 오류를 찾아 JSON만 출력하세요.\n\n## 참고 문서\n{document_text}\n\n## 분석 대상 AI 답변\n{flawed_ai_response}\n\n## 허용 환각 유형\n{hallucination_types}\n\n## 규칙\n- 정확히 {expected_error_count}개의 오류만 추출\n- error_type은 PERSONA_BIAS, INFORMATION_FABRICATION, RETRIEVAL_ERROR 중 허용 hallucination_types에 포함된 하나\n- hallucination_types에 여러 유형이 있으면, 가능하면 유형별로 1개씩 추출 (같은 유형·같은 주제에서 2개 뽑지 말 것)\n- start_index, end_index는 flawed_ai_response 문자열 기준 0-based 인덱스\n- error_sentence는 해당 구간 원문 그대로 (앞뒤 문장 일부 포함 가능, 본문과 글자 하나도 다르지 않게)\n- correct_sentence는 참고 문서에 근거한 올바른 설명\n- hallucination_reason은 왜 이 유형의 환각인지 한국어 1문장\n- evidence_sentence는 참고 문서에서 인용한 근거 문장\n- 굵게, 기울임, 마크다운 기호(** * # 등) 절대 사용 금지\n- 평문 한국어만 출력\n- 강조가 필요해도 기호 없이 문장으로만 쓸 것\n\n## 출력 형식 (JSON만, 마크다운·설명 금지)\n{{\n  \"generated_errors\": [\n    {{\n      \"error_sentence\": \"string\",\n      \"error_type\": \"RETRIEVAL_ERROR\",\n      \"start_index\": 0,\n      \"end_index\": 0,\n      \"correct_sentence\": \"string\",\n      \"hallucination_reason\": \"string\",\n      \"evidence_sentence\": \"string\"\n    }}\n  ]\n}}"
               },
               "tool_placeholder": {
                 "_input_type": "MessageTextInput",
@@ -994,7 +993,7 @@
           "type": "Prompt"
         },
         "dragging": false,
-        "id": "Prompt-s2ext",
+        "id": "Prompt-We0Ob",
         "measured": {
           "height": 714,
           "width": 400
@@ -1003,13 +1002,14 @@
           "x": 941.7386667383757,
           "y": 1008.6770907476389
         },
-        "selected": false,
+        "selected": true,
         "type": "genericNode"
       },
       {
         "data": {
+          "_connectionMode": false,
           "display_name": "Ollama EXAONE (생성)",
-          "id": "LanguageModelComponent-s2oll",
+          "id": "LanguageModelComponent-grQBn",
           "node": {
             "base_classes": [
               "LanguageModel",
@@ -1036,7 +1036,7 @@
             ],
             "frozen": false,
             "icon": "brain-circuit",
-            "last_updated": "2026-07-09T07:32:13.655Z",
+            "last_updated": "2026-07-16T11:49:08.544Z",
             "legacy": false,
             "lf_version": "1.10.0",
             "metadata": {
@@ -1203,7 +1203,7 @@
                 "type": "str",
                 "value": "위 지시에 따라 학생에게 보여줄 AI 답변을 작성하세요."
               },
-              "is_refresh": false,
+              "is_refresh": true,
               "max_tokens": {
                 "_input_type": "IntInput",
                 "advanced": true,
@@ -1265,10 +1265,10 @@
                       "model_class": "ChatOpenAI",
                       "model_name_param": "model",
                       "reasoning_models": [
-                        "gpt-5.5-pro"
+                        "gpt-5.6-terra"
                       ]
                     },
-                    "name": "gpt-5.5-pro",
+                    "name": "gpt-5.6-terra",
                     "provider": "OpenAI"
                   },
                   {
@@ -1281,23 +1281,10 @@
                       "model_class": "ChatOpenAI",
                       "model_name_param": "model",
                       "reasoning_models": [
-                        "gpt-5.5"
+                        "gpt-5.6"
                       ]
                     },
-                    "name": "gpt-5.5",
-                    "provider": "OpenAI"
-                  },
-                  {
-                    "category": "OpenAI",
-                    "icon": "OpenAI",
-                    "metadata": {
-                      "api_key_param": "api_key",
-                      "context_length": 128000,
-                      "max_tokens_field_name": "max_tokens",
-                      "model_class": "ChatOpenAI",
-                      "model_name_param": "model"
-                    },
-                    "name": "gpt-image-2",
+                    "name": "gpt-5.6",
                     "provider": "OpenAI"
                   },
                   {
@@ -1310,10 +1297,42 @@
                       "model_class": "ChatOpenAI",
                       "model_name_param": "model",
                       "reasoning_models": [
-                        "gpt-5.4-nano"
+                        "gpt-5.6-luna"
                       ]
                     },
-                    "name": "gpt-5.4-nano",
+                    "name": "gpt-5.6-luna",
+                    "provider": "OpenAI"
+                  },
+                  {
+                    "category": "OpenAI",
+                    "icon": "OpenAI",
+                    "metadata": {
+                      "api_key_param": "api_key",
+                      "context_length": 128000,
+                      "max_tokens_field_name": "max_tokens",
+                      "model_class": "ChatOpenAI",
+                      "model_name_param": "model",
+                      "reasoning_models": [
+                        "gpt-5.6-sol"
+                      ]
+                    },
+                    "name": "gpt-5.6-sol",
+                    "provider": "OpenAI"
+                  },
+                  {
+                    "category": "OpenAI",
+                    "icon": "OpenAI",
+                    "metadata": {
+                      "api_key_param": "api_key",
+                      "context_length": 128000,
+                      "max_tokens_field_name": "max_tokens",
+                      "model_class": "ChatOpenAI",
+                      "model_name_param": "model",
+                      "reasoning_models": [
+                        "gpt-realtime-2.1"
+                      ]
+                    },
+                    "name": "gpt-realtime-2.1",
                     "provider": "OpenAI"
                   },
                   {
@@ -1330,6 +1349,19 @@
                       ]
                     },
                     "name": "gpt-5.4-mini",
+                    "provider": "OpenAI"
+                  },
+                  {
+                    "category": "OpenAI",
+                    "icon": "OpenAI",
+                    "metadata": {
+                      "api_key_param": "api_key",
+                      "context_length": 128000,
+                      "max_tokens_field_name": "max_tokens",
+                      "model_class": "ChatOpenAI",
+                      "model_name_param": "model"
+                    },
+                    "name": "gpt-4o-mini",
                     "provider": "OpenAI"
                   },
                   {
@@ -1411,7 +1443,7 @@
                 "advanced": true,
                 "display_name": "Ollama API URL",
                 "dynamic": false,
-                "info": "Falls back to OLLAMA_BASE_URL environment variable",
+                "info": "Endpoint of the Ollama API (Ollama only). Defaults to http://localhost:11434",
                 "input_types": [
                   "Message"
                 ],
@@ -1540,7 +1572,7 @@
           "type": "LanguageModelComponent"
         },
         "dragging": false,
-        "id": "LanguageModelComponent-s2oll",
+        "id": "LanguageModelComponent-grQBn",
         "measured": {
           "height": 462,
           "width": 400
@@ -1556,7 +1588,7 @@
         "data": {
           "_connectionMode": false,
           "display_name": "OpenAI (오류 추출)",
-          "id": "LanguageModelComponent-s2oai",
+          "id": "LanguageModelComponent-Ek4nl",
           "node": {
             "base_classes": [
               "LanguageModel",
@@ -1583,7 +1615,7 @@
             ],
             "frozen": false,
             "icon": "brain-circuit",
-            "last_updated": "2026-07-09T07:32:21.483Z",
+            "last_updated": "2026-07-16T11:50:39.969Z",
             "legacy": false,
             "lf_version": "1.10.0",
             "metadata": {
@@ -1662,18 +1694,18 @@
                 "dynamic": false,
                 "info": "Overrides global provider settings. Leave blank to use your pre-configured API Key.",
                 "input_types": [],
-                "load_from_db": false,
+                "load_from_db": true,
                 "name": "api_key",
                 "override_skip": false,
                 "password": true,
                 "placeholder": "",
                 "real_time_refresh": true,
                 "required": false,
-                "show": false,
+                "show": true,
                 "title_case": false,
                 "track_in_telemetry": false,
                 "type": "str",
-                "value": ""
+                "value": "OPENAI_API_KEY"
               },
               "base_url_ibm_watsonx": {
                 "_input_type": "DropdownInput",
@@ -1750,7 +1782,7 @@
                 "type": "str",
                 "value": "위 지시에 따라 JSON만 출력하세요. 마크다운 코드블록 없이 raw JSON만."
               },
-              "is_refresh": false,
+              "is_refresh": true,
               "max_tokens": {
                 "_input_type": "IntInput",
                 "advanced": true,
@@ -1812,10 +1844,10 @@
                       "model_class": "ChatOpenAI",
                       "model_name_param": "model",
                       "reasoning_models": [
-                        "gpt-5.5-pro"
+                        "gpt-5.6-terra"
                       ]
                     },
-                    "name": "gpt-5.5-pro",
+                    "name": "gpt-5.6-terra",
                     "provider": "OpenAI"
                   },
                   {
@@ -1828,23 +1860,10 @@
                       "model_class": "ChatOpenAI",
                       "model_name_param": "model",
                       "reasoning_models": [
-                        "gpt-5.5"
+                        "gpt-5.6"
                       ]
                     },
-                    "name": "gpt-5.5",
-                    "provider": "OpenAI"
-                  },
-                  {
-                    "category": "OpenAI",
-                    "icon": "OpenAI",
-                    "metadata": {
-                      "api_key_param": "api_key",
-                      "context_length": 128000,
-                      "max_tokens_field_name": "max_tokens",
-                      "model_class": "ChatOpenAI",
-                      "model_name_param": "model"
-                    },
-                    "name": "gpt-image-2",
+                    "name": "gpt-5.6",
                     "provider": "OpenAI"
                   },
                   {
@@ -1857,10 +1876,42 @@
                       "model_class": "ChatOpenAI",
                       "model_name_param": "model",
                       "reasoning_models": [
-                        "gpt-5.4-nano"
+                        "gpt-5.6-luna"
                       ]
                     },
-                    "name": "gpt-5.4-nano",
+                    "name": "gpt-5.6-luna",
+                    "provider": "OpenAI"
+                  },
+                  {
+                    "category": "OpenAI",
+                    "icon": "OpenAI",
+                    "metadata": {
+                      "api_key_param": "api_key",
+                      "context_length": 128000,
+                      "max_tokens_field_name": "max_tokens",
+                      "model_class": "ChatOpenAI",
+                      "model_name_param": "model",
+                      "reasoning_models": [
+                        "gpt-5.6-sol"
+                      ]
+                    },
+                    "name": "gpt-5.6-sol",
+                    "provider": "OpenAI"
+                  },
+                  {
+                    "category": "OpenAI",
+                    "icon": "OpenAI",
+                    "metadata": {
+                      "api_key_param": "api_key",
+                      "context_length": 128000,
+                      "max_tokens_field_name": "max_tokens",
+                      "model_class": "ChatOpenAI",
+                      "model_name_param": "model",
+                      "reasoning_models": [
+                        "gpt-realtime-2.1"
+                      ]
+                    },
+                    "name": "gpt-realtime-2.1",
                     "provider": "OpenAI"
                   },
                   {
@@ -1877,6 +1928,19 @@
                       ]
                     },
                     "name": "gpt-5.4-mini",
+                    "provider": "OpenAI"
+                  },
+                  {
+                    "category": "OpenAI",
+                    "icon": "OpenAI",
+                    "metadata": {
+                      "api_key_param": "api_key",
+                      "context_length": 128000,
+                      "max_tokens_field_name": "max_tokens",
+                      "model_class": "ChatOpenAI",
+                      "model_name_param": "model"
+                    },
+                    "name": "gpt-4o-mini",
                     "provider": "OpenAI"
                   },
                   {
@@ -1935,17 +1999,19 @@
                 "type": "model",
                 "value": [
                   {
-                    "icon": "Ollama",
+                    "icon": "OpenAI",
                     "metadata": {
                       "api_key_param": "api_key",
-                      "base_url_param": "base_url",
                       "context_length": 128000,
                       "max_tokens_field_name": "max_tokens",
-                      "model_class": "ChatOllama",
-                      "model_name_param": "model"
+                      "model_class": "ChatOpenAI",
+                      "model_name_param": "model",
+                      "reasoning_models": [
+                        "gpt-5.4-mini"
+                      ]
                     },
-                    "name": "exaone3.5:7.8b",
-                    "provider": "Ollama"
+                    "name": "gpt-5.4-mini",
+                    "provider": "OpenAI"
                   }
                 ]
               },
@@ -1954,7 +2020,7 @@
                 "advanced": true,
                 "display_name": "Ollama API URL",
                 "dynamic": false,
-                "info": "Falls back to OLLAMA_BASE_URL environment variable",
+                "info": "Endpoint of the Ollama API (Ollama only). Defaults to http://localhost:11434",
                 "input_types": [
                   "Message"
                 ],
@@ -1966,7 +2032,7 @@
                 "placeholder": "",
                 "real_time_refresh": true,
                 "required": false,
-                "show": true,
+                "show": false,
                 "title_case": false,
                 "tool_mode": false,
                 "trace_as_input": true,
@@ -2083,7 +2149,7 @@
           "type": "LanguageModelComponent"
         },
         "dragging": false,
-        "id": "LanguageModelComponent-s2oai",
+        "id": "LanguageModelComponent-Ek4nl",
         "measured": {
           "height": 462,
           "width": 400
@@ -2099,7 +2165,7 @@
         "data": {
           "description": "Display a chat message in the Playground.",
           "display_name": "generated_errors",
-          "id": "ChatOutput-s2err",
+          "id": "ChatOutput-YlcM3",
           "node": {
             "base_classes": [
               "Message"
@@ -2359,7 +2425,7 @@
           "type": "ChatOutput"
         },
         "dragging": false,
-        "id": "ChatOutput-s2err",
+        "id": "ChatOutput-YlcM3",
         "measured": {
           "height": 258,
           "width": 400
@@ -2392,7 +2458,7 @@
           "width": 380
         },
         "position": {
-          "x": -387.91818751111714,
+          "x": -731.9181875111175,
           "y": 473.2729784530319
         },
         "resizing": false,
@@ -2421,8 +2487,8 @@
           "width": 451
         },
         "position": {
-          "x": 275.0107446770173,
-          "y": 573.6821413815219
+          "x": -218.98925532298313,
+          "y": 641.6821413815219
         },
         "resizing": false,
         "selected": false,
@@ -2450,8 +2516,8 @@
           "width": 521
         },
         "position": {
-          "x": 1471.738666738376,
-          "y": 634.6770907476388
+          "x": 1517.7386667383762,
+          "y": 622.6770907476388
         },
         "resizing": false,
         "selected": false,
@@ -2460,7 +2526,7 @@
       },
       {
         "data": {
-          "id": "CustomComponent-s2san",
+          "id": "CustomComponent-33aRa",
           "node": {
             "base_classes": [
               "Message"
@@ -2567,7 +2633,7 @@
           "type": "PlainTextSanitizer"
         },
         "dragging": false,
-        "id": "CustomComponent-s2san",
+        "id": "CustomComponent-33aRa",
         "measured": {
           "height": 258,
           "width": 400
@@ -2581,17 +2647,17 @@
       }
     ],
     "viewport": {
-      "x": -689.6739485352289,
-      "y": -512.6138028670134,
-      "zoom": 0.840896415253714
+      "x": 1050.2424376274348,
+      "y": 91.23956282363463,
+      "zoom": 0.5095235864853404
     }
   },
-  "description": "2단계 의도적 환각: Ollama 생성 + Plain Text Sanitizer + OpenAI 오류 추출. 출력: flawed_ai_response, generated_errors",
+  "description": "2단계 의도적 환각: 교사 입력(문서·페르소나·환각유형·질문)을 받아 틀린 AI 답변(flawed_ai_response)을 생성합니다.",
   "endpoint_name": null,
   "id": "5dcabbe0-9639-4a0c-8f71-f682ba875712",
   "is_component": false,
   "last_tested_version": "1.10.0",
   "locked": false,
-  "name": "stage2-hallucination-gen",
+  "name": "stage2",
   "tags": []
 }

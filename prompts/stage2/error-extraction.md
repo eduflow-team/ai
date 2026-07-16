@@ -39,8 +39,9 @@
 ## 규칙
 - 정확히 {expected_error_count}개의 오류만 추출
 - error_type은 PERSONA_BIAS, INFORMATION_FABRICATION, RETRIEVAL_ERROR 중 허용 hallucination_types에 포함된 하나
+- hallucination_types에 여러 유형이 있으면, 가능하면 유형별로 1개씩 추출 (같은 유형·같은 주제에서 2개 뽑지 말 것)
 - start_index, end_index는 flawed_ai_response 문자열 기준 0-based 인덱스
-- error_sentence는 해당 구간 원문 그대로
+- error_sentence는 해당 구간 원문 그대로 (앞뒤 문장 일부 포함 가능, 본문과 글자 하나도 다르지 않게)
 - correct_sentence는 참고 문서에 근거한 올바른 설명
 - hallucination_reason은 왜 이 유형의 환각인지 한국어 1문장
 - evidence_sentence는 참고 문서에서 인용한 근거 문장
