@@ -152,7 +152,7 @@ hallucination_gen_prompt → Ollama EXAONE → Plain Text Sanitizer → flawed_a
 
       "persona": "장영실이 연을 만들었다고 믿고, 자격루를 서양 기술이라고 주장하는 선생님",
 
-      "hallucination_types": "RETRIEVAL_ERROR, EXTERNAL_CONTAMINATION",
+      "hallucination_types": "RETRIEVAL_ERROR, PERSONA_BIAS",
 
       "expected_error_count": "2"
 
@@ -162,7 +162,7 @@ hallucination_gen_prompt → Ollama EXAONE → Plain Text Sanitizer → flawed_a
 
       "document_text": "장영실은 세종 대에 자격루와 측우기를 발명한...",
 
-      "hallucination_types": "RETRIEVAL_ERROR, EXTERNAL_CONTAMINATION",
+      "hallucination_types": "RETRIEVAL_ERROR, PERSONA_BIAS",
 
       "expected_error_count": "2"
 
@@ -210,7 +210,7 @@ hallucination_gen_prompt → Ollama EXAONE → Plain Text Sanitizer → flawed_a
 
       "error_sentence": "장영실은 연을 발명했습니다.",
 
-      "error_type": "EXTERNAL_CONTAMINATION",
+      "error_type": "PERSONA_BIAS",
 
       "start_index": 12,
 
@@ -218,7 +218,7 @@ hallucination_gen_prompt → Ollama EXAONE → Plain Text Sanitizer → flawed_a
 
       "correct_sentence": "장영실의 대표 발명은 자격루와 측우기입니다.",
 
-      "hallucination_reason": "참고 문서에 없는 연 발명을 페르소나 편향으로 서술",
+      "hallucination_reason": "페르소나 편향으로 참고 문서에 없는 연 발명을 사실처럼 서술",
 
       "evidence_sentence": "자격루는 물의 흐름을 이용해 시간을 알리는 자동 물시계이고..."
 

@@ -340,7 +340,7 @@
                 "show": true,
                 "title_case": false,
                 "type": "str",
-                "value": "RETRIEVAL_ERROR, EXTERNAL_CONTAMINATION"
+                "value": "RETRIEVAL_ERROR, PERSONA_BIAS"
               },
               "persona": {
                 "advanced": false,
@@ -402,7 +402,7 @@
                 "tool_mode": false,
                 "trace_as_input": true,
                 "type": "prompt",
-                "value": "당신은 중·고등학생 AI 리터러시 교육용 과제를 만드는 AI입니다.\n교사가 지정한 페르소나 관점으로 학생 질문에 답하되, 의도적 환각이 포함된 AI 답변만 작성합니다.\n\n## [최우선 출력 규칙]\n- 마크다운·서식 기호 금지: *, **, _, #, ` 등 일체 사용하지 않음\n- 평문 한국어만 출력\n- 메타·해설·암시 금지: \"기록에 없다\", \"틀렸다\", \"오류\", \"의심스럽다\", \"확인 어렵다\", \"전해진다\", \"참고로\", \"다양한 관점\", \"이해하는 것이 중요\" 등\n- 틀린 내용은 사실처럼 단정해서 서술\n- 마지막 교훈·정리·떠넘기기 문장 없이 설명으로 끝낼 것\n- 학생에게 보여줄 답변 본문만 출력 (제목, JSON, 목록 기호 없음)\n\n## 참고 문서 (교사가 제공)\n{document_text}\n\n## 학생 질문\n{question}\n\n## AI 페르소나 (말투·관점·믿음)\n{persona}\n\n## 의도적 환각 유형\n{hallucination_types}\n\n## 환각 생성 규칙\n- RETRIEVAL_ERROR: 참고 문서와 모순되거나, 문서에 없는 내용을 마치 검색·인용된 것처럼 서술\n- EXTERNAL_CONTAMINATION: 참고 문서 밖의 상식·페르소나 편향을 사실처럼 서술\n- 정확히 {expected_error_count}개의 오류만 포함 (그보다 많거나 적으면 실패)\n- 페르소나의 믿음·편향과 hallucination_types를 반드시 반영\n- 각 오류는 서로 다른 문장에 넣을 것 (한 문장에 여러 오류 금지)\n- 참고 문서에 있는 사실은 맞게 쓰되, 지정된 오류 문장만 틀리게 서술\n\n## 반드시 포함할 오류 (페르소나·유형에서 추출)\n아래를 답변에 자연스럽게 녹이되, 사실인 것처럼 단정해서 쓸 것:\n1. persona와 RETRIEVAL_ERROR에 맞는 오류 1개\n2. persona와 EXTERNAL_CONTAMINATION에 맞는 오류 1개\n(expected_error_count가 2가 아니면 위 개수에 맞게 조정)\n\n오류 외의 과장·엉뚱한 역사 설정(전국 체계, 대륙 기원 등)은 추가하지 말 것.\n\n## 말투·분량\n- 친근한 존댓말, 교사가 학생에게 설명하듯\n- 6~10문장, 한 단락 또는 두 단락\n- 질문에 직접 답하는 내용 위주\n\n## 좋은 출력 예시 (형식만 참고, 내용 복사 금지)\n장영실은 조선 시대를 빛낸 발명가였어요. 특히 자격루는 서양에서 전래된 물시계 기술을 응용한 것으로 알려져 있죠. 물의 흐름으로 시간을 알리는 방식은 당시로서는 매우 신기했어요. 측우기도 비의 양을 재는 데 쓰였고, 농사에 도움이 되었답니다. 또 장영실은 연을 만들어 하늘을 띄웠다는 이야기도 있어요. 자격루와 측우기는 오늘날에도 회자되는 대표 발명품이에요.\n\n## 나쁜 출력 예시 (하지 말 것)\n- 특히 **자격루**는 ... (마크다운)\n- 다만 이건 기록에 없어서 확인이 어려워요 (메타)\n- 조선 전국 날씨 공유 체계를 구축했다 (지정 오류와 무관한 추가 환각)\n\n## 출력\n위 규칙을 모두 지켜 학생에게 보여줄 AI 답변 본문만 작성하세요."
+                "value": "당신은 중·고등학생 AI 리터러시 교육용 과제를 만드는 AI입니다.\n교사가 지정한 페르소나 관점으로 학생 질문에 답하되, 의도적 환각이 포함된 AI 답변만 작성합니다.\n\n## [최우선 출력 규칙]\n- 마크다운·서식 기호 금지: *, **, _, #, ` 등 일체 사용하지 않음\n- 평문 한국어만 출력\n- 메타·해설·암시 금지: \"기록에 없다\", \"틀렸다\", \"오류\", \"의심스럽다\", \"확인 어렵다\", \"전해진다\", \"참고로\", \"다양한 관점\", \"이해하는 것이 중요\" 등\n- 틀린 내용은 사실처럼 단정해서 서술\n- 마지막 교훈·정리·떠넘기기 문장 없이 설명으로 끝낼 것\n- 학생에게 보여줄 답변 본문만 출력 (제목, JSON, 목록 기호 없음)\n\n## 참고 문서 (교사가 제공)\n{document_text}\n\n## 학생 질문\n{question}\n\n## AI 페르소나 (말투·관점·믿음)\n{persona}\n\n## 의도적 환각 유형\n{hallucination_types}\n\n## 환각 생성 규칙\n- PERSONA_BIAS: 페르소나의 믿음·편향을 사실처럼 서술\n- INFORMATION_FABRICATION: 참고 문서에 없는 내용을 사실처럼 날조\n- RETRIEVAL_ERROR: 참고 문서와 모순되거나, 문서에 없는 내용을 마치 검색·인용된 것처럼 서술\n- 정확히 {expected_error_count}개의 오류만 포함 (그보다 많거나 적으면 실패)\n- 페르소나의 믿음·편향과 hallucination_types를 반드시 반영\n- 각 오류는 서로 다른 문장에 넣을 것 (한 문장에 여러 오류 금지)\n- 참고 문서에 있는 사실은 맞게 쓰되, 지정된 오류 문장만 틀리게 서술\n\n## 반드시 포함할 오류 (페르소나·유형에서 추출)\n아래를 답변에 자연스럽게 녹이되, 사실인 것처럼 단정해서 쓸 것:\n1. persona와 RETRIEVAL_ERROR에 맞는 오류 1개\n2. persona와 PERSONA_BIAS에 맞는 오류 1개\n(expected_error_count가 2가 아니면 hallucination_types에 맞게 개수 조정)\n\n오류 외의 과장·엉뚱한 역사 설정(전국 체계, 대륙 기원 등)은 추가하지 말 것.\n\n## 말투·분량\n- 친근한 존댓말, 교사가 학생에게 설명하듯\n- 6~10문장, 한 단락 또는 두 단락\n- 질문에 직접 답하는 내용 위주\n\n## 좋은 출력 예시 (형식만 참고, 내용 복사 금지)\n장영실은 조선 시대를 빛낸 발명가였어요. 특히 자격루는 서양에서 전래된 물시계 기술을 응용한 것으로 알려져 있죠. 물의 흐름으로 시간을 알리는 방식은 당시로서는 매우 신기했어요. 측우기도 비의 양을 재는 데 쓰였고, 농사에 도움이 되었답니다. 또 장영실은 연을 만들어 하늘을 띄웠다는 이야기도 있어요. 자격루와 측우기는 오늘날에도 회자되는 대표 발명품이에요.\n\n## 나쁜 출력 예시 (하지 말 것)\n- 특히 **자격루**는 ... (마크다운)\n- 다만 이건 기록에 없어서 확인이 어려워요 (메타)\n- 조선 전국 날씨 공유 체계를 구축했다 (지정 오류와 무관한 추가 환각)\n\n## 출력\n위 규칙을 모두 지켜 학생에게 보여줄 AI 답변 본문만 작성하세요."
               },
               "tool_placeholder": {
                 "_input_type": "MessageTextInput",
@@ -924,7 +924,7 @@
                 "show": true,
                 "title_case": false,
                 "type": "str",
-                "value": "RETRIEVAL_ERROR, EXTERNAL_CONTAMINATION"
+                "value": "RETRIEVAL_ERROR, PERSONA_BIAS"
               },
               "template": {
                 "_input_type": "PromptInput",
@@ -942,7 +942,7 @@
                 "tool_mode": false,
                 "trace_as_input": true,
                 "type": "prompt",
-                "value": "당신은 AI 리터러시 교육용 오류 분석기입니다.\n아래 AI 답변에서 의도적으로 삽입된 환각 오류를 찾아 JSON만 출력하세요.\n\n## 참고 문서\n{document_text}\n\n## 분석 대상 AI 답변\n{flawed_ai_response}\n\n## 허용 환각 유형\n{hallucination_types}\n\n## 규칙\n- 정확히 {expected_error_count}개의 오류만 추출\n- error_type은 RETRIEVAL_ERROR 또는 EXTERNAL_CONTAMINATION 중 하나\n- start_index, end_index는 flawed_ai_response 문자열 기준 0-based 인덱스\n- error_sentence는 해당 구간 원문 그대로\n- correct_sentence는 참고 문서에 근거한 올바른 설명\n- hallucination_reason은 왜 이 유형의 환각인지 한국어 1문장\n- evidence_sentence는 참고 문서에서 인용한 근거 문장\n- 굵게, 기울임, 마크다운 기호(** * # 등) 절대 사용 금지\n- 평문 한국어만 출력\n- 강조가 필요해도 기호 없이 문장으로만 쓸 것\n\n## 출력 형식 (JSON만, 마크다운·설명 금지)\n{{\n  \"generated_errors\": [\n    {{\n      \"error_sentence\": \"string\",\n      \"error_type\": \"RETRIEVAL_ERROR\",\n      \"start_index\": 0,\n      \"end_index\": 0,\n      \"correct_sentence\": \"string\",\n      \"hallucination_reason\": \"string\",\n      \"evidence_sentence\": \"string\"\n    }}\n  ]\n}}"
+                "value": "당신은 AI 리터러시 교육용 오류 분석기입니다.\n아래 AI 답변에서 의도적으로 삽입된 환각 오류를 찾아 JSON만 출력하세요.\n\n## 참고 문서\n{document_text}\n\n## 분석 대상 AI 답변\n{flawed_ai_response}\n\n## 허용 환각 유형\n{hallucination_types}\n\n## 규칙\n- 정확히 {expected_error_count}개의 오류만 추출\n- error_type은 PERSONA_BIAS, INFORMATION_FABRICATION, RETRIEVAL_ERROR 중 허용 hallucination_types에 포함된 하나\n- start_index, end_index는 flawed_ai_response 문자열 기준 0-based 인덱스\n- error_sentence는 해당 구간 원문 그대로\n- correct_sentence는 참고 문서에 근거한 올바른 설명\n- hallucination_reason은 왜 이 유형의 환각인지 한국어 1문장\n- evidence_sentence는 참고 문서에서 인용한 근거 문장\n- 굵게, 기울임, 마크다운 기호(** * # 등) 절대 사용 금지\n- 평문 한국어만 출력\n- 강조가 필요해도 기호 없이 문장으로만 쓸 것\n\n## 출력 형식 (JSON만, 마크다운·설명 금지)\n{{\n  \"generated_errors\": [\n    {{\n      \"error_sentence\": \"string\",\n      \"error_type\": \"RETRIEVAL_ERROR\",\n      \"start_index\": 0,\n      \"end_index\": 0,\n      \"correct_sentence\": \"string\",\n      \"hallucination_reason\": \"string\",\n      \"evidence_sentence\": \"string\"\n    }}\n  ]\n}}"
               },
               "tool_placeholder": {
                 "_input_type": "MessageTextInput",

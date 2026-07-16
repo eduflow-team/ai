@@ -16,7 +16,7 @@
 | `{document_text}` | 교사 참고 문서 |
 | `{question}` | 학생 질문 |
 | `{persona}` | AI 페르소나 |
-| `{hallucination_types}` | `RETRIEVAL_ERROR`, `EXTERNAL_CONTAMINATION` |
+| `{hallucination_types}` | `PERSONA_BIAS`, `INFORMATION_FABRICATION`, `RETRIEVAL_ERROR` |
 | `{expected_error_count}` | 생성할 오류 개수 |
 
 ## Prompt (Langflow Template)
@@ -46,8 +46,9 @@
 {hallucination_types}
 
 ## 환각 생성 규칙
+- PERSONA_BIAS: 페르소나의 믿음·편향을 사실처럼 서술
+- INFORMATION_FABRICATION: 참고 문서에 없는 내용을 사실처럼 날조
 - RETRIEVAL_ERROR: 참고 문서와 모순되거나, 문서에 없는 내용을 마치 검색·인용된 것처럼 서술
-- EXTERNAL_CONTAMINATION: 참고 문서 밖의 상식·페르소나 편향을 사실처럼 서술
 - 정확히 {expected_error_count}개의 오류만 포함 (그보다 많거나 적으면 실패)
 - 페르소나의 믿음·편향과 hallucination_types를 반드시 반영
 - 각 오류는 서로 다른 문장에 넣을 것 (한 문장에 여러 오류 금지)
@@ -56,8 +57,8 @@
 ## 반드시 포함할 오류 (페르소나·유형에서 추출)
 아래를 답변에 자연스럽게 녹이되, 사실인 것처럼 단정해서 쓸 것:
 1. persona와 RETRIEVAL_ERROR에 맞는 오류 1개
-2. persona와 EXTERNAL_CONTAMINATION에 맞는 오류 1개
-(expected_error_count가 2가 아니면 위 개수에 맞게 조정)
+2. persona와 PERSONA_BIAS에 맞는 오류 1개
+(expected_error_count가 2가 아니면 hallucination_types에 맞게 개수 조정)
 
 오류 외의 과장·엉뚱한 역사 설정(전국 체계, 대륙 기원 등)은 추가하지 말 것.
 

@@ -139,7 +139,7 @@ class Step2CreateRequest(BaseModel):
     document_text: str | None = None  # 파일 업로드 시 서비스에서 추출
     question: str
     persona: str = Field(max_length=100)
-    hallucination_types: list[str]  # ["RETRIEVAL_ERROR", "EXTERNAL_CONTAMINATION"]
+    hallucination_types: list[str]  # ["RETRIEVAL_ERROR", "PERSONA_BIAS"]
     expected_error_count: int = Field(ge=1, le=5)
 
 

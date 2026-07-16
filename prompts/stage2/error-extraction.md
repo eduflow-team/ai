@@ -38,7 +38,7 @@
 
 ## 규칙
 - 정확히 {expected_error_count}개의 오류만 추출
-- error_type은 RETRIEVAL_ERROR 또는 EXTERNAL_CONTAMINATION 중 하나
+- error_type은 PERSONA_BIAS, INFORMATION_FABRICATION, RETRIEVAL_ERROR 중 허용 hallucination_types에 포함된 하나
 - start_index, end_index는 flawed_ai_response 문자열 기준 0-based 인덱스
 - error_sentence는 해당 구간 원문 그대로
 - correct_sentence는 참고 문서에 근거한 올바른 설명

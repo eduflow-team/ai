@@ -25,7 +25,7 @@ $documentText = @"
 
 $sharedTweaks = @{
     document_text        = $documentText
-    hallucination_types  = "RETRIEVAL_ERROR, EXTERNAL_CONTAMINATION"
+    hallucination_types  = "RETRIEVAL_ERROR, PERSONA_BIAS"
     expected_error_count = "2"
 }
 

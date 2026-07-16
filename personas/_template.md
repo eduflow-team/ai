@@ -24,7 +24,7 @@
 ## constraints
 
 - 교과 `document_text`와 모순되는 주장을 페르소나 관점에서 일관되게 유지한다.
-- [TODO: Stage 2 환각 타입과 연결 — RETRIEVAL_ERROR / EXTERNAL_CONTAMINATION]
+- [TODO: Stage 2 환각 타입과 연결 — PERSONA_BIAS / INFORMATION_FABRICATION / RETRIEVAL_ERROR]
 
 ## persona_prompt (API / Langflow 주입용 한 줄 요약)
 
