@@ -50,19 +50,21 @@ hallucination_gen_prompt → Ollama EXAONE → Plain Text Sanitizer → flawed_a
 
 |---------|--------------|------|
 
-| `Prompt-s2gen` | hallucination_gen_prompt | 1차 프롬프트 + 교사 입력 |
+| `Prompt-fwk9l` | hallucination_gen_prompt | 1차 프롬프트 + 교사 입력 |
 
-| `LanguageModelComponent-s2oll` | Ollama EXAONE (생성) | 의도적 환각 답변 |
+| `LanguageModelComponent-grQBn` | Ollama EXAONE (생성) | 의도적 환각 답변 |
 
-| `CustomComponent-s2san` | Plain Text Sanitizer | 마크다운 제거 |
+| `CustomComponent-33aRa` | Plain Text Sanitizer | 마크다운 제거 |
 
-| `ChatOutput-s2flaw` | flawed_ai_response | 학생용 AI 답변 |
+| `ChatOutput-IC6oV` | flawed_ai_response | 학생용 AI 답변 |
 
-| `Prompt-s2ext` | error_extraction_prompt | 2차 오류 추출 프롬프트 |
+| `Prompt-We0Ob` | error_extraction_prompt | 2차 오류 추출 프롬프트 |
 
-| `LanguageModelComponent-s2oai` | OpenAI (오류 추출) | JSON 구조화 |
+| `LanguageModelComponent-Ek4nl` | OpenAI (오류 추출) | JSON 구조화 |
 
-| `ChatOutput-s2err` | generated_errors | 오류 메타 JSON |
+| `ChatOutput-YlcM3` | generated_errors | 오류 메타 JSON |
+
+> **tweaks 키 = 노드 ID.** 위 ID는 `flows/stage2-hallucination-gen.json` (UI Export) 기준. Re-export 시 바뀔 수 있으므로 Import 후 Langflow **API 탭**에서 확인.
 
 
 
@@ -74,7 +76,7 @@ hallucination_gen_prompt → Ollama EXAONE → Plain Text Sanitizer → flawed_a
 
 
 
-### Ollama (`LanguageModelComponent-s2oll`)
+### Ollama (`LanguageModelComponent-grQBn`)
 
 - Provider: **Ollama**
 
@@ -86,7 +88,7 @@ hallucination_gen_prompt → Ollama EXAONE → Plain Text Sanitizer → flawed_a
 
 
 
-### OpenAI (`LanguageModelComponent-s2oai`)
+### OpenAI (`LanguageModelComponent-Ek4nl`)
 
 - Provider: **OpenAI**
 
@@ -110,21 +112,21 @@ hallucination_gen_prompt → Ollama EXAONE → Plain Text Sanitizer → flawed_a
 
 |------|-----|------|------|
 
-| `Prompt-s2gen` | `document_text` | string | `documents.raw_text` |
+| `Prompt-fwk9l` | `document_text` | string | `documents.raw_text` |
 
-| `Prompt-s2gen` | `question` | string | 교사 입력 |
+| `Prompt-fwk9l` | `question` | string | 교사 입력 |
 
-| `Prompt-s2gen` | `persona` | string | 교사 입력 |
+| `Prompt-fwk9l` | `persona` | string | 교사 입력 |
 
-| `Prompt-s2gen` | `hallucination_types` | string | 쉼표 구분 enum |
+| `Prompt-fwk9l` | `hallucination_types` | string | 쉼표 구분 enum |
 
-| `Prompt-s2gen` | `expected_error_count` | string | `"2"` 등 |
+| `Prompt-fwk9l` | `expected_error_count` | string | `"2"` 등 |
 
-| `Prompt-s2ext` | `document_text` | string | 동일 (근거 추출용) |
+| `Prompt-We0Ob` | `document_text` | string | 동일 (근거 추출용) |
 
-| `Prompt-s2ext` | `hallucination_types` | string | 동일 |
+| `Prompt-We0Ob` | `hallucination_types` | string | 동일 |
 
-| `Prompt-s2ext` | `expected_error_count` | string | 동일 |
+| `Prompt-We0Ob` | `expected_error_count` | string | 동일 |
 
 
 
@@ -144,7 +146,7 @@ hallucination_gen_prompt → Ollama EXAONE → Plain Text Sanitizer → flawed_a
 
   "tweaks": {
 
-    "Prompt-s2gen": {
+    "Prompt-fwk9l": {
 
       "document_text": "장영실은 세종 대에 자격루와 측우기를 발명한...",
 
@@ -158,7 +160,7 @@ hallucination_gen_prompt → Ollama EXAONE → Plain Text Sanitizer → flawed_a
 
     },
 
-    "Prompt-s2ext": {
+    "Prompt-We0Ob": {
 
       "document_text": "장영실은 세종 대에 자격루와 측우기를 발명한...",
 
@@ -192,9 +194,9 @@ hallucination_gen_prompt → Ollama EXAONE → Plain Text Sanitizer → flawed_a
 
 |----|-----------|------|
 
-| `flawed_ai_response` | `ChatOutput-s2flaw` | 학생에게 보여줄 AI 답변 |
+| `flawed_ai_response` | `ChatOutput-IC6oV` | 학생에게 보여줄 AI 답변 |
 
-| `generated_errors` | `ChatOutput-s2err` | JSON 문자열 또는 파싱된 객체 |
+| `generated_errors` | `ChatOutput-YlcM3` | JSON 문자열 또는 파싱된 객체 |
 
 
 
@@ -326,9 +328,9 @@ LANGFLOW_STAGE2_FLOW_ID=
 
 |------|------|
 
-| `prompts/stage2/hallucination-gen.md` | `Prompt-s2gen` |
+| `prompts/stage2/hallucination-gen.md` | `Prompt-fwk9l` |
 
-| `prompts/stage2/error-extraction.md` | `Prompt-s2ext` |
+| `prompts/stage2/error-extraction.md` | `Prompt-We0Ob` |
 
 
 

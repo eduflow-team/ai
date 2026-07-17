@@ -49,8 +49,8 @@ class Stage2LangflowResult:
 
 
 class LangflowClient:
-    PROMPT_GEN = "Prompt-s2gen"
-    PROMPT_EXT = "Prompt-s2ext"
+    PROMPT_GEN = "Prompt-fwk9l"
+    PROMPT_EXT = "Prompt-We0Ob"
 
     def __init__(self) -> None:
         self.base_url = settings.LANGFLOW_URL.rstrip("/")
@@ -122,7 +122,7 @@ class LangflowClient:
         return Stage2LangflowResult(flawed_ai_response=flawed, generated_errors=errors)
 ```
 
-> 노드 ID는 flow JSON 고정값 `Prompt-s2gen`, `Prompt-s2ext` 사용. Import 후 API 탭에서 확인.
+> tweaks 키는 `flows/stage2-hallucination-gen.json`의 노드 ID(`Prompt-fwk9l`, `Prompt-We0Ob`) 사용. UI Re-export 시 ID가 바뀔 수 있으므로 Import 후 API 탭에서 확인.
 
 ---
 

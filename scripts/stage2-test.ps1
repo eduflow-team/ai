@@ -33,14 +33,14 @@ $body = @{
     input_value = ""
     session_id  = "stage2-test"
     tweaks      = @{
-        "Prompt-s2gen" = @{
+        "Prompt-fwk9l" = @{
             document_text        = $documentText
             question             = "장영실의 발명품에 대해 설명해줘."
             persona              = "장영실이 연을 만들었다고 믿고, 자격루를 서양 기술이라고 주장하는 선생님"
             hallucination_types  = $sharedTweaks.hallucination_types
             expected_error_count = $sharedTweaks.expected_error_count
         }
-        "Prompt-s2ext" = $sharedTweaks
+        "Prompt-We0Ob" = $sharedTweaks
     }
 } | ConvertTo-Json -Depth 6
 
