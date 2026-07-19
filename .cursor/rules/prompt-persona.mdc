@@ -35,8 +35,9 @@ personas/
 | 4 | 보안 실습 | 역할 분리 (공격/방어) — AI/LLM 작성 |
 
 ## 2단계 환각 타입 (enum, API와 동일)
-- `RETRIEVAL_ERROR` — 잘못된 문서·검색 오류
-- `EXTERNAL_CONTAMINATION` — 교과 외 지식 혼입
+- `PERSONA_BIAS` — 페르소나 편향
+- `INFORMATION_FABRICATION` — 정보 날조
+- `RETRIEVAL_ERROR` — 잘못된 문서 검색
 
 ## 작성 시
 - `[TODO: ...]` / `<!-- 담당자 작성 -->` 구역만 채울 것

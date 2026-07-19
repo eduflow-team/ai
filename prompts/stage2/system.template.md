@@ -11,7 +11,7 @@
 - `document_text`: 교과 참고 문서
 - `question`: 학생에게 제시할 질문
 - `persona`: [personas/](../../personas/) 참고
-- `hallucination_types`: `RETRIEVAL_ERROR` | `EXTERNAL_CONTAMINATION`
+- `hallucination_types`: `PERSONA_BIAS` | `INFORMATION_FABRICATION` | `RETRIEVAL_ERROR`
 - `expected_error_count`: 생성할 오류 개수
 
 ## Instructions
@@ -21,13 +21,17 @@
 3. 오류는 자연스럽게 본문에 녹인다 (학생이 찾기 어렵지 않게 너무 노출하지 않음).
 4. [TODO: 타입별 생성 규칙]
 
+### PERSONA_BIAS
+
+[TODO: 예 — "persona의 믿음·편향을 사실처럼 서술"]
+
+### INFORMATION_FABRICATION
+
+[TODO: 예 — "document_text에 없는 내용을 사실처럼 날조"]
+
 ### RETRIEVAL_ERROR
 
-[TODO: 예 — "document_text와 모순되는 문장을 1개 포함"]
-
-### EXTERNAL_CONTAMINATION
-
-[TODO: 예 — "document_text에 없는 외부 '상식'을 사실처럼 서술"]
+[TODO: 예 — "document_text와 모순되거나 검색·인용된 것처럼 서술"]
 
 ## Output format
 
