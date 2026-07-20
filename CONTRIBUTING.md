@@ -4,18 +4,19 @@
 
 ## 1. 브랜치 전략 (Branch Strategy)
 
-브랜치는 상시 운영 브랜치 `main`과 작업 브랜치로 분리하여 운영합니다. 모든 작업 브랜치는 `main`에서 분기하고, PR 머지 후 `main`으로 통합합니다.
+브랜치는 상시 운영 브랜치(2개)와 작업 브랜치로 분리하여 운영합니다. 모든 작업 브랜치는 `develop` 브랜치에서 분기합니다.
 
 ### 📌 상시 운영 브랜치
 
-- `main` : 최신 안정 코드의 기준 브랜치 (직접 Push 절대 금지, PR로만 반영)
+- `main` : 프로덕션 배포 가능한 최신의 안정적인 코드만 관리 (직접 Push 절대 금지)
+- `develop` : 다음 버전을 위한 개발 코드가 모이는 기준 브랜치 (테스트 및 통합 환경)
 
 ### 📌 작업 브랜치 (명명 규칙 통일)
 
 브랜치명은 소문자로 시작하며, 슬래시(`/`) 뒤에 `간단한설명`을 붙여 생성합니다. 터미널 환경 오류 방지를 위해 `#` 기호는 사용하지 않습니다.
 
-- `feat/기능명` : 새로운 기능 개발 (예: `feat/login-api`, `feat/user-schema`)
-- `fix/버그명` : 버그 수정 (예: `fix/null-pointer`, `fix/cors-error`)
+- `feat/기능명` : 새로운 기능 개발 (예: `feat/stage1-rag-chat`, `feat/stage2-hallucination`)
+- `fix/버그명` : 버그 수정 (예: `fix/prompt-template`, `fix/flow-node-id`)
 
 ---
 
@@ -72,19 +73,22 @@ type: 작업 내용
 
 ## 4. 핵심 협업 및 코드 리뷰 수칙
 
-- **Repository 보호 설정 (Branch Protection)** : `main` 브랜치는 직접 Push가 불가능하도록 설정하며, 반드시 PR을 통해서만 코드가 반영되도록 강제합니다.
+- **Repository 보호 설정 (Branch Protection)** : `main` 및 `develop` 브랜치는 직접 Push가 불가능하도록 설정하며, 반드시 PR을 통해서만 코드가 반영되도록 강제합니다.
 - **PR 생성 및 리뷰어 지정** : PR 생성 시 본인을 제외한 팀원들을 리뷰어로 지정합니다. 요청 전, 'Files changed' 탭에서 셀프 리뷰를 진행하여 불필요한 주석이나 디버깅용 코드(`print` 등)를 제거합니다.
 - **리뷰 및 머지 조건** : 최소 1명 이상의 팀원에게 Approve(승인)를 받아야 머지가 가능합니다. 변경 사항이 200~400줄 이내가 되도록 자주 쪼개어 PR을 생성하는 것을 권장합니다.
-- **머지 방식 (Merge Strategy)** : 커밋 로그를 깔끔하게 유지하기 위해 자잘한 작업 커밋들은 하나로 묶어 머지하는 **Squash and merge** 방식을 기본으로 사용합니다.
+- **머지 방식 (Merge Strategy)** : 대상 브랜치에 따라 방식을 구분합니다.
+  - **`develop` ← 작업 브랜치** (`feat/*`, `fix/*`): **Squash and merge** — develop 히스토리를 한 줄 단위로 유지
+  - **`main` ← `develop`**: **Create a merge commit** (일반 merge) — develop 통합 단위를 merge commit으로 보존
+  - 그 외 `main` ← 작업 브랜치 등 예외 케이스는 팀 합의 후 진행
 
 ### 🧹 로컬 브랜치 수시 정리
 
 머지가 완료된 브랜치는 아래 명령으로 로컬을 주기적으로 정리합니다.
 
 ```bash
-git checkout main
-git pull origin main
-git branch -d feat/login-api
+git checkout develop
+git pull origin develop
+git branch -d feat/stage1-rag-chat
 git fetch --prune
 ```
 
@@ -112,19 +116,19 @@ git fetch --prune
 
 ## 6. 충돌(Conflict) 발생 시 해결 프로세스
 
-작업 도중 `main` 브랜치의 변경 사항으로 인해 충돌이 발생하면, 원격이 아닌 **본인의 로컬 작업 브랜치**에서 충돌을 해결한 뒤 다시 push합니다.
+작업 도중 `develop` 브랜치의 변경 사항으로 인해 충돌이 발생하면, 원격이 아닌 **본인의 로컬 작업 브랜치**에서 충돌을 해결한 뒤 다시 push합니다.
 
-1. 본인의 로컬 작업 브랜치로 이동 및 최신 `main` 코드 가져오기
+1. 본인의 로컬 작업 브랜치로 이동 및 최신 `develop` 코드 가져오기
    ```bash
-   git checkout feat/login-api
-   git pull origin main
+   git checkout feat/stage1-rag-chat
+   git pull origin develop
    ```
 2. 에러가 발생한 파일의 충돌 코드(`<<<<<<< HEAD`와 `>>>>>>>`)를 직접 확인 후 수정
 3. 수정 완료 후 다시 스테이징 및 커밋, 푸시 진행
    ```bash
    git add .
-   git commit -m "chore: main 브랜치 머지 충돌 해결"
-   git push origin feat/login-api
+   git commit -m "chore: develop 브랜치 머지 충돌 해결"
+   git push origin feat/stage1-rag-chat
    ```
 
 ---
