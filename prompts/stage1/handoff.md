@@ -32,7 +32,9 @@
 
 - 학생에게 `chunk_size/top_k/temperature` **설명하지 않음**
 - 출력은 **plain text만** (JSON/Markdown 금지)
-- 답변은 **10문장 이상**
+- **검색된 `context`에 있는 내용만** 사용. 없으면 「학습 자료에서 확인할 수 없습니다」
+- 자료 밖 기관·인물·일화 **창작 금지**. 문장 수 강제 없음
+- `temperature`는 문체만 조절 (새 사실 추가 금지)
 
 ---
 
@@ -78,14 +80,15 @@
 ### 백엔드
 
 - `chunk_size`, `top_k`로 검색 → 청크를 합쳐 **`context` 문자열** 생성
-- `rag_process_visualization` 조립 (`total_chunks`, `retrieved_chunks`, `vector_search_score`)
+- `rag_process_visualization` 조립 (`total_chunks`, `retrieved_chunks`, `vector_search_score`, `retrieved_chunk_previews`)
 
 ---
 
 ## 5) PR용 로컬 테스트(내가 한 방식)
 
 - Prompt `{context}`에 **학습 자료 텍스트를 직접 붙여넣고** 테스트 (PGVector 경로 미사용)
-- 같은 context에서 temperature만 바꿔 비교 (예: 1.0 vs 0)
+- context 양·관련성을 바꿔 비교 (짧은 검색 vs 충분한 검색)
+- temperature만 바꿀 때는 문체 차이만 나고 **새 사실이 추가되면 안 됨**
 
 ---
 
