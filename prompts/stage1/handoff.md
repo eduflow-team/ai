@@ -2,9 +2,9 @@
 
 ## TL;DR
 
-- **내가 구현한 것:** Langflow에서 **답변 생성(generation)** 만 하는 Stage 1 flow + 프롬프트
-- **의도적으로 안 한 것:** 문서 검색(RAG)·시각화 숫자 조립은 **백엔드 담당**이라 flow에서 제외/미사용
-- **다음 사람이 할 것:** AI 총괄이 백엔드에서 `context`를 주입하고 OpenAI `temperature`를 **tweaks로 덮어쓰기**
+- Langflow: **생성만** (검색·visualization은 백엔드)
+- 백엔드가 `context` / `temperature`를 tweaks로 주입 (연동 완료)
+- Prompt `context`는 Parser 등과 **연결하지 말 것** (tweaks가 무시됨)
 
 ---
 
@@ -32,9 +32,9 @@
 
 - 학생에게 `chunk_size/top_k/temperature` **설명하지 않음**
 - 출력은 **plain text만** (JSON/Markdown 금지)
-- **검색된 `context`에 있는 내용만** 사용. 없으면 「학습 자료에서 확인할 수 없습니다」
-- 자료 밖 기관·인물·일화 **창작 금지**. 문장 수 강제 없음
-- `temperature`는 문체만 조절 (새 사실 추가 금지)
+- **답변은 항상 작성** (거절 / 「확인할 수 없습니다」만 출력 금지)
+- 검색 자료가 충분하면 **교재 우선**, 빈약하면 일반 지식 보완 허용(틀린 답 가능)
+- `temperature` 높을수록 자유로운(부정확할 수 있는) 서술 허용
 
 ---
 
@@ -57,38 +57,19 @@
 
 ---
 
-## 4) 다음 사람이 해야 할 일 (AI 총괄 / 백엔드)
+## 4) 연동 메모
 
-### AI 총괄 (Langflow HTTP 연동)
-
-- 매핑
-  - `message` → Chat Input
-  - `context`(검색 결과 텍스트) → Prompt Template의 `context`
-  - `temperature` → OpenAI 노드의 `temperature` (tweaks로 덮어쓰기)
-- 응답
-  - Chat Output 텍스트 → `ai_response` (plain text)
-
-**tweaks 대상 노드 ID (Export JSON 기준)**
-
-- Chat Input: `ChatInput-rk5X4` (`input_value`)
-- Prompt Template: `Prompt Template-gnr3c` (`context`)
-- OpenAI: `OpenAIModel-seW7A` (`temperature`)
-- Chat Output: `ChatOutput-laO0L` (출력 text)
-
-> flow를 다시 저장/재export하면 노드 ID가 바뀔 수 있어, 연동 전 JSON에서 확인 필요.
-
-### 백엔드
-
-- `chunk_size`, `top_k`로 검색 → 청크를 합쳐 **`context` 문자열** 생성
-- `rag_process_visualization` 조립 (`total_chunks`, `retrieved_chunks`, `vector_search_score`, `retrieved_chunk_previews`)
-
+- `message` → Chat Input / `context` → Prompt / `temperature` → OpenAI
+- 노드 ID는 re-export 시 바뀔 수 있음 → `.env`의 `LANGFLOW_STAGE1_*_NODE_ID` 확인
+- 백엔드: 검색 → `context` 조립 + `retrieved_chunk_previews`
 ---
 
 ## 5) PR용 로컬 테스트(내가 한 방식)
 
 - Prompt `{context}`에 **학습 자료 텍스트를 직접 붙여넣고** 테스트 (PGVector 경로 미사용)
-- context 양·관련성을 바꿔 비교 (짧은 검색 vs 충분한 검색)
-- temperature만 바꿀 때는 문체 차이만 나고 **새 사실이 추가되면 안 됨**
+- context 양·temperature를 바꿔 비교
+- 짧은 검색+고온 → 틀린/부정확한 답이 **나와야** 함(거부 금지)
+- 긴 검색+저온 → 교재에 가까운 답
 
 ---
 
