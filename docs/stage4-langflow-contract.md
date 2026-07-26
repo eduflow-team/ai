@@ -33,7 +33,7 @@ Chat Output (ai_response)
 |------|---------------------|-------------|
 | Chat Input | `ChatInput-stage4atk` | `input_value` ← `attack_prompt` (또는 top-level `input_value`) |
 | Prompt | `Prompt-stage4sys` | `mission`, `secret_key`, `difficulty_prompt`, `history` |
-| OpenAI | `OpenAIModel-stage4llm` | (기본 temperature 낮게, 예: 0.3) |
+| OpenAI / Ollama | `OpenAIModel-stage4llm` 또는 Ollama | temperature `0.5~0.7` 권장 (EASY 누설이 안 되면 모델 정렬 이슈 → Ollama EXAONE 시도) |
 | Chat Output | `ChatOutput-stage4res` | 출력 text |
 
 > Import 후 노드 ID가 바뀌면 `.env`로 주입한다.  
