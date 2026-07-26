@@ -19,12 +19,15 @@ Notion API 명세(`stage4`) · 시나리오4(프롬프트 인젝션 보안 실�
 
 ## Flow 구조 (권장, MVP)
 
+LLM은 **Ollama EXAONE**을 사용한다.  
+(OpenAI는 안전 정렬 때문에 EASY에서도 키 누설을 거절하는 경우가 많음)
+
 ```
 Chat Input (attack_prompt)
     ↓
 Prompt Template (mission, secret_key, difficulty_prompt, history)
     ↓
-OpenAI (gpt-4o-mini)
+Ollama EXAONE (exaone3.5:7.8b)
     ↓
 Chat Output (ai_response)
 ```
@@ -33,8 +36,16 @@ Chat Output (ai_response)
 |------|---------------------|-------------|
 | Chat Input | `ChatInput-stage4atk` | `input_value` ← `attack_prompt` (또는 top-level `input_value`) |
 | Prompt | `Prompt-stage4sys` | `mission`, `secret_key`, `difficulty_prompt`, `history` |
-| OpenAI / Ollama | `OpenAIModel-stage4llm` 또는 Ollama | temperature `0.5~0.7` 권장 (EASY 누설이 안 되면 모델 정렬 이슈 → Ollama EXAONE 시도) |
+| Language Model | `LanguageModelComponent-stage4oll` | Provider Ollama, model `exaone3.5:7.8b` |
 | Chat Output | `ChatOutput-stage4res` | 출력 text |
+
+### Ollama 설정 (`LanguageModelComponent-stage4oll`)
+
+- Provider: **Ollama**
+- Model: `exaone3.5:7.8b`
+- Ollama API URL: `http://host.docker.internal:11434`  
+  (Langflow가 Docker일 때. 호스트에서 직접 띄운 Langflow면 `http://localhost:11434`)
+- Temperature: `0.5` ~ `0.7`
 
 > Import 후 노드 ID가 바뀌면 `.env`로 주입한다.  
 > 가능하면 Export 전에 노드 이름을 위 안정 이름으로 고정한다.
