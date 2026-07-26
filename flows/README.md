@@ -34,9 +34,9 @@ Langflow UI에서 Export한 flow JSON 저장소.
 
 |------|------|------|
 
-| A+B | `Prompt-s2gen` → `LanguageModelComponent-s2oll` → `CustomComponent-s2san` | Ollama `exaone3.5:7.8b` |
+| A+B | `Prompt-fwk9l` → `LanguageModelComponent-grQBn` → `CustomComponent-33aRa` | Ollama `exaone3.5:7.8b` |
 
-| C | `Prompt-s2ext` → `LanguageModelComponent-s2oai` | OpenAI `gpt-4o-mini` |
+| C | `Prompt-We0Ob` → `LanguageModelComponent-Ek4nl` | OpenAI `gpt-4o-mini` |
 
 
 
@@ -58,7 +58,7 @@ Langflow UI에서 Export한 flow JSON 저장소.
 
 
 
-1. **Ollama EXAONE (생성)** (`LanguageModelComponent-s2oll`)
+1. **Ollama EXAONE (생성)** (`LanguageModelComponent-grQBn`)
    - Provider: **Ollama**
    - **Ollama API URL**: `http://host.docker.internal:11434` (`localhost` 사용 시 모델 안 뜸)
    - URL 입력 후 **새로고침(↻)** → `exaone3.5:7.8b` 선택

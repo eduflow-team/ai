@@ -1,6 +1,6 @@
 # Stage 2 — Hallucination Generation Prompt
 
-> Langflow `Prompt-s2gen` (hallucination_gen_prompt) 본문.  
+> Langflow `Prompt-fwk9l` (hallucination_gen_prompt) 본문.  
 > **Source of truth:** `flows/stage2-hallucination-gen.json` (UI Export 기준)
 
 ---
@@ -81,4 +81,4 @@
 
 ## Output
 
-- Ollama → `CustomComponent-s2san` (Plain Text Sanitizer) → `ChatOutput-s2flaw`
+- Ollama → `CustomComponent-33aRa` (Plain Text Sanitizer) → `ChatOutput-IC6oV`

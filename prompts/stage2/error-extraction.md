@@ -1,6 +1,6 @@
 # Stage 2 — Error Extraction Prompt
 
-> Langflow `Prompt-s2ext` (error_extraction_prompt) 본문.  
+> Langflow `Prompt-We0Ob` (error_extraction_prompt) 본문.  
 > **Source of truth:** `flows/stage2-hallucination-gen.json` (UI Export 기준)
 
 ---
@@ -67,6 +67,6 @@
 
 ## 연결
 
-- `{flawed_ai_response}` ← `CustomComponent-s2san` (Plain Text Sanitizer) 와이어
-- OpenAI: `LanguageModelComponent-s2oai`, `gpt-4o-mini`
-- 출력 → `ChatOutput-s2err` (generated_errors)
+- `{flawed_ai_response}` ← `CustomComponent-33aRa` (Plain Text Sanitizer) 와이어
+- OpenAI: `LanguageModelComponent-Ek4nl`, `gpt-4o-mini`
+- 출력 → `ChatOutput-YlcM3` (generated_errors)

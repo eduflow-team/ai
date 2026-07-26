@@ -6,8 +6,8 @@
 
 | 파일 | 상태 | 용도 |
 |------|------|------|
-| `hallucination-gen.md` | ✅ | 1차 Ollama 프롬프트 (`Prompt-s2gen`) |
-| `error-extraction.md` | ✅ | 2차 OpenAI 프롬프트 (`Prompt-s2ext`) |
+| `hallucination-gen.md` | ✅ | 1차 Ollama 프롬프트 (`Prompt-fwk9l`) |
+| `error-extraction.md` | ✅ | 2차 OpenAI 프롬프트 (`Prompt-We0Ob`) |
 
 ## Flow
 
