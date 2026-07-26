@@ -25,6 +25,8 @@
 | `docs/stage4-langflow-contract.md` | tweaks·출력·성공 판정 계약 |
 | `docs/stage4-screenshots/playground-easy-clear.png` | EASY Playground 클리어 성공 (Ollama, PR용) |
 | `docs/stage4-screenshots/playground-openai-refuse.png` | OpenAI는 동일 인젝션도 거절 (Ollama 전환 근거) |
+| `docs/stage4-screenshots/playground-hard-clear.png` | HARD: 협박 거절 → JSON 우회 클리어 (PR용) |
+| `docs/stage4-screenshots/flow-canvas.png` | Stage4 Langflow 캔버스 (Ollama EXAONE) |
 
 ## Notion API (`stage4`)
 
