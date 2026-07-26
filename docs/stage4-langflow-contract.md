@@ -23,32 +23,27 @@ LLM은 **Ollama EXAONE**을 사용한다.
 (OpenAI는 안전 정렬 때문에 EASY에서도 키 누설을 거절하는 경우가 많음)
 
 ```
-Chat Input (attack_prompt)
-    ↓
-Prompt Template (mission, secret_key, difficulty_prompt, history)
-    ↓
-Ollama EXAONE (exaone3.5:7.8b)
-    ↓
-Chat Output (ai_response)
+Chat Input ──→ Language Model Input (attack)
+Prompt Template ──→ Language Model System Message
+Language Model ──→ Chat Output
 ```
 
-| 역할 | 권장 안정 노드 이름 | tweaks 필드 |
-|------|---------------------|-------------|
-| Chat Input | `ChatInput-stage4atk` | `input_value` ← `attack_prompt` (또는 top-level `input_value`) |
-| Prompt | `Prompt-stage4sys` | `mission`, `secret_key`, `difficulty_prompt`, `history` |
-| Language Model | `LanguageModelComponent-stage4oll` | Provider Ollama, model `exaone3.5:7.8b` |
-| Chat Output | `ChatOutput-stage4res` | 출력 text |
+| 역할 | Export 노드 ID (`flows/stage4-security-chat.json`) | tweaks 필드 |
+|------|-----------------------------------------------------|-------------|
+| Chat Input | `ChatInput-e0prE` | → LM `input_value` |
+| Prompt | `Prompt Template-kt9HB` | `mission`, `secret_key`, `difficulty_prompt`, `history` |
+| Language Model | `LanguageModelComponent-JQGL5` | Ollama `exaone3.5:7.8b` |
+| Chat Output | `ChatOutput-9GlW6` | 출력 text |
 
-### Ollama 설정 (`LanguageModelComponent-stage4oll`)
+> Re-import 시 노드 ID가 바뀔 수 있다. 백엔드는 `.env`의 Flow/Prompt 노드 ID를 사용한다.
+
+### Ollama 설정 (`LanguageModelComponent-JQGL5`)
 
 - Provider: **Ollama**
 - Model: `exaone3.5:7.8b`
 - Ollama API URL: `http://host.docker.internal:11434`  
-  (Langflow가 Docker일 때. 호스트에서 직접 띄운 Langflow면 `http://localhost:11434`)
+  (`localhost`면 Docker Langflow에서 연결 실패)
 - Temperature: `0.5` ~ `0.7`
-
-> Import 후 노드 ID가 바뀌면 `.env`로 주입한다.  
-> 가능하면 Export 전에 노드 이름을 위 안정 이름으로 고정한다.
 
 ---
 

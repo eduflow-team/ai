@@ -1,8 +1,9 @@
 # Stage 4 — 보안 실습 (프롬프트 인젝션)
 
-**상태:** API 초안 작성 완료 · Langflow flow(Ollama) 구성 중  
+**상태:** Langflow flow Export 완료 · 백엔드 연동 대기  
 **담당:** AI/LLM · 백엔드 (임정원)  
 **LLM:** Ollama `exaone3.5:7.8b` (`host.docker.internal:11434`)
+**Flow:** `flows/stage4-security-chat.json`
 
 ## 목표
 
@@ -46,7 +47,7 @@
 ## TODO
 
 - [x] Ollama EXAONE EASY 누설 Playground 확인
-- [ ] NORMAL/HARD Playground 체감 테스트
-- [ ] `flows/stage4-security-chat.json` Export
-- [ ] 노드 이름 안정화 후 `.env` Flow/노드 ID 연결
+- [x] HARD Playground 체감 테스트 (협박 거절 / JSON 우회 클리어)
+- [x] `flows/stage4-security-chat.json` Export
+- [ ] 백엔드 `.env` Flow/Prompt 노드 ID 연결
 - [ ] 백엔드 `LangflowClient.run_stage4_chat` + API 구현
