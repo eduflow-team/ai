@@ -23,6 +23,7 @@
 | 경로 | 설명 |
 |------|------|
 | `docs/stage4-langflow-contract.md` | tweaks·출력·성공 판정 계약 |
+| `docs/stage4-screenshots/playground-easy-clear.png` | EASY Playground 클리어 성공 (PR용) |
 
 ## Notion API (`stage4`)
 
@@ -41,7 +42,7 @@
 
 ## TODO
 
-- [ ] OpenAI 노드 → Ollama EXAONE으로 교체 후 EASY 누설 확인
+- [x] Ollama EXAONE EASY 누설 Playground 확인
 - [ ] NORMAL/HARD Playground 체감 테스트
 - [ ] `flows/stage4-security-chat.json` Export
 - [ ] 노드 이름 안정화 후 `.env` Flow/노드 ID 연결
