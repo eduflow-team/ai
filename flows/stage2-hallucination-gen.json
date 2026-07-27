@@ -141,9 +141,9 @@
         "id": "edge-LanguageModelComponent-Ek4nl-Prompt-fwk9l-error_plan",
         "selected": false,
         "source": "LanguageModelComponent-Ek4nl",
-        "sourceHandle": "text_output",
+        "sourceHandle": "{œdataTypeœ:œLanguageModelComponentœ,œidœ:œLanguageModelComponent-Ek4nlœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}",
         "target": "Prompt-fwk9l",
-        "targetHandle": "error_plan"
+        "targetHandle": "{œfieldNameœ:œerror_planœ,œidœ:œPrompt-fwk9lœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
       },
       {
         "animated": false,
@@ -169,16 +169,16 @@
         "id": "edge-LanguageModelComponent-Ek4nl-CustomComponent-PlanFmt-error_plan",
         "selected": false,
         "source": "LanguageModelComponent-Ek4nl",
-        "sourceHandle": "text_output",
+        "sourceHandle": "{œdataTypeœ:œLanguageModelComponentœ,œidœ:œLanguageModelComponent-Ek4nlœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}",
         "target": "CustomComponent-PlanFmt",
-        "targetHandle": "error_plan"
+        "targetHandle": "{œfieldNameœ:œerror_planœ,œidœ:œCustomComponent-PlanFmtœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
       },
       {
         "animated": false,
         "className": "",
         "data": {
           "sourceHandle": {
-            "dataType": "CustomComponent",
+            "dataType": "PlainTextSanitizer",
             "id": "CustomComponent-33aRa",
             "name": "sanitized_text",
             "output_types": [
@@ -197,16 +197,16 @@
         "id": "edge-CustomComponent-33aRa-CustomComponent-PlanFmt-flawed_ai_response",
         "selected": false,
         "source": "CustomComponent-33aRa",
-        "sourceHandle": "sanitized_text",
+        "sourceHandle": "{œdataTypeœ:œPlainTextSanitizerœ,œidœ:œCustomComponent-33aRaœ,œnameœ:œsanitized_textœ,œoutput_typesœ:[œMessageœ]}",
         "target": "CustomComponent-PlanFmt",
-        "targetHandle": "flawed_ai_response"
+        "targetHandle": "{œfieldNameœ:œflawed_ai_responseœ,œidœ:œCustomComponent-PlanFmtœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
       },
       {
         "animated": false,
         "className": "",
         "data": {
           "sourceHandle": {
-            "dataType": "CustomComponent",
+            "dataType": "Stage2PlanFormatter",
             "id": "CustomComponent-PlanFmt",
             "name": "generated_errors",
             "output_types": [
@@ -225,9 +225,9 @@
         "id": "edge-CustomComponent-PlanFmt-ChatOutput-YlcM3-input_value",
         "selected": false,
         "source": "CustomComponent-PlanFmt",
-        "sourceHandle": "generated_errors",
+        "sourceHandle": "{œdataTypeœ:œStage2PlanFormatterœ,œidœ:œCustomComponent-PlanFmtœ,œnameœ:œgenerated_errorsœ,œoutput_typesœ:[œMessageœ]}",
         "target": "ChatOutput-YlcM3",
-        "targetHandle": "input_value"
+        "targetHandle": "{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-YlcM3œ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
       }
     ],
     "nodes": [
@@ -456,28 +456,6 @@
                 "trace_as_input": true,
                 "type": "prompt",
                 "value": "당신은 중·고등학생 AI 리터러시 교육용 과제를 만드는 AI입니다.\n아래 오류 계획(JSON)을 그대로 반영해, 학생에게 보여줄 AI 답변 본문만 작성합니다.\n\n## [최우선 출력 규칙]\n- 마크다운·서식 기호 금지\n- 평문 한국어만 출력\n- 메타·해설·암시 금지 (\"기록에 없다\", \"틀렸다\", \"오류\" 등)\n- planned_errors의 error_sentence를 답변에 **글자 하나 틀리지 않고 그대로** 포함\n- 계획에 없는 추가 환각 금지\n- 학생용 답변 본문만 출력\n\n## 참고 문서\n{document_text}\n\n## 학생 질문\n{question}\n\n## AI 페르소나\n{persona}\n\n## 허용 환각 유형\n{hallucination_types}\n\n## 오류 계획 (JSON)\n{error_plan}\n\n## 작성 규칙\n- planned_errors 개수 = {expected_error_count}\n- 각 error_sentence는 서로 다른 문장에 배치\n- 페르소나 말투 유지, 6~10문장\n- 정답·근거·오류 유형을 암시하는 문장 금지\n\n## 출력\nplanned_errors를 모두 포함한 학생용 AI 답변 본문만 작성하세요."
-              },
-              "tool_placeholder": {
-                "_input_type": "MessageTextInput",
-                "advanced": true,
-                "display_name": "Tool Placeholder",
-                "dynamic": false,
-                "info": "A placeholder input for tool mode.",
-                "input_types": [
-                  "Message"
-                ],
-                "list": false,
-                "load_from_db": false,
-                "name": "tool_placeholder",
-                "placeholder": "",
-                "required": false,
-                "show": true,
-                "title_case": false,
-                "tool_mode": true,
-                "trace_as_input": true,
-                "trace_as_metadata": true,
-                "type": "str",
-                "value": ""
               },
               "use_double_brackets": {
                 "_input_type": "BoolInput",
@@ -1017,29 +995,7 @@
                 "tool_mode": false,
                 "trace_as_input": true,
                 "type": "prompt",
-                "value": "당신은 AI 리터러시 교육용 Stage 2 오류 계획 설계기입니다.\n학생에게 보여줄 답변을 만들기 전에, 의도적 환각 오류 계획 JSON만 출력하세요.\n\n## 참고 문서\n{document_text}\n\n## 학생 질문\n{question}\n\n## AI 페르소나\n{persona}\n\n## 허용 환각 유형\n{hallucination_types}\n\n## 생성할 오류 개수\n{expected_error_count}\n\n## PDF 청크 후보 (동일 문서)\n{candidate_chunks}\n\n## 이전 검증 피드백 (재시도 시)\n{validation_feedback}\n\n## 환각 유형 정의\n- PERSONA_BIAS: 페르소나의 잘못된 믿음으로 왜곡\n- INFORMATION_FABRICATION: 어떤 근거에도 없는 사실을 새로 생성\n- RETRIEVAL_ERROR: 잘못 검색된 청크(또는 distractor)를 근거로 오류 생성\n\n## 규칙\n- 정확히 {expected_error_count}개의 planned_errors만 생성\n- error_type은 hallucination_types에 포함된 값만 사용\n- error_sentence는 이후 학생용 답변에 그대로 들어갈 완결된 문장\n- correct_sentence, evidence_sentence, hallucination_reason은 참고 문서에 근거\n- RETRIEVAL_ERROR는 retrieved_context를 반드시 포함 (candidate_chunks 또는 synthetic distractor)\n- INFORMATION_FABRICATION은 retrieved_context 없이 가능\n- start_index, end_index는 출력하지 않음 (백엔드가 계산)\n- JSON만 출력 (마크다운·설명 금지)\n\n## 출력 형식\n{{\n  \"planned_errors\": [\n    {{\n      \"error_sentence\": \"string\",\n      \"error_type\": \"RETRIEVAL_ERROR\",\n      \"correct_sentence\": \"string\",\n      \"hallucination_reason\": \"string\",\n      \"evidence_sentence\": \"string\",\n      \"retrieved_context\": \"string\"\n    }}\n  ]\n}}"
-              },
-              "tool_placeholder": {
-                "_input_type": "MessageTextInput",
-                "advanced": true,
-                "display_name": "Tool Placeholder",
-                "dynamic": false,
-                "info": "A placeholder input for tool mode.",
-                "input_types": [
-                  "Message"
-                ],
-                "list": false,
-                "load_from_db": false,
-                "name": "tool_placeholder",
-                "placeholder": "",
-                "required": false,
-                "show": true,
-                "title_case": false,
-                "tool_mode": true,
-                "trace_as_input": true,
-                "trace_as_metadata": true,
-                "type": "str",
-                "value": ""
+                "value": "당신은 AI 리터러시 교육용 Stage 2 오류 계획 설계기입니다.\n학생에게 보여줄 답변을 만들기 전에, 의도적 환각 오류 계획 JSON만 출력하세요.\n\n## 참고 문서\n{document_text}\n\n## 학생 질문\n{question}\n\n## AI 페르소나\n{persona}\n\n## 허용 환각 유형\n{hallucination_types}\n\n## 생성할 오류 개수\n{expected_error_count}\n\n## PDF 청크 후보 (동일 문서)\n{candidate_chunks}\n\n## 이전 검증 피드백 (재시도 시)\n{validation_feedback}\n\n## 환각 유형 정의\n- PERSONA_BIAS: 페르소나의 잘못된 믿음으로 왜곡\n- INFORMATION_FABRICATION: 어떤 근거에도 없는 사실을 새로 생성\n- RETRIEVAL_ERROR: 잘못 검색된 청크(또는 distractor)를 근거로 오류 생성\n\n## 규칙\n- 정확히 {expected_error_count}개의 planned_errors만 생성\n- error_type은 hallucination_types에 포함된 값만 사용\n- error_sentence는 이후 학생용 답변에 그대로 들어갈 완결된 문장\n- correct_sentence, evidence_sentence, hallucination_reason은 참고 문서에 근거\n- RETRIEVAL_ERROR는 retrieved_context와 retrieval_source를 반드시 포함\n- 동일 PDF 후보를 사용하면 retrieval_source는 SAME_DOCUMENT\n- 적절한 동일 PDF 후보가 없어 synthetic distractor를 만들면 retrieval_source는 SYNTHETIC\n- INFORMATION_FABRICATION은 retrieved_context 없이 가능\n- start_index, end_index는 출력하지 않음 (백엔드가 계산)\n- JSON만 출력 (마크다운·설명 금지)\n\n## 출력 형식\n{{\n  \"planned_errors\": [\n    {{\n      \"error_sentence\": \"string\",\n      \"error_type\": \"RETRIEVAL_ERROR\",\n      \"correct_sentence\": \"string\",\n      \"hallucination_reason\": \"string\",\n      \"evidence_sentence\": \"string\",\n      \"retrieved_context\": \"string\",\n      \"retrieval_source\": \"SAME_DOCUMENT\"\n    }}\n  ]\n}}"
               },
               "use_double_brackets": {
                 "_input_type": "BoolInput",
@@ -2811,15 +2767,16 @@
             "beta": false,
             "conditional_paths": [],
             "custom_fields": {},
-            "description": "LLM 출력에서 마크다운 기호(** 등)를 제거합니다.",
+            "description": "오류 계획과 학생용 답변을 generated_errors JSON으로 변환합니다.",
             "display_name": "stage2_plan_formatter",
             "documentation": "",
             "edited": true,
             "field_order": [
-              "input_text"
+              "error_plan",
+              "flawed_ai_response"
             ],
             "frozen": false,
-            "icon": "eraser",
+            "icon": "braces",
             "legacy": false,
             "lf_version": "1.10.0",
             "metadata": {
@@ -2841,12 +2798,12 @@
               {
                 "allows_loop": false,
                 "cache": true,
-                "display_name": "Sanitized Text",
+                "display_name": "Generated Errors JSON",
                 "group_outputs": false,
                 "hidden": null,
                 "loop_types": null,
-                "method": "sanitize",
-                "name": "sanitized_text",
+                "method": "format_errors",
+                "name": "generated_errors",
                 "options": null,
                 "required_inputs": null,
                 "selected": "Message",
@@ -2876,24 +2833,49 @@
                 "show": true,
                 "title_case": false,
                 "type": "code",
-                "value": "import json\nimport re\n\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import MessageInput, Output\nfrom lfx.schema.message import Message\n\n\nclass Stage2PlanFormatter(Component):\n    display_name = \"Stage2 Plan Formatter\"\n    description = \"오류 계획 JSON과 flawed_ai_response를 generated_errors JSON으로 변환합니다.\"\n    icon = \"braces\"\n    name = \"Stage2PlanFormatter\"\n\n    inputs = [\n        MessageInput(\n            name=\"error_plan\",\n            display_name=\"Error Plan JSON\",\n            info=\"OpenAI planner output\",\n        ),\n        MessageInput(\n            name=\"flawed_ai_response\",\n            display_name=\"Flawed AI Response\",\n            info=\"Sanitized student answer\",\n        ),\n    ]\n\n    outputs = [\n        Output(\n            display_name=\"Generated Errors JSON\",\n            name=\"generated_errors\",\n            method=\"format_errors\",\n        ),\n    ]\n\n    def format_errors(self) -> Message:\n        plan_raw = self._text(self.error_plan)\n        plan = json.loads(self._extract_json(plan_raw))\n        errors = plan.get(\"planned_errors\") or plan.get(\"generated_errors\") or []\n        cleaned = []\n        for item in errors:\n            if not isinstance(item, dict):\n                continue\n            cleaned.append(\n                {\n                    \"error_sentence\": item.get(\"error_sentence\", \"\"),\n                    \"error_type\": item.get(\"error_type\", \"\"),\n                    \"correct_sentence\": item.get(\"correct_sentence\", \"\"),\n                    \"hallucination_reason\": item.get(\"hallucination_reason\", \"\"),\n                    \"evidence_sentence\": item.get(\"evidence_sentence\", \"\"),\n                    \"retrieved_context\": item.get(\"retrieved_context\"),\n                    \"retrieval_source\": item.get(\"retrieval_source\"),\n                }\n            )\n        payload = {\"generated_errors\": cleaned}\n        return Message(text=json.dumps(payload, ensure_ascii=False))\n\n    def _text(self, message) -> str:\n        if message is None:\n            return \"\"\n        return getattr(message, \"text\", None) or str(message)\n\n    def _extract_json(self, raw: str) -> str:\n        text = (raw or \"\").strip()\n        if text.startswith(\"```\"):\n            text = text.split(\"\\n\", 1)[-1].rsplit(\"```\", 1)[0].strip()\n        return text\n"
+                "value": "import json\n\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import MessageInput, Output\nfrom lfx.schema.message import Message\n\n\nclass Stage2PlanFormatter(Component):\n    display_name = \"Stage2 Plan Formatter\"\n    description = \"오류 계획 JSON과 flawed_ai_response를 generated_errors JSON으로 변환합니다.\"\n    icon = \"braces\"\n    name = \"Stage2PlanFormatter\"\n\n    inputs = [\n        MessageInput(\n            name=\"error_plan\",\n            display_name=\"Error Plan JSON\",\n            info=\"OpenAI planner output\",\n        ),\n        MessageInput(\n            name=\"flawed_ai_response\",\n            display_name=\"Flawed AI Response\",\n            info=\"Sanitized student answer\",\n        ),\n    ]\n\n    outputs = [\n        Output(\n            display_name=\"Generated Errors JSON\",\n            name=\"generated_errors\",\n            method=\"format_errors\",\n        ),\n    ]\n\n    def format_errors(self) -> Message:\n        plan_raw = self._text(self.error_plan)\n        plan = json.loads(self._extract_json(plan_raw))\n        errors = plan.get(\"planned_errors\") or plan.get(\"generated_errors\") or []\n        cleaned = []\n        for item in errors:\n            if not isinstance(item, dict):\n                continue\n            cleaned.append(\n                {\n                    \"error_sentence\": item.get(\"error_sentence\", \"\"),\n                    \"error_type\": item.get(\"error_type\", \"\"),\n                    \"correct_sentence\": item.get(\"correct_sentence\", \"\"),\n                    \"hallucination_reason\": item.get(\"hallucination_reason\", \"\"),\n                    \"evidence_sentence\": item.get(\"evidence_sentence\", \"\"),\n                    \"retrieved_context\": item.get(\"retrieved_context\"),\n                    \"retrieval_source\": item.get(\"retrieval_source\"),\n                }\n            )\n        payload = {\"generated_errors\": cleaned}\n        return Message(text=json.dumps(payload, ensure_ascii=False))\n\n    def _text(self, message) -> str:\n        if message is None:\n            return \"\"\n        return getattr(message, \"text\", None) or str(message)\n\n    def _extract_json(self, raw: str) -> str:\n        text = (raw or \"\").strip()\n        if text.startswith(\"```\"):\n            text = text.split(\"\\n\", 1)[-1].rsplit(\"```\", 1)[0].strip()\n        return text\n"
               },
-              "input_text": {
+              "error_plan": {
                 "_input_type": "MessageInput",
                 "advanced": false,
-                "display_name": "Input Text",
+                "display_name": "Error Plan JSON",
                 "dynamic": false,
-                "info": "Ollama text_output",
+                "info": "OpenAI planner output",
                 "input_types": [
                   "Message"
                 ],
                 "list": false,
                 "list_add_label": "Add More",
                 "load_from_db": false,
-                "name": "input_text",
+                "name": "error_plan",
                 "override_skip": false,
                 "placeholder": "",
-                "required": false,
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "flawed_ai_response": {
+                "_input_type": "MessageInput",
+                "advanced": false,
+                "display_name": "Flawed AI Response",
+                "dynamic": false,
+                "info": "Sanitized student answer",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "flawed_ai_response",
+                "override_skip": false,
+                "placeholder": "",
+                "required": true,
                 "show": true,
                 "title_case": false,
                 "tool_mode": false,
@@ -2904,11 +2886,13 @@
                 "value": ""
               }
             },
-            "tool_mode": false
+            "tool_mode": false,
+            "name": "Stage2PlanFormatter"
           },
           "showNode": true,
           "type": "Stage2PlanFormatter",
-          "display_name": "stage2_plan_formatter"
+          "display_name": "stage2_plan_formatter",
+          "description": "오류 계획과 학생용 답변을 generated_errors JSON으로 변환합니다."
         },
         "dragging": false,
         "id": "CustomComponent-PlanFmt",

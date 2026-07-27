@@ -33,6 +33,15 @@ def _set_prompt_template(node: dict, *, fields: list[str], template: str) -> Non
     node_data["custom_fields"]["template"] = fields
     node_data["display_name"] = node["data"]["display_name"]
     node_data["template"]["template"]["value"] = template
+    for key in list(node_data["template"]):
+        value = node_data["template"][key]
+        if (
+            key not in {"_type", "code", "template"}
+            and isinstance(value, dict)
+            and value.get("_input_type") == "MessageTextInput"
+            and key not in fields
+        ):
+            del node_data["template"][key]
     for field in fields:
         if field not in node_data["template"]:
             node_data["template"][field] = {
@@ -57,7 +66,6 @@ def _set_prompt_template(node: dict, *, fields: list[str], template: str) -> Non
 
 def _plan_formatter_code() -> str:
     return '''import json
-import re
 
 from lfx.custom.custom_component.component import Component
 from lfx.io import MessageInput, Output
@@ -126,6 +134,125 @@ class Stage2PlanFormatter(Component):
 '''
 
 
+def _formatter_input_template(name: str, display_name: str, info: str) -> dict:
+    return {
+        "_input_type": "MessageInput",
+        "advanced": False,
+        "display_name": display_name,
+        "dynamic": False,
+        "info": info,
+        "input_types": ["Message"],
+        "list": False,
+        "list_add_label": "Add More",
+        "load_from_db": False,
+        "name": name,
+        "override_skip": False,
+        "placeholder": "",
+        "required": True,
+        "show": True,
+        "title_case": False,
+        "tool_mode": False,
+        "trace_as_input": True,
+        "trace_as_metadata": True,
+        "track_in_telemetry": False,
+        "type": "str",
+        "value": "",
+    }
+
+
+def _configure_formatter_node(formatter_node: dict) -> None:
+    node_data = formatter_node["data"]["node"]
+    formatter_node["data"]["description"] = (
+        "오류 계획과 학생용 답변을 generated_errors JSON으로 변환합니다."
+    )
+    node_data["description"] = formatter_node["data"]["description"]
+    node_data["field_order"] = ["error_plan", "flawed_ai_response"]
+    node_data["icon"] = "braces"
+    node_data["name"] = "Stage2PlanFormatter"
+    node_data["outputs"] = [
+        {
+            "allows_loop": False,
+            "cache": True,
+            "display_name": "Generated Errors JSON",
+            "group_outputs": False,
+            "hidden": None,
+            "loop_types": None,
+            "method": "format_errors",
+            "name": "generated_errors",
+            "options": None,
+            "required_inputs": None,
+            "selected": "Message",
+            "tool_mode": True,
+            "types": ["Message"],
+            "value": "__UNDEFINED__",
+        }
+    ]
+    code_field = node_data["template"]["code"]
+    node_data["template"] = {
+        "_type": "Component",
+        "code": code_field,
+        "error_plan": _formatter_input_template(
+            "error_plan",
+            "Error Plan JSON",
+            "OpenAI planner output",
+        ),
+        "flawed_ai_response": _formatter_input_template(
+            "flawed_ai_response",
+            "Flawed AI Response",
+            "Sanitized student answer",
+        ),
+    }
+    node_data["template"]["code"]["value"] = _plan_formatter_code()
+
+
+def _handle_string(data: dict) -> str:
+    serialized = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+    return serialized.replace('"', "œ")
+
+
+def _validate_flow(data: dict) -> None:
+    nodes = data["nodes"]
+    edges = data["edges"]
+    node_ids = [node["id"] for node in nodes]
+    edge_ids = [edge["id"] for edge in edges]
+    if len(node_ids) != len(set(node_ids)):
+        raise ValueError("Duplicate node IDs")
+    if len(edge_ids) != len(set(edge_ids)):
+        raise ValueError("Duplicate edge IDs")
+
+    formatter = _find_node(nodes, "CustomComponent-PlanFmt")["data"]["node"]
+    if formatter["field_order"] != ["error_plan", "flawed_ai_response"]:
+        raise ValueError("Formatter input metadata is stale")
+    formatter_outputs = [
+        (output["name"], output["method"])
+        for output in formatter["outputs"]
+    ]
+    if formatter_outputs != [("generated_errors", "format_errors")]:
+        raise ValueError("Formatter output metadata is stale")
+    compile(formatter["template"]["code"]["value"], "<stage2_plan_formatter>", "exec")
+
+    expected_edges = {
+        ("LanguageModelComponent-Ek4nl", "Prompt-fwk9l", "error_plan"),
+        ("LanguageModelComponent-Ek4nl", "CustomComponent-PlanFmt", "error_plan"),
+        (
+            "CustomComponent-33aRa",
+            "CustomComponent-PlanFmt",
+            "flawed_ai_response",
+        ),
+        ("CustomComponent-PlanFmt", "ChatOutput-YlcM3", "input_value"),
+    }
+    actual_edges = {
+        (
+            edge["source"],
+            edge["target"],
+            edge["data"]["targetHandle"]["fieldName"],
+        )
+        for edge in edges
+    }
+    if not expected_edges.issubset(actual_edges):
+        raise ValueError("Plan-first edges are incomplete")
+
+
 def main() -> None:
     flow = json.loads(FLOW_PATH.read_text(encoding="utf-8"))
     data = flow["data"]
@@ -168,6 +295,9 @@ def main() -> None:
         template=gen_prompt,
     )
 
+    nodes[:] = [
+        node for node in nodes if node.get("id") != "CustomComponent-PlanFmt"
+    ]
     formatter_node = copy.deepcopy(sanitizer_node)
     formatter_node["id"] = "CustomComponent-PlanFmt"
     formatter_node["data"]["id"] = "CustomComponent-PlanFmt"
@@ -181,12 +311,15 @@ def main() -> None:
         "x": sanitizer_node["position"]["x"] + 420,
         "y": sanitizer_node["position"]["y"] + 180,
     }
-    formatter_node["data"]["node"]["template"]["code"]["value"] = _plan_formatter_code()
+    _configure_formatter_node(formatter_node)
     nodes.append(formatter_node)
 
     data["edges"] = [
         edge
         for edge in edges
+        if not str(edge.get("id", "")).startswith("edge-")
+        and edge.get("source") != "CustomComponent-PlanFmt"
+        and edge.get("target") != "CustomComponent-PlanFmt"
         if not (
             edge.get("source") == "CustomComponent-33aRa"
             and edge.get("target") == "Prompt-We0Ob"
@@ -197,54 +330,66 @@ def main() -> None:
         )
     ]
 
-    def _edge(source: str, source_handle: str, target: str, target_field: str) -> dict:
+    def _edge(
+        source: str,
+        source_type: str,
+        source_handle: str,
+        target: str,
+        target_field: str,
+    ) -> dict:
+        source_data = {
+            "dataType": source_type,
+            "id": source,
+            "name": source_handle,
+            "output_types": ["Message"],
+        }
+        target_data = {
+            "fieldName": target_field,
+            "id": target,
+            "inputTypes": ["Message"],
+            "type": "str",
+        }
         return {
             "animated": False,
             "className": "",
             "data": {
-                "sourceHandle": {
-                    "dataType": source.split("-")[0],
-                    "id": source,
-                    "name": source_handle,
-                    "output_types": ["Message"],
-                },
-                "targetHandle": {
-                    "fieldName": target_field,
-                    "id": target,
-                    "inputTypes": ["Message"],
-                    "type": "str",
-                },
+                "sourceHandle": source_data,
+                "targetHandle": target_data,
             },
             "id": f"edge-{source}-{target}-{target_field}",
             "selected": False,
             "source": source,
-            "sourceHandle": source_handle,
+            "sourceHandle": _handle_string(source_data),
             "target": target,
-            "targetHandle": target_field,
+            "targetHandle": _handle_string(target_data),
         }
 
     data["edges"].extend(
         [
             _edge(
                 "LanguageModelComponent-Ek4nl",
+                "LanguageModelComponent",
                 "text_output",
                 "Prompt-fwk9l",
                 "error_plan",
             ),
             _edge(
                 "LanguageModelComponent-Ek4nl",
+                "LanguageModelComponent",
                 "text_output",
                 "CustomComponent-PlanFmt",
                 "error_plan",
             ),
             _edge(
                 "CustomComponent-33aRa",
+                "PlainTextSanitizer",
                 "sanitized_text",
                 "CustomComponent-PlanFmt",
                 "flawed_ai_response",
             ),
             _edge(
                 "CustomComponent-PlanFmt",
+                "Stage2PlanFormatter",
                 "generated_errors",
                 "ChatOutput-YlcM3",
                 "input_value",
@@ -252,6 +397,7 @@ def main() -> None:
         ]
     )
 
+    _validate_flow(data)
     FLOW_PATH.write_text(
         json.dumps(flow, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",

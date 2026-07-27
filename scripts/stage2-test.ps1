@@ -25,27 +25,51 @@ $documentText = @"
 
 $sharedTweaks = @{
     document_text        = $documentText
+    question             = "장영실의 발명품에 대해 설명해줘."
+    persona              = "장영실이 연을 만들었다고 믿고, 자격루를 서양 기술이라고 주장하는 선생님"
     hallucination_types  = "RETRIEVAL_ERROR, PERSONA_BIAS"
     expected_error_count = "2"
 }
+
+$candidateChunks = @{
+    strategy                   = "SAME_DOCUMENT_THEN_SYNTHETIC"
+    candidate_chunks           = @(
+        @{
+            chunk_id          = "chunk-0"
+            source_index      = 0
+            text              = $documentText
+            relevance_score   = 0.8
+            selection_bucket  = "TOP_RELEVANCE"
+        }
+    )
+    synthetic_fallback_allowed = $true
+} | ConvertTo-Json -Depth 6 -Compress
 
 $body = @{
     input_value = ""
     session_id  = "stage2-test"
     tweaks      = @{
         "Prompt-fwk9l" = @{
-            document_text        = $documentText
-            question             = "장영실의 발명품에 대해 설명해줘."
-            persona              = "장영실이 연을 만들었다고 믿고, 자격루를 서양 기술이라고 주장하는 선생님"
+            document_text        = $sharedTweaks.document_text
+            question             = $sharedTweaks.question
+            persona              = $sharedTweaks.persona
             hallucination_types  = $sharedTweaks.hallucination_types
             expected_error_count = $sharedTweaks.expected_error_count
         }
-        "Prompt-We0Ob" = $sharedTweaks
+        "Prompt-We0Ob" = @{
+            document_text        = $sharedTweaks.document_text
+            question             = $sharedTweaks.question
+            persona              = $sharedTweaks.persona
+            hallucination_types  = $sharedTweaks.hallucination_types
+            expected_error_count = $sharedTweaks.expected_error_count
+            candidate_chunks     = $candidateChunks
+            validation_feedback  = ""
+        }
     }
 } | ConvertTo-Json -Depth 6
 
 Write-Host "POST $LangflowUrl/api/v1/run/$FlowId"
-Write-Host "2-stage pipeline: Ollama (gen) + OpenAI (extract)"
+Write-Host "plan-first pipeline: OpenAI planner + Ollama generation + formatter"
 
 try {
     $response = Invoke-RestMethod `

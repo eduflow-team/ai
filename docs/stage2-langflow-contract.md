@@ -104,7 +104,8 @@ error_plan_prompt → OpenAI gpt-4o-mini → error_plan
       "correct_sentence": "string",
       "hallucination_reason": "string",
       "evidence_sentence": "string",
-      "retrieved_context": "string"
+      "retrieved_context": "string",
+      "retrieval_source": "SAME_DOCUMENT"
     }
   ]
 }
@@ -112,6 +113,7 @@ error_plan_prompt → OpenAI gpt-4o-mini → error_plan
 
 - `start_index` / `end_index`는 **출력하지 않음** (백엔드 계산)
 - `RETRIEVAL_ERROR`는 `retrieved_context` 필수 (백엔드 validator)
+- `retrieval_source`는 `SAME_DOCUMENT` 또는 `SYNTHETIC`
 
 ---
 

@@ -59,7 +59,9 @@
 - error_type은 hallucination_types에 포함된 값만 사용
 - error_sentence는 이후 학생용 답변에 그대로 들어갈 완결된 문장
 - correct_sentence, evidence_sentence, hallucination_reason은 참고 문서에 근거
-- RETRIEVAL_ERROR는 retrieved_context를 반드시 포함 (candidate_chunks 또는 synthetic distractor)
+- RETRIEVAL_ERROR는 retrieved_context와 retrieval_source를 반드시 포함
+- 동일 PDF 후보를 사용하면 retrieval_source는 SAME_DOCUMENT
+- 적절한 동일 PDF 후보가 없어 synthetic distractor를 만들면 retrieval_source는 SYNTHETIC
 - INFORMATION_FABRICATION은 retrieved_context 없이 가능
 - start_index, end_index는 출력하지 않음 (백엔드가 계산)
 - JSON만 출력 (마크다운·설명 금지)
@@ -73,7 +75,8 @@
       "correct_sentence": "string",
       "hallucination_reason": "string",
       "evidence_sentence": "string",
-      "retrieved_context": "string"
+      "retrieved_context": "string",
+      "retrieval_source": "SAME_DOCUMENT"
     }}
   ]
 }}
