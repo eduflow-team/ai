@@ -76,7 +76,7 @@ try {
         -Uri "$LangflowUrl/api/v1/run/$FlowId" `
         -Method POST `
         -Headers $headers `
-        -Body $body `
+        -Body ([System.Text.Encoding]::UTF8.GetBytes($body)) `
         -TimeoutSec 180
     $response | ConvertTo-Json -Depth 12
 } catch {

@@ -57,7 +57,10 @@
 ## 규칙
 - 정확히 {expected_error_count}개의 planned_errors만 생성
 - error_type은 hallucination_types에 포함된 값만 사용
-- error_sentence는 이후 학생용 답변에 그대로 들어갈 완결된 문장
+- error_sentence는 이후 학생용 답변에 그대로 들어갈 짧고 완결된 문장
+- error_sentence 하나에는 틀린 주장 하나만 포함 (서로 다른 오류를 한 문장에 합치지 않음)
+- error_sentence는 15~50자 정도의 단순한 한국어 문장으로 작성
+- hallucination_types가 여러 개면 각 유형을 서로 다른 planned_error에 배정
 - correct_sentence, evidence_sentence, hallucination_reason은 참고 문서에 근거
 - RETRIEVAL_ERROR는 retrieved_context와 retrieval_source를 반드시 포함
 - 동일 PDF 후보를 사용하면 retrieval_source는 SAME_DOCUMENT

@@ -93,6 +93,11 @@ class Stage2PlanFormatter(Component):
 
     outputs = [
         Output(
+            display_name="Compliant AI Response",
+            name="compliant_response",
+            method="format_response",
+        ),
+        Output(
             display_name="Generated Errors JSON",
             name="generated_errors",
             method="format_errors",
@@ -120,6 +125,22 @@ class Stage2PlanFormatter(Component):
             )
         payload = {"generated_errors": cleaned}
         return Message(text=json.dumps(payload, ensure_ascii=False))
+
+    def format_response(self) -> Message:
+        plan_raw = self._text(self.error_plan)
+        plan = json.loads(self._extract_json(plan_raw))
+        errors = plan.get("planned_errors") or plan.get("generated_errors") or []
+        response = self._text(self.flawed_ai_response).strip()
+        for index, item in enumerate(errors, start=1):
+            if not isinstance(item, dict):
+                continue
+            sentence = str(item.get("error_sentence") or "").strip()
+            marker = f"[[ERROR_{index}]]"
+            if marker in response:
+                response = response.replace(marker, sentence, 1)
+            elif sentence and sentence not in response:
+                response = f"{response} {sentence}".strip()
+        return Message(text=response)
 
     def _text(self, message) -> str:
         if message is None:
@@ -170,6 +191,22 @@ def _configure_formatter_node(formatter_node: dict) -> None:
     node_data["icon"] = "braces"
     node_data["name"] = "Stage2PlanFormatter"
     node_data["outputs"] = [
+        {
+            "allows_loop": False,
+            "cache": True,
+            "display_name": "Compliant AI Response",
+            "group_outputs": False,
+            "hidden": None,
+            "loop_types": None,
+            "method": "format_response",
+            "name": "compliant_response",
+            "options": None,
+            "required_inputs": None,
+            "selected": "Message",
+            "tool_mode": True,
+            "types": ["Message"],
+            "value": "__UNDEFINED__",
+        },
         {
             "allows_loop": False,
             "cache": True,
@@ -227,7 +264,10 @@ def _validate_flow(data: dict) -> None:
         (output["name"], output["method"])
         for output in formatter["outputs"]
     ]
-    if formatter_outputs != [("generated_errors", "format_errors")]:
+    if formatter_outputs != [
+        ("compliant_response", "format_response"),
+        ("generated_errors", "format_errors"),
+    ]:
         raise ValueError("Formatter output metadata is stale")
     compile(formatter["template"]["code"]["value"], "<stage2_plan_formatter>", "exec")
 
@@ -239,6 +279,7 @@ def _validate_flow(data: dict) -> None:
             "CustomComponent-PlanFmt",
             "flawed_ai_response",
         ),
+        ("CustomComponent-PlanFmt", "ChatOutput-IC6oV", "input_value"),
         ("CustomComponent-PlanFmt", "ChatOutput-YlcM3", "input_value"),
     }
     actual_edges = {
@@ -322,7 +363,7 @@ def main() -> None:
         and edge.get("target") != "CustomComponent-PlanFmt"
         if not (
             edge.get("source") == "CustomComponent-33aRa"
-            and edge.get("target") == "Prompt-We0Ob"
+            and edge.get("target") in {"Prompt-We0Ob", "ChatOutput-IC6oV"}
         )
         and not (
             edge.get("source") == "LanguageModelComponent-Ek4nl"
@@ -386,6 +427,13 @@ def main() -> None:
                 "sanitized_text",
                 "CustomComponent-PlanFmt",
                 "flawed_ai_response",
+            ),
+            _edge(
+                "CustomComponent-PlanFmt",
+                "Stage2PlanFormatter",
+                "compliant_response",
+                "ChatOutput-IC6oV",
+                "input_value",
             ),
             _edge(
                 "CustomComponent-PlanFmt",

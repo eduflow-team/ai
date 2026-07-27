@@ -20,11 +20,11 @@ Notion **시나리오2** · **개발 단계** 기준.
 ```
 error_plan_prompt → OpenAI gpt-4o-mini → error_plan
                                               ↓ (wire)
-                    hallucination_gen_prompt → Ollama EXAONE → Sanitizer → flawed_ai_response
-                                              ↓ (wire)              ↓ (wire)
-                              stage2_plan_formatter ← error_plan + flawed_ai_response
-                                              ↓
-                                    generated_errors
+                    hallucination_gen_prompt → Ollama EXAONE → Sanitizer
+                                              ↓ (wire)          ↓ (wire)
+                              stage2_plan_formatter ← error_plan + 슬롯 포함 답변
+                                      ↓                         ↓
+                          flawed_ai_response             generated_errors
 ```
 
 | 노드 ID | Display Name | 역할 |
@@ -35,7 +35,7 @@ error_plan_prompt → OpenAI gpt-4o-mini → error_plan
 | `LanguageModelComponent-grQBn` | Ollama EXAONE (생성) | 학생용 답변 |
 | `CustomComponent-33aRa` | Plain Text Sanitizer | 마크다운 제거 |
 | `ChatOutput-IC6oV` | flawed_ai_response | 학생용 AI 답변 |
-| `CustomComponent-PlanFmt` | stage2_plan_formatter | plan → `generated_errors` JSON |
+| `CustomComponent-PlanFmt` | stage2_plan_formatter | 오류 슬롯 치환 + `generated_errors` JSON |
 | `ChatOutput-YlcM3` | generated_errors | 오류 메타 JSON |
 
 > **tweaks 키 = 노드 ID.** Import 후 Langflow **API 탭**에서 재확인.
