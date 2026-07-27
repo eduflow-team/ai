@@ -6,13 +6,14 @@
 
 | 파일 | 상태 | 용도 |
 |------|------|------|
-| `hallucination-gen.md` | ✅ | 1차 Ollama 프롬프트 (`Prompt-fwk9l`) |
-| `error-extraction.md` | ✅ | 2차 OpenAI 프롬프트 (`Prompt-We0Ob`) |
+| `error-plan.md` | ✅ v2 | OpenAI Planner (`Prompt-We0Ob`) |
+| `hallucination-gen.md` | ✅ v2 | EXAONE 생성 (`Prompt-fwk9l`) |
+| `error-extraction.md` | ⚠️ deprecated | v1 사후 추출 (v2 미사용) |
 
 ## Flow
 
-- `flows/stage2-hallucination-gen.json` — **7노드** UI 튜닝본 (Ollama + Sanitizer + OpenAI)
-- 수정: Langflow UI Export → 위 JSON 덮어쓰기
+- `flows/stage2-hallucination-gen.json` — **plan-first v2** (Planner + EXAONE + Plan Formatter)
+- 수정: `python scripts/patch-stage2-flow-plan-first.py` 또는 Langflow UI Export
 
 ## 환각 타입 (Notion API 기준)
 

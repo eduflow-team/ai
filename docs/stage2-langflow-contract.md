@@ -1,339 +1,148 @@
-# Stage 2 Langflow ↔ Backend 연동 계약
+# Stage 2 Langflow ↔ Backend 연동 계약 (plan-first v2)
 
-
-
-Notion **시나리오2** · **개발 단계** 기준. 2단계 파이프라인: Ollama 생성 + OpenAI 구조화.
-
-
+Notion **시나리오2** · **개발 단계** 기준.  
+2단계 파이프라인: **OpenAI 오류 계획 → Ollama 답변 생성 → Plan Formatter JSON**.
 
 ## Langflow가 담당하는 범위
 
-
-
 | Notion 단계 | 내용 |
-
 |-------------|------|
-
-| 5 | 문서 + 페르소나 기반 AI 첫 답변 생성 |
-
-| 6 | 의도적 오류 포함 |
-
-| 7 (일부) | `generated_errors[]` 메타데이터 (채점·DB용) |
-
-
+| 5 | 문서 + 페르소나 + 청크 후보 기반 **오류 계획** 생성 |
+| 6 | 계획의 `error_sentence`를 그대로 포함한 AI 답변 생성 |
+| 7 (일부) | `generated_errors[]` 메타데이터 (Plan Formatter 출력) |
 
 학생 하이라이트·채점(8~21)은 **백엔드** 담당.
 
-
-
 ---
 
-
-
-## Flow 구조 (7 functional nodes)
-
-
+## Flow 구조 (8 functional nodes)
 
 ```
-
-hallucination_gen_prompt → Ollama EXAONE → Plain Text Sanitizer → flawed_ai_response
-
+error_plan_prompt → OpenAI gpt-4o-mini → error_plan
                                               ↓ (wire)
-
-                    error_extraction_prompt → OpenAI → generated_errors
-
+                    hallucination_gen_prompt → Ollama EXAONE → Sanitizer → flawed_ai_response
+                                              ↓ (wire)              ↓ (wire)
+                              stage2_plan_formatter ← error_plan + flawed_ai_response
+                                              ↓
+                                    generated_errors
 ```
-
-
 
 | 노드 ID | Display Name | 역할 |
-
 |---------|--------------|------|
-
-| `Prompt-fwk9l` | hallucination_gen_prompt | 1차 프롬프트 + 교사 입력 |
-
-| `LanguageModelComponent-grQBn` | Ollama EXAONE (생성) | 의도적 환각 답변 |
-
+| `Prompt-We0Ob` | error_plan_prompt | OpenAI 오류 계획 JSON |
+| `LanguageModelComponent-Ek4nl` | OpenAI (Planner) | `planned_errors[]` 생성 |
+| `Prompt-fwk9l` | hallucination_gen_prompt | EXAONE 생성 프롬프트 |
+| `LanguageModelComponent-grQBn` | Ollama EXAONE (생성) | 학생용 답변 |
 | `CustomComponent-33aRa` | Plain Text Sanitizer | 마크다운 제거 |
-
 | `ChatOutput-IC6oV` | flawed_ai_response | 학생용 AI 답변 |
-
-| `Prompt-We0Ob` | error_extraction_prompt | 2차 오류 추출 프롬프트 |
-
-| `LanguageModelComponent-Ek4nl` | OpenAI (오류 추출) | JSON 구조화 |
-
+| `CustomComponent-PlanFmt` | stage2_plan_formatter | plan → `generated_errors` JSON |
 | `ChatOutput-YlcM3` | generated_errors | 오류 메타 JSON |
 
-> **tweaks 키 = 노드 ID.** 위 ID는 `flows/stage2-hallucination-gen.json` (UI Export) 기준. Re-export 시 바뀔 수 있으므로 Import 후 Langflow **API 탭**에서 확인.
-
-
+> **tweaks 키 = 노드 ID.** Import 후 Langflow **API 탭**에서 재확인.
 
 ---
-
-
-
-## Import 후 필수 설정
-
-
-
-### Ollama (`LanguageModelComponent-grQBn`)
-
-- Provider: **Ollama**
-
-- Model: `exaone3.5:7.8b`
-
-- Ollama API URL: `http://host.docker.internal:11434`
-
-- Temperature: `0.85`
-
-
-
-### OpenAI (`LanguageModelComponent-Ek4nl`)
-
-- Provider: **OpenAI**
-
-- Model: `gpt-4o-mini`
-
-- Langflow **Settings → OpenAI API Key** 설정
-
-- Temperature: `0.2`
-
-
-
----
-
-
 
 ## 입력 (tweaks)
 
-
-
 | 노드 | 키 | 타입 | 출처 |
-
 |------|-----|------|------|
-
-| `Prompt-fwk9l` | `document_text` | string | `documents.raw_text` |
-
-| `Prompt-fwk9l` | `question` | string | 교사 입력 |
-
-| `Prompt-fwk9l` | `persona` | string | 교사 입력 |
-
-| `Prompt-fwk9l` | `hallucination_types` | string | 쉼표 구분 enum |
-
-| `Prompt-fwk9l` | `expected_error_count` | string | `"2"` 등 |
-
-| `Prompt-We0Ob` | `document_text` | string | 동일 (근거 추출용) |
-
-| `Prompt-We0Ob` | `hallucination_types` | string | 동일 |
-
-| `Prompt-We0Ob` | `expected_error_count` | string | 동일 |
-
-
-
-> `flawed_ai_response`는 **와이어**로 자동 주입. tweaks 불필요.
-
-
+| `Prompt-We0Ob` | `document_text` | string | `documents.raw_text` |
+| `Prompt-We0Ob` | `question` | string | 교사 입력 |
+| `Prompt-We0Ob` | `persona` | string | 교사 입력 |
+| `Prompt-We0Ob` | `hallucination_types` | string | 쉼표 구분 enum |
+| `Prompt-We0Ob` | `expected_error_count` | string | `"2"` 등 |
+| `Prompt-We0Ob` | `candidate_chunks` | string | JSON (`Stage2RetrievalInput`) |
+| `Prompt-We0Ob` | `validation_feedback` | string | 재시도 시 검증 코드 (8번 이후) |
+| `Prompt-fwk9l` | `document_text` ~ `expected_error_count` | string | 동일 |
+| `Prompt-fwk9l` | `error_plan` | string | **와이어** (Planner 출력) |
 
 ### 예시 payload
 
-
-
 ```json
-
 {
-
   "input_value": "",
-
   "tweaks": {
-
-    "Prompt-fwk9l": {
-
-      "document_text": "장영실은 세종 대에 자격루와 측우기를 발명한...",
-
-      "question": "장영실의 발명품에 대해 설명해줘.",
-
-      "persona": "장영실이 연을 만들었다고 믿고, 자격루를 서양 기술이라고 주장하는 선생님",
-
-      "hallucination_types": "RETRIEVAL_ERROR, PERSONA_BIAS",
-
-      "expected_error_count": "2"
-
-    },
-
     "Prompt-We0Ob": {
-
       "document_text": "장영실은 세종 대에 자격루와 측우기를 발명한...",
-
+      "question": "장영실의 발명품에 대해 설명해줘.",
+      "persona": "장영실이 연을 만들었다고 믿고...",
       "hallucination_types": "RETRIEVAL_ERROR, PERSONA_BIAS",
-
+      "expected_error_count": "2",
+      "candidate_chunks": "{\"strategy\":\"SAME_DOCUMENT_THEN_SYNTHETIC\",\"candidate_chunks\":[],\"synthetic_fallback_allowed\":true}",
+      "validation_feedback": ""
+    },
+    "Prompt-fwk9l": {
+      "document_text": "...",
+      "question": "...",
+      "persona": "...",
+      "hallucination_types": "RETRIEVAL_ERROR, PERSONA_BIAS",
       "expected_error_count": "2"
-
     }
-
   }
-
 }
-
 ```
 
-
-
 ---
-
-
 
 ## 출력
 
-
-
 ### Must
 
-
-
 | 키 | 출처 노드 | 설명 |
-
 |----|-----------|------|
-
 | `flawed_ai_response` | `ChatOutput-IC6oV` | 학생에게 보여줄 AI 답변 |
+| `generated_errors` | `ChatOutput-YlcM3` | JSON (`planned_errors` → formatter) |
 
-| `generated_errors` | `ChatOutput-YlcM3` | JSON 문자열 또는 파싱된 객체 |
-
-
+### Planner JSON (중간)
 
 ```json
-
 {
-
-  "flawed_ai_response": "조선시대 최고의 과학자 장영실은...",
-
-  "generated_errors": [
-
+  "planned_errors": [
     {
-
-      "error_sentence": "장영실은 연을 발명했습니다.",
-
-      "error_type": "PERSONA_BIAS",
-
-      "start_index": 12,
-
-      "end_index": 28,
-
-      "correct_sentence": "장영실의 대표 발명은 자격루와 측우기입니다.",
-
-      "hallucination_reason": "페르소나 편향으로 참고 문서에 없는 연 발명을 사실처럼 서술",
-
-      "evidence_sentence": "자격루는 물의 흐름을 이용해 시간을 알리는 자동 물시계이고..."
-
+      "error_sentence": "string",
+      "error_type": "RETRIEVAL_ERROR",
+      "correct_sentence": "string",
+      "hallucination_reason": "string",
+      "evidence_sentence": "string",
+      "retrieved_context": "string"
     }
-
   ]
-
 }
-
 ```
 
-
-
-Langflow run 응답에서는 **출력 노드별로** 텍스트가 분리되어 옵니다. 백엔드 `LangflowClient`가 두 Chat Output을 파싱해 위 형태로 합칩니다.
-
-
+- `start_index` / `end_index`는 **출력하지 않음** (백엔드 계산)
+- `RETRIEVAL_ERROR`는 `retrieved_context` 필수 (백엔드 validator)
 
 ---
 
-
-
-## 백엔드 DB 매핑
-
-
-
-| Langflow / API | DB 테이블.컬럼 |
-
-|----------------|----------------|
-
-| `flawed_ai_response` | `stage2_assignment_details.hallucinated_ai_answer` |
-
-| `generated_errors[]` | `stage2_error_answers` 행들 |
-
-| `document_text` | `documents.raw_text` |
-
-| `expected_error_count` | `stage2_assignment_details.expected_error_count` |
-
-| `persona` | `stage2_assignment_details.persona` |
-
-| `hallucination_types` | `stage2_assignment_details.hallucination_types` (JSON) |
-
-
-
----
-
-
-
-## 백엔드 `.env`
-
-
+## 백엔드 `.env` (8번 연동 시)
 
 ```env
-
-LANGFLOW_URL=http://localhost:7860
-
-LANGFLOW_API_KEY=
-
 LANGFLOW_STAGE2_FLOW_ID=
-
+LANGFLOW_STAGE2_GEN_PROMPT_NODE_ID=Prompt-fwk9l
+LANGFLOW_STAGE2_EXT_PROMPT_NODE_ID=Prompt-We0Ob
 ```
 
-
-
----
-
-
-
-## API 응답 (교사 과제 생성)
-
-
-
-`POST /api/v1/teacher/assignments/step2` → 201
-
-
-
-```json
-
-{
-
-  "assignment_id": 201,
-
-  "question": "장영실의 발명품에 대해 설명해줘.",
-
-  "flawed_ai_response": "...",
-
-  "expected_error_count": 2,
-
-  "generated_errors": []
-
-}
-
-```
-
-
+`EXT` 노드 ID는 planner(`Prompt-We0Ob`)를 가리킨다.
 
 ---
-
-
 
 ## 프롬프트 소스
 
-
-
 | 파일 | 노드 |
-
 |------|------|
-
+| `prompts/stage2/error-plan.md` | `Prompt-We0Ob` |
 | `prompts/stage2/hallucination-gen.md` | `Prompt-fwk9l` |
 
-| `prompts/stage2/error-extraction.md` | `Prompt-We0Ob` |
+동기화: `python scripts/patch-stage2-flow-plan-first.py` 또는 Langflow UI Export.
 
+---
 
+## v1 → v2 변경 요약
 
-동기화: Langflow UI Export → `flows/stage2-hallucination-gen.json` 덮어쓰기
-
-
+| v1 | v2 |
+|----|-----|
+| EXAONE 먼저 생성 | OpenAI **오류 계획** 먼저 |
+| OpenAI 사후 추출 | Plan Formatter (LLM 없음) |
+| `start_index` LLM 생성 | 백엔드 계산 |
+| 청크 후보 없음 | `candidate_chunks` 입력 |
