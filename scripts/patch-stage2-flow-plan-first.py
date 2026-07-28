@@ -66,6 +66,7 @@ def _set_prompt_template(node: dict, *, fields: list[str], template: str) -> Non
 
 def _plan_formatter_code() -> str:
     return '''import json
+import re
 
 from lfx.custom.custom_component.component import Component
 from lfx.io import MessageInput, Output
@@ -130,17 +131,26 @@ class Stage2PlanFormatter(Component):
         plan_raw = self._text(self.error_plan)
         plan = json.loads(self._extract_json(plan_raw))
         errors = plan.get("planned_errors") or plan.get("generated_errors") or []
-        response = self._text(self.flawed_ai_response).strip()
+        response = str(plan.get("response_template") or "").strip()
+        if not response:
+            response = self._text(self.flawed_ai_response).strip()
         for index, item in enumerate(errors, start=1):
             if not isinstance(item, dict):
                 continue
             sentence = str(item.get("error_sentence") or "").strip()
-            marker = f"[[ERROR_{index}]]"
-            if marker in response:
-                response = response.replace(marker, sentence, 1)
-            elif sentence and sentence not in response:
-                response = f"{response} {sentence}".strip()
+            marker_pattern = self._marker_pattern(index)
+            response = marker_pattern.sub(
+                lambda _: sentence,
+                response,
+                count=1,
+            )
         return Message(text=response)
+
+    def _marker_pattern(self, index: int):
+        return re.compile(
+            rf"\\[\\[\\s*ERROR_?{index}\\s*\\]\\]",
+            re.IGNORECASE,
+        )
 
     def _text(self, message) -> str:
         if message is None:
