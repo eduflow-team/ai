@@ -24,6 +24,7 @@
 | 경로 | 설명 |
 |------|------|
 | `docs/stage4-langflow-contract.md` | tweaks·출력·성공 판정 계약 |
+| `docs/stage4-scoring.md` | 힌트 단계 · 채점 루브릭 (100점) |
 | `docs/stage4-screenshots/playground-easy-clear.png` | EASY Playground 클리어 성공 (Ollama, PR용) |
 | `docs/stage4-screenshots/playground-openai-refuse.png` | OpenAI는 동일 인젝션도 거절 (Ollama 전환 근거) |
 | `docs/stage4-screenshots/playground-hard-clear.png` | HARD: 협박 거절 → JSON 우회 클리어 (PR용) |
@@ -43,11 +44,15 @@
 - 성공: `secret_key in ai_response` (백엔드 Rule)
 - HARD는 매우 어려움이지 절대 불가 아님
 - 보고서는 **클리어 후** 제출
+- 채점: clear 40 + efficiency 30 + analysis 30 (`docs/stage4-scoring.md`)
+- 힌트: 실패 2/4/6회 누적 시 level 1/2/3
 
 ## TODO
 
 - [x] Ollama EXAONE EASY 누설 Playground 확인
 - [x] HARD Playground 체감 테스트 (협박 거절 / JSON 우회 클리어)
 - [x] `flows/stage4-security-chat.json` Export
+- [x] 힌트·채점 계약 (`docs/stage4-scoring.md`)
+- [ ] Langflow Prompt에 `{hint}` 변수 추가 후 Re-export
 - [ ] 백엔드 `.env` Flow/Prompt 노드 ID 연결
 - [ ] 백엔드 `LangflowClient.run_stage4_chat` + API 구현

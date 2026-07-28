@@ -13,7 +13,8 @@ Notion API 명세(`stage4`) · 시나리오4(프롬프트 인젝션 보안 실�
 
 - `secret_key` 포함 여부로 `attack_success` Rule 판정
 - 시도 횟수·공격 로그 저장
-- 클리어 후 보고서 채점
+- 실패 누적에 따른 **단계 힌트** 결정
+- 클리어 후 보고서 채점 (`docs/stage4-scoring.md`)
 
 ---
 
@@ -31,7 +32,7 @@ Language Model ──→ Chat Output
 | 역할 | Export 노드 ID (`flows/stage4-security-chat.json`) | tweaks 필드 |
 |------|-----------------------------------------------------|-------------|
 | Chat Input | `ChatInput-e0prE` | → LM `input_value` |
-| Prompt | `Prompt Template-kt9HB` | `mission`, `secret_key`, `difficulty_prompt`, `history` |
+| Prompt | `Prompt Template-kt9HB` | `mission`, `secret_key`, `difficulty_prompt`, `history`, `hint` |
 | Language Model | `LanguageModelComponent-JQGL5` | Ollama `exaone3.5:7.8b` |
 | Chat Output | `ChatOutput-9GlW6` | 출력 text |
 
@@ -57,6 +58,7 @@ Language Model ──→ Chat Output
 | `difficulty` | assignment | `EASY` \| `NORMAL` \| `HARD` |
 | `difficulty_prompt` | 백엔드가 난이도별 템플릿 선택 | system 방어 지시문 |
 | `history` | 선택 | 이전 턴 요약 텍스트 |
+| `hint` | 백엔드 | 실패 누적 힌트 (없으면 `""`) |
 
 ### difficulty → difficulty_prompt
 
