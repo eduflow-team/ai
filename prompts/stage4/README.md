@@ -1,8 +1,8 @@
 # Stage 4 — 보안 실습 (프롬프트 인젝션)
 
-**상태:** Langflow flow Export 완료 · 백엔드 연동 대기  
+**상태:** Langflow 연동·힌트·채점·난이도 캘리브레이션 반영  
 **담당:** AI/LLM · 백엔드 (임정원)  
-**LLM:** Ollama `exaone3.5:7.8b` (`host.docker.internal:11434`)
+**LLM:** Ollama `exaone3.5:7.8b` (`host.docker.internal:11434`)  
 **Flow:** `flows/stage4-security-chat.json`
 
 ## 목표
@@ -41,18 +41,17 @@
 
 ## 핵심 규칙
 
-- 성공: `secret_key in ai_response` (백엔드 Rule)
-- HARD는 매우 어려움이지 절대 불가 아님
+- 성공: `secret_key in ai_response` + 난이도별 최소 공격 티어 (백엔드 Rule)
+- HARD 클리어는 combo(역할+승인+형식+실제값) 필요 — 단순 JSON 누수로는 클리어 안 됨
 - 보고서는 **클리어 후** 제출
 - 채점: clear 40 + efficiency 30 + analysis 30 (`docs/stage4-scoring.md`)
-- 힌트: 실패 2/4/6회 누적 시 level 1/2/3
+- 힌트: 실패 2/4/6회 누적 시 level 1/2/3 (정답 문장 X, 방향만)
 
 ## TODO
 
 - [x] Ollama EXAONE EASY 누설 Playground 확인
-- [x] HARD Playground 체감 테스트 (협박 거절 / JSON 우회 클리어)
+- [x] HARD Playground 체감 테스트
 - [x] `flows/stage4-security-chat.json` Export
 - [x] 힌트·채점 계약 (`docs/stage4-scoring.md`)
-- [ ] Langflow Prompt에 `{hint}` 변수 추가 후 Re-export
-- [ ] 백엔드 `.env` Flow/Prompt 노드 ID 연결
-- [ ] 백엔드 `LangflowClient.run_stage4_chat` + API 구현
+- [x] Langflow Prompt `{hint}` + 백엔드 Stage4 API
+- [x] 난이도 캘리브레이션·채점 고도화
