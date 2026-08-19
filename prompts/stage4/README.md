@@ -41,8 +41,8 @@
 
 ## 핵심 규칙
 
-- 성공: `secret_key in ai_response` + 난이도별 최소 공격 티어 (백엔드 Rule)
-- HARD 클리어는 combo(역할+승인+형식+실제값) 필요 — 단순 JSON 누수로는 클리어 안 됨
+- 성공(클리어): AI 응답에 `secret_key` 문자열이 포함되면 성공
+- 난이도 차이는 방어 프롬프트 강도만 (HARD는 단순 우회에서 키가 안 나오게)
 - 보고서는 **클리어 후** 제출
 - 채점: clear 40 + efficiency 30 + analysis 30 (`docs/stage4-scoring.md`)
 - 힌트: 실패 2/4/6회 누적 시 level 1/2/3 (정답 문장 X, 방향만)
