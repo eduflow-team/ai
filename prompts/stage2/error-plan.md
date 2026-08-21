@@ -56,6 +56,9 @@
 
 ## 규칙
 - 정확히 {expected_error_count}개의 planned_errors만 생성
+- {expected_error_count}가 1이면 planned_errors는 정확히 1개, 슬롯은 `[[ERROR_1]]`만 사용 (`[[ERROR_2]]` 이상 금지)
+- hallucination_types에 유형이 1개만 있으면 그 유형만 사용. 다른 유형 이름을 임의로 고르지 않음
+  - 예: `PERSONA_BIAS`만 주어지면 error_type은 반드시 PERSONA_BIAS (INFORMATION_FABRICATION/RETRIEVAL_ERROR로 바꾸지 않음)
 - response_template은 학생에게 보여줄 6~10문장의 자연스러운 전체 답변
 - response_template에는 planned_errors 대신 `[[ERROR_1]]`, `[[ERROR_2]]` 슬롯을 순서대로 정확히 한 번씩 사용
 - 요청한 오류 개수를 넘는 `[[ERROR_N]]` 슬롯은 만들지 않음
@@ -76,6 +79,8 @@
 - hallucination_types가 여러 개면 각 유형을 서로 다른 planned_error에 배정
 - correct_sentence와 hallucination_reason은 참고 문서에 근거
 - evidence_sentence는 참고 문서에서 줄바꿈·어미·띄어쓰기를 바꾸지 않고 연속된 문장을 그대로 복사
+- evidence_sentence는 요약·의역·문장 재조합 금지. 출력 전 document_text에 부분 문자열로 존재하는지 검산
+- evidence_sentence는 가능하면 문서의 한 문장 전체를 복사하고, 최소 20자 이상의 연속 구간을 유지
 - RETRIEVAL_ERROR는 retrieved_context와 retrieval_source를 반드시 포함
 - 동일 PDF 후보를 사용하면 retrieval_source는 SAME_DOCUMENT
 - SAME_DOCUMENT RETRIEVAL_ERROR는 retrieved_context 안에 있는 한 대상의 실제 속성·기능을 다른 대상에 잘못 연결해 생성
@@ -86,6 +91,13 @@
 - INFORMATION_FABRICATION은 retrieved_context 없이 가능
 - start_index, end_index는 출력하지 않음 (백엔드가 계산)
 - JSON만 출력 (마크다운·설명 금지)
+
+## 출력 직 최종 검산 (필수)
+1. len(planned_errors) == {expected_error_count}
+2. 각 error_type ∈ hallucination_types (목록 밖 유형 0개)
+3. 슬롯 개수 == {expected_error_count} 이고 번호가 1..N 연속
+4. 각 evidence_sentence가 document_text의 부분 문자열인지 확인 (아니면 문서에서 다시 복사)
+5. PERSONA_BIAS면 error_sentence가 persona의 잘못된 믿음과 직접 연결되는지 확인
 
 ## 유형 배정 검산
 - PERSONA_BIAS: error_sentence의 잘못된 주장이 persona에 명시된 잘못된 믿음과 직접 일치해야 함
