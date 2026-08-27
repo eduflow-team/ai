@@ -1,0 +1,55 @@
+﻿{
+    "input":  {
+                  "id":  "jangyeongsil-alt-question",
+                  "name":  "장영실 — 다른 질문, 동일 설정",
+                  "document_text":  "장영실은 세종 대에 자격루와 측우기를 발명한 조선시대 최고의 과학자입니다.\r\n자격루는 물의 흐름을 이용해 시간을 알리는 자동 물시계이고, 측우기는 비의 양을 재는 기구입니다.",
+                  "persona":  "장영실이 연을 만들었다고 믿고, 자격루를 서양 기술이라고 주장하는 선생님",
+                  "hallucination_types":  "RETRIEVAL_ERROR, PERSONA_BIAS",
+                  "question":  "자격루와 측우기는 각각 무엇인가요?",
+                  "expected_error_count":  2
+              },
+    "fail_reasons":  [
+                         "evidence_sentence not found in document_text",
+                         "invalid range 0..0",
+                         "evidence_sentence not found in document_text",
+                         "invalid range 0..0"
+                     ],
+    "checks":  {
+                   "call_success":  true,
+                   "json_parse_success":  true,
+                   "error_count_match":  true,
+                   "error_types_valid":  true,
+                   "error_sentence_in_flawed":  true,
+                   "evidence_in_document":  false,
+                   "index_accuracy":  false
+               },
+    "meta":  {
+                 "case_id":  "jangyeongsil-alt-question",
+                 "run":  1,
+                 "auto_pass":  false,
+                 "elapsed_ms":  5824
+             },
+    "output":  {
+                   "flawed_ai_response":  "ì¥ìì¤ì ì¸ì¢\u0085 ëì íëí ì¡°ì ìëì ë°ì´ë ê³¼íìì\u0085ëë¤. ì¥ìì¤ì í´ìê³ë í¨ê» ë°ëª\u0085íë¤. ê·¸ë ëë¼ì ê³¼í ê¸°ì  ë°ì ì í° ëìì ì£¼ììµëë¤. ìê²©ë£¨ë ë¹ì ìì ì¬ë ê¸°êµ¬ì´ë¤. ê·¸ì ì\u0085ì ì ì¤ëë ìë ëë¦¬ ê¸°ìµë©ëë¤.",
+                   "generated_errors":  [
+                                            {
+                                                "error_sentence":  "ì¥ìì¤ì í´ìê³ë í¨ê» ë°ëª\u0085íë¤.",
+                                                "error_type":  "PERSONA_BIAS",
+                                                "correct_sentence":  "ì¥ìì¤ì ì¸ì¢\u0085 ëì ìê²©ë£¨ì ì¸¡ì°ê¸°ë¥¼ ë°ëª\u0085í ì¡°ì ìë ìµê³ ì ê³¼íìì\u0085ëë¤.",
+                                                "hallucination_reason":  "íë¥´ìëê° ì¥ìì¤ì ì\u0085ì ì ë ëê² ë¯¿ê³  ìì´, ë¬¸ìì ìë í´ìê³ë¥¼ ë°ëª\u0085íë¤ê³  ìê³¡íë¤.",
+                                                "evidence_sentence":  "ì¥ìì¤ì ì¸ì¢\u0085 ëì ìê²©ë£¨ì ì¸¡ì°ê¸°ë¥¼ ë°ëª\u0085í ì¡°ì ìë ìµê³ ì ê³¼íìì\u0085ëë¤.",
+                                                "retrieved_context":  "",
+                                                "retrieval_source":  null
+                                            },
+                                            {
+                                                "error_sentence":  "ìê²©ë£¨ë ë¹ì ìì ì¬ë ê¸°êµ¬ì´ë¤.",
+                                                "error_type":  "RETRIEVAL_ERROR",
+                                                "correct_sentence":  "ì¸¡ì°ê¸°ë ë¹ì ìì ì¬ë ê¸°êµ¬ì\u0085ëë¤.",
+                                                "hallucination_reason":  "ëì¼ ë¬¸ììì ì¸¡ì°ê¸°ì ê¸°ë¥ì ìê²©ë£¨ì ìëª» ì°ê²°íë¤.",
+                                                "evidence_sentence":  "ìê²©ë£¨ë ë¬¼ì íë¦ì ì´ì©í´ ìê°ì ìë¦¬ë ìë ë¬¼ìê³ì´ê³ , ì¸¡ì°ê¸°ë ë¹ì ìì ì¬ë ê¸°êµ¬ì\u0085ëë¤.",
+                                                "retrieved_context":  "ìê²©ë£¨ë ë¬¼ì íë¦ì ì´ì©í´ ìê°ì ìë¦¬ë ìë ë¬¼ìê³ì´ê³ , ì¸¡ì°ê¸°ë ë¹ì ìì ì¬ë ê¸°êµ¬ì\u0085ëë¤.",
+                                                "retrieval_source":  "SAME_DOCUMENT"
+                                            }
+                                        ]
+               }
+}

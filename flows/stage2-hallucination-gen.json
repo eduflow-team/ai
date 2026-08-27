@@ -63,38 +63,6 @@
         "data": {
           "sourceHandle": {
             "dataType": "LanguageModelComponent",
-            "id": "LanguageModelComponent-Ek4nl",
-            "name": "text_output",
-            "output_types": [
-              "Message"
-            ]
-          },
-          "targetHandle": {
-            "fieldName": "input_value",
-            "id": "ChatOutput-YlcM3",
-            "inputTypes": [
-              "Data",
-              "JSON",
-              "DataFrame",
-              "Table",
-              "Message"
-            ],
-            "type": "str"
-          }
-        },
-        "id": "reactflow__edge-LanguageModelComponent-Ek4nl{œdataTypeœ:œLanguageModelComponentœ,œidœ:œLanguageModelComponent-Ek4nlœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}-ChatOutput-YlcM3{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-YlcM3œ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œstrœ}",
-        "selected": false,
-        "source": "LanguageModelComponent-Ek4nl",
-        "sourceHandle": "{œdataTypeœ:œLanguageModelComponentœ,œidœ:œLanguageModelComponent-Ek4nlœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}",
-        "target": "ChatOutput-YlcM3",
-        "targetHandle": "{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-YlcM3œ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œstrœ}"
-      },
-      {
-        "animated": false,
-        "className": "",
-        "data": {
-          "sourceHandle": {
-            "dataType": "LanguageModelComponent",
             "id": "LanguageModelComponent-grQBn",
             "name": "text_output",
             "output_types": [
@@ -122,32 +90,56 @@
         "className": "",
         "data": {
           "sourceHandle": {
-            "dataType": "PlainTextSanitizer",
-            "id": "CustomComponent-33aRa",
-            "name": "sanitized_text",
+            "dataType": "LanguageModelComponent",
+            "id": "LanguageModelComponent-Ek4nl",
+            "name": "text_output",
             "output_types": [
               "Message"
             ]
           },
           "targetHandle": {
-            "fieldName": "input_value",
-            "id": "ChatOutput-IC6oV",
+            "fieldName": "error_plan",
+            "id": "Prompt-fwk9l",
             "inputTypes": [
-              "Data",
-              "JSON",
-              "DataFrame",
-              "Table",
               "Message"
             ],
             "type": "str"
           }
         },
-        "id": "xy-edge__CustomComponent-33aRa{œdataTypeœ:œPlainTextSanitizerœ,œidœ:œCustomComponent-33aRaœ,œnameœ:œsanitized_textœ,œoutput_typesœ:[œMessageœ]}-ChatOutput-IC6oV{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-IC6oVœ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œstrœ}",
+        "id": "edge-LanguageModelComponent-Ek4nl-Prompt-fwk9l-error_plan",
         "selected": false,
-        "source": "CustomComponent-33aRa",
-        "sourceHandle": "{œdataTypeœ:œPlainTextSanitizerœ,œidœ:œCustomComponent-33aRaœ,œnameœ:œsanitized_textœ,œoutput_typesœ:[œMessageœ]}",
-        "target": "ChatOutput-IC6oV",
-        "targetHandle": "{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-IC6oVœ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œstrœ}"
+        "source": "LanguageModelComponent-Ek4nl",
+        "sourceHandle": "{œdataTypeœ:œLanguageModelComponentœ,œidœ:œLanguageModelComponent-Ek4nlœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}",
+        "target": "Prompt-fwk9l",
+        "targetHandle": "{œfieldNameœ:œerror_planœ,œidœ:œPrompt-fwk9lœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
+      },
+      {
+        "animated": false,
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "LanguageModelComponent",
+            "id": "LanguageModelComponent-Ek4nl",
+            "name": "text_output",
+            "output_types": [
+              "Message"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "error_plan",
+            "id": "CustomComponent-PlanFmt",
+            "inputTypes": [
+              "Message"
+            ],
+            "type": "str"
+          }
+        },
+        "id": "edge-LanguageModelComponent-Ek4nl-CustomComponent-PlanFmt-error_plan",
+        "selected": false,
+        "source": "LanguageModelComponent-Ek4nl",
+        "sourceHandle": "{œdataTypeœ:œLanguageModelComponentœ,œidœ:œLanguageModelComponent-Ek4nlœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}",
+        "target": "CustomComponent-PlanFmt",
+        "targetHandle": "{œfieldNameœ:œerror_planœ,œidœ:œCustomComponent-PlanFmtœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
       },
       {
         "animated": false,
@@ -163,19 +155,75 @@
           },
           "targetHandle": {
             "fieldName": "flawed_ai_response",
-            "id": "Prompt-We0Ob",
+            "id": "CustomComponent-PlanFmt",
             "inputTypes": [
               "Message"
             ],
             "type": "str"
           }
         },
-        "id": "xy-edge__CustomComponent-33aRa{œdataTypeœ:œPlainTextSanitizerœ,œidœ:œCustomComponent-33aRaœ,œnameœ:œsanitized_textœ,œoutput_typesœ:[œMessageœ]}-Prompt-We0Ob{œfieldNameœ:œflawed_ai_responseœ,œidœ:œPrompt-We0Obœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
+        "id": "edge-CustomComponent-33aRa-CustomComponent-PlanFmt-flawed_ai_response",
         "selected": false,
         "source": "CustomComponent-33aRa",
         "sourceHandle": "{œdataTypeœ:œPlainTextSanitizerœ,œidœ:œCustomComponent-33aRaœ,œnameœ:œsanitized_textœ,œoutput_typesœ:[œMessageœ]}",
-        "target": "Prompt-We0Ob",
-        "targetHandle": "{œfieldNameœ:œflawed_ai_responseœ,œidœ:œPrompt-We0Obœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
+        "target": "CustomComponent-PlanFmt",
+        "targetHandle": "{œfieldNameœ:œflawed_ai_responseœ,œidœ:œCustomComponent-PlanFmtœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
+      },
+      {
+        "animated": false,
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "Stage2PlanFormatter",
+            "id": "CustomComponent-PlanFmt",
+            "name": "compliant_response",
+            "output_types": [
+              "Message"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "input_value",
+            "id": "ChatOutput-IC6oV",
+            "inputTypes": [
+              "Message"
+            ],
+            "type": "str"
+          }
+        },
+        "id": "edge-CustomComponent-PlanFmt-ChatOutput-IC6oV-input_value",
+        "selected": false,
+        "source": "CustomComponent-PlanFmt",
+        "sourceHandle": "{œdataTypeœ:œStage2PlanFormatterœ,œidœ:œCustomComponent-PlanFmtœ,œnameœ:œcompliant_responseœ,œoutput_typesœ:[œMessageœ]}",
+        "target": "ChatOutput-IC6oV",
+        "targetHandle": "{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-IC6oVœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
+      },
+      {
+        "animated": false,
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "Stage2PlanFormatter",
+            "id": "CustomComponent-PlanFmt",
+            "name": "generated_errors",
+            "output_types": [
+              "Message"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "input_value",
+            "id": "ChatOutput-YlcM3",
+            "inputTypes": [
+              "Message"
+            ],
+            "type": "str"
+          }
+        },
+        "id": "edge-CustomComponent-PlanFmt-ChatOutput-YlcM3-input_value",
+        "selected": false,
+        "source": "CustomComponent-PlanFmt",
+        "sourceHandle": "{œdataTypeœ:œStage2PlanFormatterœ,œidœ:œCustomComponent-PlanFmtœ,œnameœ:œgenerated_errorsœ,œoutput_typesœ:[œMessageœ]}",
+        "target": "ChatOutput-YlcM3",
+        "targetHandle": "{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-YlcM3œ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
       }
     ],
     "nodes": [
@@ -196,7 +244,8 @@
                 "question",
                 "persona",
                 "hallucination_types",
-                "expected_error_count"
+                "expected_error_count",
+                "error_plan"
               ]
             },
             "description": "Create a prompt template with dynamic variables.",
@@ -402,29 +451,7 @@
                 "tool_mode": false,
                 "trace_as_input": true,
                 "type": "prompt",
-                "value": "당신은 중·고등학생 AI 리터러시 교육용 과제를 만드는 AI입니다.\n교사가 지정한 페르소나 관점으로 학생 질문에 답하되, 의도적 환각이 포함된 AI 답변만 작성합니다.\n\n## [최우선 출력 규칙]\n- 마크다운·서식 기호 금지: *, **, _, #, ` 등 일체 사용하지 않음\n- 평문 한국어만 출력\n- 메타·해설·암시 금지: \"기록에 없다\", \"틀렸다\", \"오류\", \"의심스럽다\", \"확인 어렵다\", \"전해진다\", \"참고로\", \"다양한 관점\", \"이해하는 것이 중요\" 등\n- 틀린 내용은 사실처럼 단정해서 서술\n- 마지막 교훈·정리·떠넘기기 문장 없이 설명으로 끝낼 것\n- 학생에게 보여줄 답변 본문만 출력 (제목, JSON, 목록 기호 없음)\n\n## 참고 문서 (교사가 제공)\n{document_text}\n\n## 학생 질문\n{question}\n\n## AI 페르소나 (말투·관점·믿음)\n{persona}\n\n## 의도적 환각 유형\n{hallucination_types}\n\n## 환각 생성 규칙\n- PERSONA_BIAS: 페르소나의 믿음·편향을 사실처럼 서술\n- INFORMATION_FABRICATION: 참고 문서에 없는 내용을 사실처럼 날조\n- RETRIEVAL_ERROR: 참고 문서와 모순되거나, 문서에 없는 내용을 마치 검색·인용된 것처럼 서술\n- 정확히 {expected_error_count}개의 오류만 포함 (그보다 많거나 적으면 실패)\n- 페르소나의 믿음·편향과 hallucination_types를 반드시 반영\n- 각 오류는 서로 다른 문장에 넣을 것 (한 문장에 여러 오류 금지)\n- 참고 문서에 있는 사실은 맞게 쓰되, 지정된 오류 문장만 틀리게 서술\n\n## 반드시 포함할 오류 (페르소나·유형에서 추출)\n아래를 답변에 자연스럽게 녹이되, 사실인 것처럼 단정해서 쓸 것:\n1. persona와 RETRIEVAL_ERROR에 맞는 오류 1개\n2. persona와 PERSONA_BIAS에 맞는 오류 1개\n(expected_error_count가 2가 아니면 hallucination_types에 맞게 개수 조정)\n\n오류 외의 과장·엉뚱한 역사 설정(전국 체계, 대륙 기원 등)은 추가하지 말 것.\n\n## 말투·분량\n- 친근한 존댓말, 교사가 학생에게 설명하듯\n- 6~10문장, 한 단락 또는 두 단락\n- 질문에 직접 답하는 내용 위주\n\n## 좋은 출력 예시 (형식만 참고, 내용 복사 금지)\n장영실은 조선 시대를 빛낸 발명가였어요. 특히 자격루는 서양에서 전래된 물시계 기술을 응용한 것으로 알려져 있죠. 물의 흐름으로 시간을 알리는 방식은 당시로서는 매우 신기했어요. 측우기도 비의 양을 재는 데 쓰였고, 농사에 도움이 되었답니다. 또 장영실은 연을 만들어 하늘을 띄웠다는 이야기도 있어요. 자격루와 측우기는 오늘날에도 회자되는 대표 발명품이에요.\n\n## 나쁜 출력 예시 (하지 말 것)\n- 특히 **자격루**는 ... (마크다운)\n- 다만 이건 기록에 없어서 확인이 어려워요 (메타)\n- 조선 전국 날씨 공유 체계를 구축했다 (지정 오류와 무관한 추가 환각)\n\n## 출력\n위 규칙을 모두 지켜 학생에게 보여줄 AI 답변 본문만 작성하세요."
-              },
-              "tool_placeholder": {
-                "_input_type": "MessageTextInput",
-                "advanced": true,
-                "display_name": "Tool Placeholder",
-                "dynamic": false,
-                "info": "A placeholder input for tool mode.",
-                "input_types": [
-                  "Message"
-                ],
-                "list": false,
-                "load_from_db": false,
-                "name": "tool_placeholder",
-                "placeholder": "",
-                "required": false,
-                "show": true,
-                "title_case": false,
-                "tool_mode": true,
-                "trace_as_input": true,
-                "trace_as_metadata": true,
-                "type": "str",
-                "value": ""
+                "value": "당신은 중·고등학생 AI 리터러시 교육용 과제를 만드는 AI입니다.\n아래 오류 계획(JSON)을 그대로 반영해, 학생에게 보여줄 AI 답변 본문만 작성합니다.\n\n## [최우선 출력 규칙]\n- 마크다운·서식 기호 금지\n- 평문 한국어만 출력\n- 메타·해설·암시 금지 (\"기록에 없다\", \"틀렸다\", \"오류\" 등)\n- 오류 계획의 내용을 설명·요약·바꿔 쓰지 않음\n- planned_errors의 문장을 직접 복사하지 말고 반드시 순서대로 `[[ERROR_1]]`, `[[ERROR_2]]` 슬롯을 사용\n- 각 슬롯은 독립된 문장 위치에 정확히 한 번만 포함\n- 계획에 없는 추가 환각 금지\n- 학생용 답변 본문만 출력\n\n## 참고 문서\n{document_text}\n\n## 학생 질문\n{question}\n\n## AI 페르소나\n{persona}\n\n## 허용 환각 유형\n{hallucination_types}\n\n## 오류 계획 (JSON)\n{error_plan}\n\n## 작성 규칙\n- planned_errors 개수 = {expected_error_count}\n- 각 error_sentence는 서로 다른 문장에 배치\n- 오류 개수만큼 `[[ERROR_N]]` 슬롯을 순서대로 배치하고, 그 사이에 문서 기반 정상 설명을 추가\n- 슬롯 텍스트는 Formatter가 계획의 error_sentence로 치환하므로 수정하거나 조사와 합치지 않음\n- \"하지만 사실\", \"잘못 이해\", \"헷갈림\", \"정확한 정보\", \"기억하세요\"처럼 오류를 정정하거나 암시하는 표현 금지\n- 페르소나 말투 유지, 6~10문장\n- 정답·근거·오류 유형을 암시하는 문장 금지\n\n## 필수 출력 골격\n아래 골격의 슬롯 토큰을 문자 그대로 유지하고, 나머지 부분만 자연스러운 문서 기반 문장으로 작성하세요.\n\n도입과 정상 설명 2~3문장.\n[[ERROR_1]]\n정상 설명 1~2문장.\n[[ERROR_2]]\n정상 마무리 1~2문장.\n\n오류가 1개면 `[[ERROR_1]]`까지만, 3개면 같은 방식으로 `[[ERROR_3]]`까지 사용하세요.\n\n## 출력\n필수 출력 골격과 슬롯을 지킨 학생용 AI 답변 본문만 작성하세요."
               },
               "use_double_brackets": {
                 "_input_type": "BoolInput",
@@ -446,6 +473,26 @@
                 "track_in_telemetry": true,
                 "type": "bool",
                 "value": false
+              },
+              "error_plan": {
+                "_input_type": "MessageTextInput",
+                "display_name": "error_plan",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "load_from_db": false,
+                "name": "error_plan",
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": true,
+                "trace_as_input": true,
+                "type": "str",
+                "value": ""
               }
             },
             "tool_mode": false
@@ -745,7 +792,7 @@
       {
         "data": {
           "description": "Create a prompt template with dynamic variables.",
-          "display_name": "error_extraction_prompt",
+          "display_name": "error_plan_prompt",
           "id": "Prompt-We0Ob",
           "node": {
             "base_classes": [
@@ -756,13 +803,16 @@
             "custom_fields": {
               "template": [
                 "document_text",
-                "flawed_ai_response",
+                "question",
+                "persona",
                 "hallucination_types",
-                "expected_error_count"
+                "expected_error_count",
+                "candidate_chunks",
+                "validation_feedback"
               ]
             },
             "description": "Create a prompt template with dynamic variables.",
-            "display_name": "error_extraction_prompt",
+            "display_name": "error_plan_prompt",
             "documentation": "",
             "edited": false,
             "error": null,
@@ -941,29 +991,7 @@
                 "tool_mode": false,
                 "trace_as_input": true,
                 "type": "prompt",
-                "value": "당신은 AI 리터러시 교육용 오류 분석기입니다.\n아래 AI 답변에서 의도적으로 삽입된 환각 오류를 찾아 JSON만 출력하세요.\n\n## 참고 문서\n{document_text}\n\n## 분석 대상 AI 답변\n{flawed_ai_response}\n\n## 허용 환각 유형\n{hallucination_types}\n\n## 규칙\n- 정확히 {expected_error_count}개의 오류만 추출\n- error_type은 PERSONA_BIAS, INFORMATION_FABRICATION, RETRIEVAL_ERROR 중 허용 hallucination_types에 포함된 하나\n- hallucination_types에 여러 유형이 있으면, 가능하면 유형별로 1개씩 추출 (같은 유형·같은 주제에서 2개 뽑지 말 것)\n- start_index, end_index는 flawed_ai_response 문자열 기준 0-based 인덱스\n- error_sentence는 해당 구간 원문 그대로 (앞뒤 문장 일부 포함 가능, 본문과 글자 하나도 다르지 않게)\n- correct_sentence는 참고 문서에 근거한 올바른 설명\n- hallucination_reason은 왜 이 유형의 환각인지 한국어 1문장\n- evidence_sentence는 참고 문서에서 인용한 근거 문장\n- 굵게, 기울임, 마크다운 기호(** * # 등) 절대 사용 금지\n- 평문 한국어만 출력\n- 강조가 필요해도 기호 없이 문장으로만 쓸 것\n\n## 출력 형식 (JSON만, 마크다운·설명 금지)\n{{\n  \"generated_errors\": [\n    {{\n      \"error_sentence\": \"string\",\n      \"error_type\": \"RETRIEVAL_ERROR\",\n      \"start_index\": 0,\n      \"end_index\": 0,\n      \"correct_sentence\": \"string\",\n      \"hallucination_reason\": \"string\",\n      \"evidence_sentence\": \"string\"\n    }}\n  ]\n}}"
-              },
-              "tool_placeholder": {
-                "_input_type": "MessageTextInput",
-                "advanced": true,
-                "display_name": "Tool Placeholder",
-                "dynamic": false,
-                "info": "A placeholder input for tool mode.",
-                "input_types": [
-                  "Message"
-                ],
-                "list": false,
-                "load_from_db": false,
-                "name": "tool_placeholder",
-                "placeholder": "",
-                "required": false,
-                "show": true,
-                "title_case": false,
-                "tool_mode": true,
-                "trace_as_input": true,
-                "trace_as_metadata": true,
-                "type": "str",
-                "value": ""
+                "value": "당신은 AI 리터러시 교육용 Stage 2 오류 계획 설계기입니다.\n학생에게 보여줄 답변을 만들기 전에, 의도적 환각 오류 계획 JSON만 출력하세요.\n\n## 참고 문서\n{document_text}\n\n## 학생 질문\n{question}\n\n## AI 페르소나\n{persona}\n\n## 허용 환각 유형\n{hallucination_types}\n\n## 생성할 오류 개수\n{expected_error_count}\n\n## PDF 청크 후보 (동일 문서)\n{candidate_chunks}\n\n## 이전 검증 피드백 (재시도 시)\n{validation_feedback}\n\n## 환각 유형 정의\n- PERSONA_BIAS: 페르소나의 잘못된 믿음으로 왜곡\n- INFORMATION_FABRICATION: 어떤 근거에도 없는 사실을 새로 생성\n- RETRIEVAL_ERROR: 잘못 검색된 청크(또는 distractor)를 근거로 오류 생성\n\n## 규칙\n- 정확히 {expected_error_count}개의 planned_errors만 생성\n- {expected_error_count}가 1이면 planned_errors는 정확히 1개, 슬롯은 `[[ERROR_1]]`만 사용 (`[[ERROR_2]]` 이상 금지)\n- hallucination_types에 유형이 1개만 있으면 그 유형만 사용. 다른 유형 이름을 임의로 고르지 않음\n  - 예: `PERSONA_BIAS`만 주어지면 error_type은 반드시 PERSONA_BIAS (INFORMATION_FABRICATION/RETRIEVAL_ERROR로 바꾸지 않음)\n- response_template은 학생에게 보여줄 6~10문장의 자연스러운 전체 답변\n- response_template에는 planned_errors 대신 `[[ERROR_1]]`, `[[ERROR_2]]` 슬롯을 순서대로 정확히 한 번씩 사용\n- 요청한 오류 개수를 넘는 `[[ERROR_N]]` 슬롯은 만들지 않음\n- 각 슬롯은 독립된 문장 위치에 놓고 조사·접미사를 붙이지 않음\n- response_template에서 오류를 정정하거나 암시하지 않음 (\"하지만 사실\", \"잘못 이해\", \"헷갈림\", \"정확한 정보\" 등 금지)\n- response_template의 슬롯 외 문장은 참고 문서에 근거하고 계획에 없는 추가 환각을 포함하지 않음\n- response_template의 슬롯 밖에서 error_sentence를 그대로 또는 비슷하게 다시 말하지 않음\n- response_template의 정상 문장에 해당 오류의 correct_sentence나 같은 뜻의 정답을 넣지 않음\n- 오류와 직접 충돌하는 사실은 피하고, 도입·시대 배경·다른 주제·일반적 마무리로 정상 문장을 구성\n- error_type은 hallucination_types에 포함된 값만 사용\n- error_type 배정은 선택이 아니라 입력 순서를 따르는 기계적 규칙\n- planned_errors를 hallucination_types의 순서대로 하나씩 배정하고, 모든 허용 유형을 한 번 쓰기 전에는 같은 유형을 반복하지 않음\n- expected_error_count가 허용 유형 수보다 크면 모든 유형을 한 번 배정한 뒤 처음 유형부터 순환\n- 예: `PERSONA_BIAS,RETRIEVAL_ERROR`, 오류 2개 → 첫 오류는 PERSONA_BIAS, 둘째 오류는 RETRIEVAL_ERROR\n- error_sentence는 이후 학생용 답변에 그대로 들어갈 짧고 완결된 문장\n- error_sentence 하나에는 틀린 주장 하나만 포함 (서로 다른 오류를 한 문장에 합치지 않음)\n- error_sentence는 15~50자 정도의 단순한 한국어 문장으로 작성\n- hallucination_types가 여러 개면 각 유형을 서로 다른 planned_error에 배정\n- correct_sentence와 hallucination_reason은 참고 문서에 근거\n- evidence_sentence는 참고 문서에서 줄바꿈·어미·띄어쓰기를 바꾸지 않고 연속된 문장을 그대로 복사\n- evidence_sentence는 요약·의역·문장 재조합 금지. 출력 전 document_text에 부분 문자열로 존재하는지 검산\n- evidence_sentence는 가능하면 문서의 한 문장 전체를 복사하고, 최소 20자 이상의 연속 구간을 유지\n- RETRIEVAL_ERROR는 retrieved_context와 retrieval_source를 반드시 포함\n- 동일 PDF 후보를 사용하면 retrieval_source는 SAME_DOCUMENT\n- SAME_DOCUMENT RETRIEVAL_ERROR는 retrieved_context 안에 있는 한 대상의 실제 속성·기능을 다른 대상에 잘못 연결해 생성\n- SAME_DOCUMENT RETRIEVAL_ERROR의 잘못된 속성·기능은 retrieved_context에 실제로 등장해야 하며, 문서에 없는 해·별·바람·연 같은 소재를 새로 만들지 않음\n- 예: \"자격루는 시간을 알림, 측우기는 비의 양을 잼\" → \"자격루는 비의 양을 재는 기구다\"\n- 문서 안에서 바꿔 연결할 서로 다른 사실이 없으면 SAME_DOCUMENT를 억지로 사용하지 말고 SYNTHETIC fallback 사용\n- 적절한 동일 PDF 후보가 없어 synthetic distractor를 만들면 retrieval_source는 SYNTHETIC\n- INFORMATION_FABRICATION은 retrieved_context 없이 가능\n- start_index, end_index는 출력하지 않음 (백엔드가 계산)\n- JSON만 출력 (마크다운·설명 금지)\n\n## 출력 직 최종 검산 (필수)\n1. len(planned_errors) == {expected_error_count}\n2. 각 error_type ∈ hallucination_types (목록 밖 유형 0개)\n3. 슬롯 개수 == {expected_error_count} 이고 번호가 1..N 연속\n4. 각 evidence_sentence가 document_text의 부분 문자열인지 확인 (아니면 문서에서 다시 복사)\n5. PERSONA_BIAS면 error_sentence가 persona의 잘못된 믿음과 직접 연결되는지 확인\n\n## 유형 배정 검산\n- PERSONA_BIAS: error_sentence의 잘못된 주장이 persona에 명시된 잘못된 믿음과 직접 일치해야 함\n- INFORMATION_FABRICATION: 잘못된 핵심 속성·사건이 document_text와 candidate_chunks 어디에도 없어야 함\n- RETRIEVAL_ERROR: 잘못 붙인 핵심 속성·기능이 retrieved_context 안에는 실제로 있어야 함\n- 유형 이름을 먼저 정한 뒤 문장을 만들고, 완성 후 위 조건으로 각 항목을 다시 검산\n\n예시:\n- 문서 사실: \"자격루는 시간을 알린다. 측우기는 비의 양을 잰다.\"\n- INFORMATION_FABRICATION: \"장영실은 망원경도 발명했다.\" (망원경은 문서에 없음)\n- RETRIEVAL_ERROR: \"자격루는 비의 양을 재는 기구다.\" (측우기의 실제 기능을 자격루에 잘못 연결)\n- \"자격루는 비의 양을 재는 기구다\"를 INFORMATION_FABRICATION으로 표시하면 안 됨\n- \"장영실은 망원경도 발명했다\"를 RETRIEVAL_ERROR로 표시하면 안 됨\n\n## 출력 형식\n{{\n  \"response_template\": \"문서 기반 도입 문장. [[ERROR_1]] 문서 기반 연결 문장. [[ERROR_2]] 문서 기반 마무리 문장.\",\n  \"planned_errors\": [\n    {{\n      \"error_sentence\": \"string\",\n      \"error_type\": \"RETRIEVAL_ERROR\",\n      \"correct_sentence\": \"string\",\n      \"hallucination_reason\": \"string\",\n      \"evidence_sentence\": \"string\",\n      \"retrieved_context\": \"string\",\n      \"retrieval_source\": \"SAME_DOCUMENT\"\n    }}\n  ]\n}}"
               },
               "use_double_brackets": {
                 "_input_type": "BoolInput",
@@ -985,6 +1013,86 @@
                 "track_in_telemetry": true,
                 "type": "bool",
                 "value": false
+              },
+              "question": {
+                "_input_type": "MessageTextInput",
+                "display_name": "question",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "load_from_db": false,
+                "name": "question",
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": true,
+                "trace_as_input": true,
+                "type": "str",
+                "value": ""
+              },
+              "persona": {
+                "_input_type": "MessageTextInput",
+                "display_name": "persona",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "load_from_db": false,
+                "name": "persona",
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": true,
+                "trace_as_input": true,
+                "type": "str",
+                "value": ""
+              },
+              "candidate_chunks": {
+                "_input_type": "MessageTextInput",
+                "display_name": "candidate_chunks",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "load_from_db": false,
+                "name": "candidate_chunks",
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": true,
+                "trace_as_input": true,
+                "type": "str",
+                "value": ""
+              },
+              "validation_feedback": {
+                "_input_type": "MessageTextInput",
+                "display_name": "validation_feedback",
+                "dynamic": false,
+                "info": "",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "load_from_db": false,
+                "name": "validation_feedback",
+                "placeholder": "",
+                "required": false,
+                "show": true,
+                "title_case": false,
+                "tool_mode": true,
+                "trace_as_input": true,
+                "type": "str",
+                "value": ""
               }
             },
             "tool_mode": false
@@ -2641,6 +2749,174 @@
         "position": {
           "x": 352.5717102278118,
           "y": 990.4791612318189
+        },
+        "selected": false,
+        "type": "genericNode"
+      },
+      {
+        "data": {
+          "id": "CustomComponent-PlanFmt",
+          "node": {
+            "base_classes": [
+              "Message"
+            ],
+            "beta": false,
+            "conditional_paths": [],
+            "custom_fields": {},
+            "description": "오류 계획과 학생용 답변을 generated_errors JSON으로 변환합니다.",
+            "display_name": "stage2_plan_formatter",
+            "documentation": "",
+            "edited": true,
+            "field_order": [
+              "error_plan",
+              "flawed_ai_response"
+            ],
+            "frozen": false,
+            "icon": "braces",
+            "legacy": false,
+            "lf_version": "1.10.0",
+            "metadata": {
+              "code_hash": "2bca17685cb5",
+              "dependencies": {
+                "dependencies": [
+                  {
+                    "name": "lfx",
+                    "version": "1.10.0"
+                  }
+                ],
+                "total_dependencies": 1
+              },
+              "module": "lfx.components.custom_component.custom_component.CustomComponent"
+            },
+            "minimized": false,
+            "output_types": [],
+            "outputs": [
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Compliant AI Response",
+                "group_outputs": false,
+                "hidden": null,
+                "loop_types": null,
+                "method": "format_response",
+                "name": "compliant_response",
+                "options": null,
+                "required_inputs": null,
+                "selected": "Message",
+                "tool_mode": true,
+                "types": [
+                  "Message"
+                ],
+                "value": "__UNDEFINED__"
+              },
+              {
+                "allows_loop": false,
+                "cache": true,
+                "display_name": "Generated Errors JSON",
+                "group_outputs": false,
+                "hidden": null,
+                "loop_types": null,
+                "method": "format_errors",
+                "name": "generated_errors",
+                "options": null,
+                "required_inputs": null,
+                "selected": "Message",
+                "tool_mode": true,
+                "types": [
+                  "Message"
+                ],
+                "value": "__UNDEFINED__"
+              }
+            ],
+            "pinned": false,
+            "template": {
+              "_type": "Component",
+              "code": {
+                "advanced": true,
+                "dynamic": true,
+                "fileTypes": [],
+                "file_path": "",
+                "info": "",
+                "list": false,
+                "load_from_db": false,
+                "multiline": true,
+                "name": "code",
+                "password": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "type": "code",
+                "value": "import json\nimport re\n\nfrom lfx.custom.custom_component.component import Component\nfrom lfx.io import MessageInput, Output\nfrom lfx.schema.message import Message\n\n\nclass Stage2PlanFormatter(Component):\n    display_name = \"Stage2 Plan Formatter\"\n    description = \"오류 계획 JSON과 flawed_ai_response를 generated_errors JSON으로 변환합니다.\"\n    icon = \"braces\"\n    name = \"Stage2PlanFormatter\"\n\n    inputs = [\n        MessageInput(\n            name=\"error_plan\",\n            display_name=\"Error Plan JSON\",\n            info=\"OpenAI planner output\",\n        ),\n        MessageInput(\n            name=\"flawed_ai_response\",\n            display_name=\"Flawed AI Response\",\n            info=\"Sanitized student answer\",\n        ),\n    ]\n\n    outputs = [\n        Output(\n            display_name=\"Compliant AI Response\",\n            name=\"compliant_response\",\n            method=\"format_response\",\n        ),\n        Output(\n            display_name=\"Generated Errors JSON\",\n            name=\"generated_errors\",\n            method=\"format_errors\",\n        ),\n    ]\n\n    def format_errors(self) -> Message:\n        plan_raw = self._text(self.error_plan)\n        plan = json.loads(self._extract_json(plan_raw))\n        errors = plan.get(\"planned_errors\") or plan.get(\"generated_errors\") or []\n        cleaned = []\n        for item in errors:\n            if not isinstance(item, dict):\n                continue\n            cleaned.append(\n                {\n                    \"error_sentence\": item.get(\"error_sentence\", \"\"),\n                    \"error_type\": item.get(\"error_type\", \"\"),\n                    \"correct_sentence\": item.get(\"correct_sentence\", \"\"),\n                    \"hallucination_reason\": item.get(\"hallucination_reason\", \"\"),\n                    \"evidence_sentence\": item.get(\"evidence_sentence\", \"\"),\n                    \"retrieved_context\": item.get(\"retrieved_context\"),\n                    \"retrieval_source\": item.get(\"retrieval_source\"),\n                }\n            )\n        payload = {\"generated_errors\": cleaned}\n        return Message(text=json.dumps(payload, ensure_ascii=False))\n\n    def format_response(self) -> Message:\n        plan_raw = self._text(self.error_plan)\n        plan = json.loads(self._extract_json(plan_raw))\n        errors = plan.get(\"planned_errors\") or plan.get(\"generated_errors\") or []\n        response = str(plan.get(\"response_template\") or \"\").strip()\n        if not response:\n            response = self._text(self.flawed_ai_response).strip()\n        for index, item in enumerate(errors, start=1):\n            if not isinstance(item, dict):\n                continue\n            sentence = str(item.get(\"error_sentence\") or \"\").strip()\n            marker_pattern = self._marker_pattern(index)\n            response = marker_pattern.sub(\n                lambda _: sentence,\n                response,\n                count=1,\n            )\n        return Message(text=response)\n\n    def _marker_pattern(self, index: int):\n        return re.compile(\n            rf\"\\[\\[\\s*ERROR_?{index}\\s*\\]\\]\",\n            re.IGNORECASE,\n        )\n\n    def _text(self, message) -> str:\n        if message is None:\n            return \"\"\n        return getattr(message, \"text\", None) or str(message)\n\n    def _extract_json(self, raw: str) -> str:\n        text = (raw or \"\").strip()\n        if text.startswith(\"```\"):\n            text = text.split(\"\\n\", 1)[-1].rsplit(\"```\", 1)[0].strip()\n        return text\n"
+              },
+              "error_plan": {
+                "_input_type": "MessageInput",
+                "advanced": false,
+                "display_name": "Error Plan JSON",
+                "dynamic": false,
+                "info": "OpenAI planner output",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "error_plan",
+                "override_skip": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              },
+              "flawed_ai_response": {
+                "_input_type": "MessageInput",
+                "advanced": false,
+                "display_name": "Flawed AI Response",
+                "dynamic": false,
+                "info": "Sanitized student answer",
+                "input_types": [
+                  "Message"
+                ],
+                "list": false,
+                "list_add_label": "Add More",
+                "load_from_db": false,
+                "name": "flawed_ai_response",
+                "override_skip": false,
+                "placeholder": "",
+                "required": true,
+                "show": true,
+                "title_case": false,
+                "tool_mode": false,
+                "trace_as_input": true,
+                "trace_as_metadata": true,
+                "track_in_telemetry": false,
+                "type": "str",
+                "value": ""
+              }
+            },
+            "tool_mode": false,
+            "name": "Stage2PlanFormatter"
+          },
+          "showNode": true,
+          "type": "Stage2PlanFormatter",
+          "display_name": "stage2_plan_formatter",
+          "description": "오류 계획과 학생용 답변을 generated_errors JSON으로 변환합니다."
+        },
+        "dragging": false,
+        "id": "CustomComponent-PlanFmt",
+        "measured": {
+          "height": 258,
+          "width": 400
+        },
+        "position": {
+          "x": 772.5717102278118,
+          "y": 1170.479161231819
         },
         "selected": false,
         "type": "genericNode"

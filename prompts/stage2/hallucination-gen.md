@@ -1,13 +1,13 @@
 # Stage 2 — Hallucination Generation Prompt
 
-> Langflow `Prompt-s2gen` (hallucination_gen_prompt) 본문.  
-> **Source of truth:** `flows/stage2-hallucination-gen.json` (UI Export 기준)
+> Langflow `Prompt-fwk9l` (hallucination_gen_prompt) 본문.  
+> **Source of truth:** `flows/stage2-hallucination-gen.json` (plan-first v2)
 
 ---
 
 ## Role
 
-교사가 지정한 페르소나 관점으로 학생 질문에 답하되, **의도적 환각**이 포함된 AI 답변(`flawed_ai_response`)을 생성한다.
+확정된 **오류 계획(`error_plan`)** 에 따라 EXAONE이 학생용 AI 답변(`flawed_ai_response`)만 생성한다.
 
 ## Context (Langflow 변수)
 
@@ -16,69 +16,65 @@
 | `{document_text}` | 교사 참고 문서 |
 | `{question}` | 학생 질문 |
 | `{persona}` | AI 페르소나 |
-| `{hallucination_types}` | `PERSONA_BIAS`, `INFORMATION_FABRICATION`, `RETRIEVAL_ERROR` |
-| `{expected_error_count}` | 생성할 오류 개수 |
+| `{hallucination_types}` | 허용 오류 유형 |
+| `{expected_error_count}` | 오류 개수 |
+| `{error_plan}` | OpenAI Planner 출력 JSON (와이어) |
 
 ## Prompt (Langflow Template)
 
 ```
 당신은 중·고등학생 AI 리터러시 교육용 과제를 만드는 AI입니다.
-교사가 지정한 페르소나 관점으로 학생 질문에 답하되, 의도적 환각이 포함된 AI 답변만 작성합니다.
+아래 오류 계획(JSON)을 그대로 반영해, 학생에게 보여줄 AI 답변 본문만 작성합니다.
 
 ## [최우선 출력 규칙]
-- 마크다운·서식 기호 금지: *, **, _, #, ` 등 일체 사용하지 않음
+- 마크다운·서식 기호 금지
 - 평문 한국어만 출력
-- 메타·해설·암시 금지: "기록에 없다", "틀렸다", "오류", "의심스럽다", "확인 어렵다", "전해진다", "참고로", "다양한 관점", "이해하는 것이 중요" 등
-- 틀린 내용은 사실처럼 단정해서 서술
-- 마지막 교훈·정리·떠넘기기 문장 없이 설명으로 끝낼 것
-- 학생에게 보여줄 답변 본문만 출력 (제목, JSON, 목록 기호 없음)
+- 메타·해설·암시 금지 ("기록에 없다", "틀렸다", "오류" 등)
+- 오류 계획의 내용을 설명·요약·바꿔 쓰지 않음
+- planned_errors의 문장을 직접 복사하지 말고 반드시 순서대로 `[[ERROR_1]]`, `[[ERROR_2]]` 슬롯을 사용
+- 각 슬롯은 독립된 문장 위치에 정확히 한 번만 포함
+- 계획에 없는 추가 환각 금지
+- 학생용 답변 본문만 출력
 
-## 참고 문서 (교사가 제공)
+## 참고 문서
 {document_text}
 
 ## 학생 질문
 {question}
 
-## AI 페르소나 (말투·관점·믿음)
+## AI 페르소나
 {persona}
 
-## 의도적 환각 유형
+## 허용 환각 유형
 {hallucination_types}
 
-## 환각 생성 규칙
-- PERSONA_BIAS: 페르소나의 믿음·편향을 사실처럼 서술
-- INFORMATION_FABRICATION: 참고 문서에 없는 내용을 사실처럼 날조
-- RETRIEVAL_ERROR: 참고 문서와 모순되거나, 문서에 없는 내용을 마치 검색·인용된 것처럼 서술
-- 정확히 {expected_error_count}개의 오류만 포함 (그보다 많거나 적으면 실패)
-- 페르소나의 믿음·편향과 hallucination_types를 반드시 반영
-- 각 오류는 서로 다른 문장에 넣을 것 (한 문장에 여러 오류 금지)
-- 참고 문서에 있는 사실은 맞게 쓰되, 지정된 오류 문장만 틀리게 서술
+## 오류 계획 (JSON)
+{error_plan}
 
-## 반드시 포함할 오류 (페르소나·유형에서 추출)
-아래를 답변에 자연스럽게 녹이되, 사실인 것처럼 단정해서 쓸 것:
-1. persona와 RETRIEVAL_ERROR에 맞는 오류 1개
-2. persona와 PERSONA_BIAS에 맞는 오류 1개
-(expected_error_count가 2가 아니면 hallucination_types에 맞게 개수 조정)
+## 작성 규칙
+- planned_errors 개수 = {expected_error_count}
+- 각 error_sentence는 서로 다른 문장에 배치
+- 오류 개수만큼 `[[ERROR_N]]` 슬롯을 순서대로 배치하고, 그 사이에 문서 기반 정상 설명을 추가
+- 슬롯 텍스트는 Formatter가 계획의 error_sentence로 치환하므로 수정하거나 조사와 합치지 않음
+- "하지만 사실", "잘못 이해", "헷갈림", "정확한 정보", "기억하세요"처럼 오류를 정정하거나 암시하는 표현 금지
+- 페르소나 말투 유지, 6~10문장
+- 정답·근거·오류 유형을 암시하는 문장 금지
 
-오류 외의 과장·엉뚱한 역사 설정(전국 체계, 대륙 기원 등)은 추가하지 말 것.
+## 필수 출력 골격
+아래 골격의 슬롯 토큰을 문자 그대로 유지하고, 나머지 부분만 자연스러운 문서 기반 문장으로 작성하세요.
 
-## 말투·분량
-- 친근한 존댓말, 교사가 학생에게 설명하듯
-- 6~10문장, 한 단락 또는 두 단락
-- 질문에 직접 답하는 내용 위주
+도입과 정상 설명 2~3문장.
+[[ERROR_1]]
+정상 설명 1~2문장.
+[[ERROR_2]]
+정상 마무리 1~2문장.
 
-## 좋은 출력 예시 (형식만 참고, 내용 복사 금지)
-장영실은 조선 시대를 빛낸 발명가였어요. 특히 자격루는 서양에서 전래된 물시계 기술을 응용한 것으로 알려져 있죠. 물의 흐름으로 시간을 알리는 방식은 당시로서는 매우 신기했어요. 측우기도 비의 양을 재는 데 쓰였고, 농사에 도움이 되었답니다. 또 장영실은 연을 만들어 하늘을 띄웠다는 이야기도 있어요. 자격루와 측우기는 오늘날에도 회자되는 대표 발명품이에요.
-
-## 나쁜 출력 예시 (하지 말 것)
-- 특히 **자격루**는 ... (마크다운)
-- 다만 이건 기록에 없어서 확인이 어려워요 (메타)
-- 조선 전국 날씨 공유 체계를 구축했다 (지정 오류와 무관한 추가 환각)
+오류가 1개면 `[[ERROR_1]]`까지만, 3개면 같은 방식으로 `[[ERROR_3]]`까지 사용하세요.
 
 ## 출력
-위 규칙을 모두 지켜 학생에게 보여줄 AI 답변 본문만 작성하세요.
+필수 출력 골격과 슬롯을 지킨 학생용 AI 답변 본문만 작성하세요.
 ```
 
 ## Output
 
-- Ollama → `CustomComponent-s2san` (Plain Text Sanitizer) → `ChatOutput-s2flaw`
+- Ollama → Plain Text Sanitizer → `ChatOutput-IC6oV`
