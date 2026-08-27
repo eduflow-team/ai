@@ -1,65 +1,28 @@
-# Stage 1 — 파라미터 조절 · RAG
+# Stage 1 — RAG 퀴즈 탐색
 
-**학습 목표:** chunk_size, top_k, temperature를 조절하며 RAG 답변 품질을 비교한다.
-
-**담당:** 1단계 flow 개발자가 아래 파일을 작성한다.
+**학습 목표:** 교사 퀴즈 1문제 → 학생이 파라미터를 조절하며 자료에서 근거를 탐색 → **본인 답** 제출.  
+검색이 약하면(WEAK) 시대착오 환각이 보이도록 백엔드가 context를 래핑하고, 충분하면(STRONG) 교재 근거·힌트만 제공합니다.
 
 ## 파일
 
 | 파일 | 상태 |
 |------|------|
-| `system.template.md` | 틀 — 복사 후 `rag-chat.md` 등으로 저장 |
-| `rag-chat.md` | Stage 1 RAG 튜터 프롬프트 |
-| `handoff.md` | flow 구현·연동 handoff (AI 총괄·백엔드용) |
+| `rag-chat.md` | Stage 1 프롬프트 (WEAK/STRONG 모드) |
+| `handoff.md` | flow·연동 handoff |
+| `system.template.md` | 틀 |
 
-## 페르소나
-
-사용하지 않음. 중립적 교육용 AI 튜터 톤.
-
-## API 연동 참고 (Notion)
-
-명세 원본: [API 명세서(변경)](https://app.notion.com/p/API-38f4eb81e0ec8022aabef9b9e2ce86e1) → 기능리스트 `stage1`
+## API
 
 | Endpoint | Langflow | 요약 |
 |----------|----------|------|
-| `POST /teacher/assignments/step1` | 연동 (벡터화) | 교사 과제 생성 · 문서 업로드 |
-| `GET /student/assignments/{id}/step1` | — | 과제 상세·기본 파라미터·시도 횟수 |
-| `POST /student/assignments/{id}/step1/chat` | **연동 (RAG 채팅)** | 파라미터 반영 AI 응답 |
-| `POST /student/assignments/{id}/step1/submit` | — (백엔드 G-Eval) | 최종 답변 제출·채점 |
+| `POST /teacher/assignments/step1` | — (백엔드 벡터화) | 교사: PDF + `question` + `answer` + defaults |
+| `GET /student/assignments/{id}/step1` | — | 문제·자료·기본 파라미터 (정답은 마감 후) |
+| `POST /student/assignments/{id}/step1/chat` | **연동 (RAG 채팅)** | 자유 `message` + 파라미터 |
+| `POST /student/assignments/{id}/step1/submit` | — | `student_answer` + `final_parameters` 채점 |
 
-### Langflow flow I/O (`step1/chat`)
+### Langflow
 
-**Request (tweaks / 입력)**
+백엔드가 `{context}`에 `[내부모드: WEAK|STRONG]` (+ WEAK 노이즈)를 붙입니다.  
+`rag-chat.md` 하단 블록을 Prompt 노드에 **수동 동기화**하세요.
 
-- `message`
-- `parameters.chunk_size`, `parameters.top_k`, `parameters.temperature`
-
-**Response (Output JSON)**
-
-- `ai_response`
-- `rag_process_visualization` — `total_chunks`, `retrieved_chunks`, `vector_search_score`
-
-### 교사 과제 생성 (`step1`) — 벡터화 flow 참고
-
-multipart: `subject`, `file`, `question`, `guideline`, `default_chunk_size`, `default_top_k`, `default_temperature`
-
-### 학생 과제 상세 (`GET step1`) — UI·기본값 참고
-
-- `parameter_explanations`, `default_parameters`
-- `attempts` — 최대 3회
-- `highest_score`, `best_parameters` (이력 없으면 `null`)
-
-### 최종 제출 (`submit`) — 채점은 백엔드
-
-입력: `final_parameters`, `selected_ai_response`  
-출력: `evaluation_report` (`faithfulness_score`, `relevance_score`, `feedback`), `attempts`
-
-연동 상세·역할 분담: **[handoff.md](./handoff.md)**
-
-## baseline (프롬프트)
-
-상세 규칙은 [`rag-chat.md`](./rag-chat.md)를 따릅니다.
-
-- 검색된 청크(`context`)를 주요 근거로 답한다.
-- 파라미터 이름을 학생에게 설명하지 않는다.
-- LLM은 답변 본문(plain text)만 출력한다.
+상세: [`rag-chat.md`](./rag-chat.md), [`handoff.md`](./handoff.md)

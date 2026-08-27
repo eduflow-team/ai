@@ -2,16 +2,18 @@
 
 ## TL;DR
 
-- **내가 구현한 것:** Langflow에서 **답변 생성(generation)** 만 하는 Stage 1 flow + 프롬프트
-- **의도적으로 안 한 것:** 문서 검색(RAG)·시각화 숫자 조립은 **백엔드 담당**이라 flow에서 제외/미사용
-- **다음 사람이 할 것:** AI 총괄이 백엔드에서 `context`를 주입하고 OpenAI `temperature`를 **tweaks로 덮어쓰기**
+- Langflow: **생성만** (검색·visualization은 백엔드)
+- 백엔드가 `context` / `temperature`를 tweaks로 주입
+- 검색 품질에 따라 context에 **`[내부모드: WEAK|STRONG]`** 래핑 (+ WEAK 시 시대착오 노이즈)
+- UI `retrieved_chunk_previews`에는 **실청크만** (노이즈·모드 헤더 미포함)
+- Prompt `context`는 Parser 등과 **연결하지 말 것** (tweaks가 무시됨)
 
 ---
 
 ## 1) 산출물 / 메타
 
 - **Flow JSON:** `flows/stage1-rag-chat.json`
-- **Prompt:** `prompts/stage1/rag-chat.md`
+- **Prompt:** `prompts/stage1/rag-chat.md` (하단 블록을 Langflow Prompt에 **재붙여넣기**)
 
 | 항목 | 값 |
 |------|-----|
@@ -22,70 +24,55 @@
 
 ---
 
-## 2) 내가 어떻게 구현했나 (flow 구조)
-
-### 운영에서 실제로 쓰는 경로
+## 2) flow 구조
 
 - `Chat Input` → `Prompt Template`(variables: `context`, `message`) → `OpenAI`(temperature) → `Chat Output`
 
 ### 프롬프트 정책
 
-- 학생에게 `chunk_size/top_k/temperature` **설명하지 않음**
-- 출력은 **plain text만** (JSON/Markdown 금지)
-- 답변은 **10문장 이상**
+- context의 **내부모드가 최우선**
+- **WEAK**: 올바른 사전 지식 보강 금지 → 시대착오를 사실처럼 단정
+- **STRONG**: 교재만 · 퀴즈 정답 한 줄 떠먹이기 금지
+- 파라미터 이름 설명 금지 · plain text만
+
+### 백엔드 WEAK 판정 (기본값)
+
+- `approx_context_chars < 350` **또는**
+- `vector_search_score < 0.42` **또는**
+- `chunk_size <= 50 and top_k <= 2`
+
+코드: `backend/app/services/stage1_context.py`
 
 ---
 
-## 3) 의도적으로 안 한 부분 & 이유
+## 3) 의도적으로 안 한 부분
 
-### A. 검색(`chunk_size`, `top_k`)을 flow에서 안 함
+### A. 검색을 flow에서 안 함
 
-- Stage 1 API 계약상 `chunk_size/top_k`는 **백엔드가 검색에 사용**
-- Langflow는 검색 결과 텍스트를 **`context`로 주입받아 생성만** 담당하도록 분리
+- `chunk_size/top_k`는 백엔드 검색 전용. Langflow는 `context` 생성만.
 
-### B. `rag_process_visualization`을 flow에서 만들지 않음
+### B. visualization을 flow에서 안 만듦
 
-- 숫자는 LLM이 만들면 **환각** 위험이 있어, **백엔드가 조립**하도록 분리
+- 숫자는 백엔드 조립 (`retrieved_chunk_previews` 등).
 
-### C. PGVector 브랜치를 “로컬 실험용”으로만 둠 (운영 미사용)
+### C. Stage2식 고정 환각 문장
 
-- `document_chunks` 스키마/embedding 상태 이슈로 **운영에서 신뢰 불가**
-- Export JSON 기준으로 `Chat Input → PGVector search_query` 연결이 없어 **Playground 검색이 동작하지 않을 수 있음**
-- 결론: 운영에서는 **백엔드 `context` 주입만 사용**
+- 파라미터와 무관하게 답이 고정되면 1단계 목표와 충돌 → WEAK일 때만 노이즈 주입.
 
 ---
 
-## 4) 다음 사람이 해야 할 일 (AI 총괄 / 백엔드)
+## 4) 연동 메모
 
-### AI 총괄 (Langflow HTTP 연동)
-
-- 매핑
-  - `message` → Chat Input
-  - `context`(검색 결과 텍스트) → Prompt Template의 `context`
-  - `temperature` → OpenAI 노드의 `temperature` (tweaks로 덮어쓰기)
-- 응답
-  - Chat Output 텍스트 → `ai_response` (plain text)
-
-**tweaks 대상 노드 ID (Export JSON 기준)**
-
-- Chat Input: `ChatInput-rk5X4` (`input_value`)
-- Prompt Template: `Prompt Template-gnr3c` (`context`)
-- OpenAI: `OpenAIModel-seW7A` (`temperature`)
-- Chat Output: `ChatOutput-laO0L` (출력 text)
-
-> flow를 다시 저장/재export하면 노드 ID가 바뀔 수 있어, 연동 전 JSON에서 확인 필요.
-
-### 백엔드
-
-- `chunk_size`, `top_k`로 검색 → 청크를 합쳐 **`context` 문자열** 생성
-- `rag_process_visualization` 조립 (`total_chunks`, `retrieved_chunks`, `vector_search_score`)
+- `message` → Chat Input / `context` → Prompt / `temperature` → OpenAI
+- `.env`의 `LANGFLOW_STAGE1_*_NODE_ID` 확인
+- 프롬프트 파일 수정 후 **반드시 Langflow Prompt 노드에 붙여넣기**
 
 ---
 
-## 5) PR용 로컬 테스트(내가 한 방식)
+## 5) 로컬 검증
 
-- Prompt `{context}`에 **학습 자료 텍스트를 직접 붙여넣고** 테스트 (PGVector 경로 미사용)
-- 같은 context에서 temperature만 바꿔 비교 (예: 1.0 vs 0)
+- `50 / 1~2 / 1.0` → 시대착오·황당 단정
+- `500+ / 5+ / 0.2` → 교재 근거, UI preview에 노이즈 없음
 
 ---
 
