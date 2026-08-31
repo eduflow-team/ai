@@ -22,6 +22,5 @@ docker-compose.override.yml
 # Local Langflow data (bind mount 사용 시)
 langflow-data/
 
-# 로컬 전용 문서·메모 (docs/ 는 추적, 여기만 제외)
-docs-local/**
-!docs-local/README.md
+# Local notes
+docs-local/
