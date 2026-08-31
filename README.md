@@ -7,6 +7,8 @@
 [![Langflow](https://img.shields.io/badge/Langflow-1.10.0-000000?style=flat-square&logo=none&labelColor=222222)](https://www.langflow.org/)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat-square&logo=docker&logoColor=white&labelColor=222222)](https://www.docker.com/)
 
+</div>
+
 ## 빠른 시작
 
 ```bash
@@ -23,5 +25,3 @@ docker compose up -d
 # 4. 브라우저 접속
 open http://localhost:7860
 ```
-
-</div>
