@@ -34,9 +34,9 @@ Langflow UI에서 Export한 flow JSON 저장소.
 
 |------|------|------|
 
-| A+B | `Prompt-s2gen` → `LanguageModelComponent-s2oll` → `CustomComponent-s2san` | Ollama `exaone3.5:7.8b` |
+| A+B | `Prompt-fwk9l` → `LanguageModelComponent-grQBn` → `CustomComponent-33aRa` | Ollama `exaone3.5:7.8b` |
 
-| C | `Prompt-s2ext` → `LanguageModelComponent-s2oai` | OpenAI `gpt-4o-mini` |
+| C | `Prompt-We0Ob` → `LanguageModelComponent-Ek4nl` | OpenAI `gpt-4o-mini` |
 
 
 
@@ -58,7 +58,7 @@ Langflow UI에서 Export한 flow JSON 저장소.
 
 
 
-1. **Ollama EXAONE (생성)** (`LanguageModelComponent-s2oll`)
+1. **Ollama EXAONE (생성)** (`LanguageModelComponent-grQBn`)
    - Provider: **Ollama**
    - **Ollama API URL**: `http://host.docker.internal:11434` (`localhost` 사용 시 모델 안 뜸)
    - URL 입력 후 **새로고침(↻)** → `exaone3.5:7.8b` 선택
@@ -101,5 +101,33 @@ Langflow UI에서 수정 후 **Export → 이 파일 덮어쓰기**.
 
 
 연동: [`docs/stage2-langflow-contract.md`](../docs/stage2-langflow-contract.md)
+
+---
+
+## Stage 4 — `stage4-security-chat.json`
+
+프롬프트 인젝션 보안 실습 (비밀 키 탈취). LLM: Ollama `exaone3.5:7.8b`.
+
+```
+Chat Input ──→ Language Model (Input)
+Prompt Template ──→ Language Model (System Message)
+Language Model ──→ Chat Output
+```
+
+| 노드 | ID |
+|------|-----|
+| Chat Input | `ChatInput-e0prE` |
+| Prompt | `Prompt Template-kt9HB` |
+| Language Model | `LanguageModelComponent-JQGL5` |
+| Chat Output | `ChatOutput-9GlW6` |
+
+### Import 후
+
+1. Ollama API URL: `http://host.docker.internal:11434`
+2. Model: `exaone3.5:7.8b`
+3. `difficulty_prompt`에 `prompts/stage4/defense-*.md` Text만 넣기
+
+스크린샷: `docs/stage4-screenshots/`  
+계약: [`docs/stage4-langflow-contract.md`](../docs/stage4-langflow-contract.md)
 
 

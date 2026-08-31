@@ -21,3 +21,6 @@ docker-compose.override.yml
 
 # Local Langflow data (bind mount 사용 시)
 langflow-data/
+
+# Local notes
+docs-local/
